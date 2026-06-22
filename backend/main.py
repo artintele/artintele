@@ -10,6 +10,7 @@
 import io
 import logging
 import secrets
+from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
 
@@ -45,13 +46,14 @@ log = logging.getLogger("artintele")
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
-app = FastAPI(title=config.APP_NAME, version="1.0.0")
-
-
-@app.on_event("startup")
-def _startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     init_db()
     log.info("Artintele.ai started. Email configured: %s", config.EMAIL_CONFIGURED)
+    yield
+
+
+app = FastAPI(title=config.APP_NAME, version="1.0.0", lifespan=lifespan)
 
 
 # --------------------------------------------------------------------------

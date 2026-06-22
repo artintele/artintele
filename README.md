@@ -69,6 +69,28 @@ and set `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`, `SMTP_USER`, `SMTP_PASS`.
 | `GET`  | `/api/admin/leads/export.xlsx` | Basic | Download leads as Excel |
 | `GET`  | `/api/health` | — | Health check |
 
+## Testing
+
+A pytest suite covers the full lead pipeline — storage, the demo-booking email
+to `sales@prachalas.com`, validation, dashboard auth, telecaller updates, and
+the CSV/XLSX exports. Tests run against a throwaway SQLite database and capture
+email in-memory, so they never touch real data or send mail.
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+```
+tests/
+  test_leads.py   # POST /api/leads: demo tagging, email-to-sales, validation
+  test_admin.py   # CRM auth, stats, status updates, filters, CSV/XLSX export
+  test_talent.py  # careers form + resume upload
+  test_email.py   # email subject/recipient + no-SMTP fallback (never raises)
+```
+
+24 tests, all passing.
+
 ## Notes
 
 - The original design was authored in a proprietary preview runtime
