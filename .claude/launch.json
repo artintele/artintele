@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "artintele",
+      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeArgs": ["backend.main:app", "--host", "127.0.0.1", "--port", "8000"],
+      "port": 8000
+    },
+    {
+      "name": "artintele-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8042", "--directory", "frontend"],
+      "port": 8042
+    }
+  ]
+}

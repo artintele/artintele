@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Env / secrets
+.env
+
+# Database & data
+data/*.db
+data/*.sqlite3
+
+# Uploaded resumes (keep the folder, ignore contents)
+frontend/uploads/*
+!frontend/uploads/.gitkeep
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

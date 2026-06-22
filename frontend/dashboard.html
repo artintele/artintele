@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telecaller CRM — Artintele.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<script>try{document.documentElement.dataset.theme=(localStorage.getItem('artintele-theme')==='dark')?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
+<style>
+  .dash-wrap{max-width:1320px;margin:0 auto;padding:90px 28px 60px;position:relative;z-index:5;}
+  .card{border-radius:16px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.92),rgba(var(--surface),0.6));backdrop-filter:blur(14px);box-shadow:0 18px 48px -24px rgba(var(--shadow),0.22);}
+  .stat{padding:18px 20px;}
+  .stat .num{font-family:'Sora';font-weight:700;font-size:30px;color:rgba(var(--head),1);}
+  .stat .lbl{font-size:12px;color:rgba(var(--label),0.8);margin-top:2px;text-transform:capitalize;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{font-family:'Space Mono';font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--label),0.7);text-align:left;padding:12px 12px;border-bottom:1px solid rgba(var(--border),0.2);white-space:nowrap;}
+  td{padding:12px 12px;border-bottom:1px solid rgba(var(--border),0.12);vertical-align:top;color:rgba(var(--text),0.9);}
+  tr:hover td{background:rgba(var(--surface),0.5);}
+  input,select,textarea{background:rgba(var(--surface),0.7);border:1px solid rgba(var(--border),0.28);border-radius:8px;padding:8px 10px;color:rgba(var(--head),1);font-size:13px;width:100%;}
+  textarea{resize:vertical;min-height:38px;}
+  .btn{cursor:pointer;border:none;border-radius:9px;font-weight:700;font-size:13px;padding:9px 16px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;}
+  .btn.ghost{background:rgba(var(--surface),0.6);border:1px solid rgba(var(--border),0.3);color:rgba(var(--head),1);font-weight:600;}
+  .btn.sm{padding:6px 12px;font-size:12px;}
+  .pill{display:inline-block;font-family:'Space Mono';font-size:10px;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid rgba(var(--border),0.3);}
+  .demo-flag{color:#12231a;background:linear-gradient(135deg,#1f9d5b,#36c07e);border:none;font-weight:700;}
+  .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:22px 0 16px;}
+  .toolbar .grow{flex:1;min-width:180px;}
+  .muted{color:rgba(var(--label),0.7);font-size:12px;}
+  .row-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  @media(max-width:760px){ table{display:block;overflow-x:auto;white-space:nowrap;} }
+</style>
+</head>
+<body>
+<div data-screen-label="Dashboard" style="position:relative;width:100%;min-height:100vh;">
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 28px;backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.9), rgba(var(--surface),0.5));border-bottom:1px solid rgba(var(--border),0.16);">
+    <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
+      <span style="width:28px;height:28px;border-radius:8px;border:1px solid rgba(45,170,108,0.6);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%, rgba(45,170,108,0.6), rgba(150,210,175,0.3));"><span style="width:8px;height:8px;border-radius:50%;background:#1fae6a;box-shadow:0 0 10px rgba(40,175,108,0.7);"></span></span>
+      <span style="font-family:'Sora';font-weight:700;font-size:16px;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <span class="pill" style="margin-left:8px;">Telecaller CRM</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a class="btn ghost sm" href="/api/admin/leads/export.csv">Export CSV</a>
+      <a class="btn ghost sm" href="/api/admin/leads/export.xlsx">Export Excel</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="flex:none;width:36px;height:36px;border-radius:50%;border:1px solid rgba(var(--border),0.32);background:rgba(var(--surface),0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(var(--head),1);position:relative;"><span id="artintele-theme-sun" style="position:absolute;display:flex;transition:opacity .3s,transform .4s;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4 19 19M19 5l-1.6 1.6M6.6 17.4 5 19"></path></svg></span><span id="artintele-theme-moon" style="position:absolute;display:flex;opacity:0;transform:rotate(-40deg);transition:opacity .3s,transform .4s;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8Z"></path></svg></span></button>
+    </div>
+  </nav>
+
+  <div class="dash-wrap">
+    <h1 style="font-family:'Sora';font-weight:700;font-size:clamp(26px,3vw,38px);margin:0 0 4px;letter-spacing:-0.02em;">Lead pipeline</h1>
+    <p class="muted" style="margin:0 0 22px;">Every demo booking and contact request lands here for follow-up calling. Update status and notes as you work each lead.</p>
+
+    <div id="stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;"></div>
+
+    <div class="toolbar">
+      <div class="grow"><input id="search" type="text" placeholder="Search name, email, company, phone…"></div>
+      <select id="statusFilter" style="width:auto;min-width:160px;"></select>
+      <button class="btn" onclick="ArtinteleCRM.load()">Refresh</button>
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Received</th><th>Lead</th><th>Contact</th><th>Intent</th>
+            <th>Status</th><th>Assigned</th><th>Follow-up</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"><tr><td colspan="10" class="muted" style="padding:24px;">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/theme.js"></script>
+<script>
+window.ArtinteleCRM = (function () {
+  var STATUSES = [];
+  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  function fmt(iso) { if (!iso) return '—'; var d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+  function dtLocal(iso) { if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; var p = function (n) { return String(n).padStart(2, '0'); }; return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes()); }
+
+  function renderStats(stats) {
+    var host = document.getElementById('stats');
+    var cells = [['Total leads', stats.total], ['Demos', stats.demos]];
+    Object.keys(stats.by_status).forEach(function (k) { cells.push([k.replace('_', ' '), stats.by_status[k]]); });
+    host.innerHTML = cells.map(function (c) {
+      return '<div class="card stat"><div class="num">' + c[1] + '</div><div class="lbl">' + esc(c[0]) + '</div></div>';
+    }).join('');
+  }
+
+  function statusSelect(id, current) {
+    return '<select data-field="status" data-id="' + id + '">' + STATUSES.map(function (s) {
+      return '<option value="' + s + '"' + (s === current ? ' selected' : '') + '>' + s.replace('_', ' ') + '</option>';
+    }).join('') + '</select>';
+  }
+
+  function renderRows(leads) {
+    var tb = document.getElementById('rows');
+    if (!leads.length) { tb.innerHTML = '<tr><td colspan="10" class="muted" style="padding:24px;">No leads yet. Submit the contact form to see one here.</td></tr>'; return; }
+    tb.innerHTML = leads.map(function (l) {
+      var demo = /demo/i.test(l.intent || '');
+      return '<tr data-id="' + l.id + '">'
+        + '<td>' + l.id + '</td>'
+        + '<td class="muted">' + fmt(l.created_at) + '</td>'
+        + '<td><strong>' + esc(l.name) + '</strong>' + (l.company ? '<div class="muted">' + esc(l.company) + '</div>' : '') + (l.message ? '<div class="muted" style="max-width:220px;white-space:normal;margin-top:4px;">' + esc(l.message) + '</div>' : '') + '</td>'
+        + '<td><a href="mailto:' + esc(l.email) + '" style="color:#1f9d5b;text-decoration:none;">' + esc(l.email) + '</a>' + (l.phone ? '<div><a href="tel:' + esc(l.phone) + '" style="color:rgba(var(--text),0.85);text-decoration:none;">' + esc(l.phone) + '</a></div>' : '') + '</td>'
+        + '<td>' + (demo ? '<span class="pill demo-flag">demo</span><div class="muted" style="margin-top:4px;">' + esc(l.intent) + '</div>' : esc(l.intent || '—')) + '</td>'
+        + '<td style="min-width:130px;">' + statusSelect(l.id, l.status) + '</td>'
+        + '<td style="min-width:120px;"><input data-field="assigned_to" data-id="' + l.id + '" value="' + esc(l.assigned_to) + '" placeholder="caller"></td>'
+        + '<td style="min-width:170px;"><input type="datetime-local" data-field="follow_up_at" data-id="' + l.id + '" value="' + dtLocal(l.follow_up_at) + '"></td>'
+        + '<td style="min-width:180px;"><textarea data-field="call_notes" data-id="' + l.id + '" placeholder="Call notes…">' + esc(l.call_notes) + '</textarea></td>'
+        + '<td><div class="row-actions"><button class="btn sm" onclick="ArtinteleCRM.save(' + l.id + ')">Save</button></div></td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  function collect(id) {
+    var out = {};
+    document.querySelectorAll('[data-id="' + id + '"]').forEach(function (el) {
+      var f = el.getAttribute('data-field');
+      if (!f) return;
+      var v = el.value;
+      if (f === 'follow_up_at') { out[f] = v ? new Date(v).toISOString() : null; }
+      else out[f] = v;
+    });
+    return out;
+  }
+
+  function save(id) {
+    fetch('/api/admin/leads/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(collect(id))
+    }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function () { load(); })
+      .catch(function () { alert('Could not save lead #' + id); });
+  }
+
+  function load() {
+    var status = document.getElementById('statusFilter').value || 'all';
+    var q = document.getElementById('search').value.trim();
+    var url = '/api/admin/leads?status_filter=' + encodeURIComponent(status) + (q ? '&q=' + encodeURIComponent(q) : '');
+    Promise.all([
+      fetch(url).then(function (r) { return r.json(); }),
+      fetch('/api/admin/stats').then(function (r) { return r.json(); })
+    ]).then(function (res) {
+      var data = res[0];
+      if (!STATUSES.length) {
+        STATUSES = data.statuses;
+        var sf = document.getElementById('statusFilter');
+        sf.innerHTML = '<option value="all">All statuses</option>' + STATUSES.map(function (s) { return '<option value="' + s + '">' + s.replace('_', ' ') + '</option>'; }).join('');
+      }
+      renderStats(res[1]);
+      renderRows(data.leads);
+    }).catch(function () {
+      document.getElementById('rows').innerHTML = '<tr><td colspan="10" class="muted" style="padding:24px;">Failed to load. Check your login.</td></tr>';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('statusFilter').addEventListener('change', load);
+    var t; document.getElementById('search').addEventListener('input', function () { clearTimeout(t); t = setTimeout(load, 280); });
+    load();
+  });
+
+  return { load: load, save: save };
+})();
+</script>
+</body>
+</html>
