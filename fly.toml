@@ -1,0 +1,31 @@
+# Fly.io deployment. Edit `app` to your chosen name, then:
+#   fly launch --no-deploy        (or: fly apps create artintele)
+#   fly volumes create artintele_data --size 1
+#   fly secrets set SESSION_SECRET=... GOOGLE_CLIENT_ID=... GOOGLE_CLIENT_SECRET=... \
+#                   SMTP_HOST=smtp.gmail.com SMTP_PORT=587 SMTP_USER=devteam@artintele.ai \
+#                   SMTP_PASS=... SMTP_FROM=devteam@artintele.ai \
+#                   PUBLIC_BASE_URL=https://artintele.fly.dev
+#   fly deploy
+app = "artintele"
+primary_region = "bom"   # Mumbai; change as needed
+
+[build]
+
+[env]
+  PORT = "8080"
+  SESSION_HTTPS_ONLY = "true"
+  ALLOWED_EMAIL_DOMAIN = "prachalas.com"
+  SALES_EMAIL = "sales@prachalas.com"
+  SMTP_USE_TLS = "true"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+# Persist the SQLite DB across deploys/restarts (mounts onto BASE_DIR/data).
+[[mounts]]
+  source = "artintele_data"
+  destination = "/app/data"

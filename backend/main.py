@@ -3,13 +3,12 @@
   Public site            ->  /            (Home, Contact, Careers)
   Lead capture API       ->  POST /api/leads
   Talent network API     ->  POST /api/talent
-  Telecaller dashboard   ->  /dashboard   (HTTP Basic auth)
-  Lead pipeline API      ->  /api/admin/* (HTTP Basic auth)
+  Telecaller dashboard   ->  /dashboard   (Google SSO, @prachalas.com only)
+  Lead pipeline API      ->  /api/admin/* (session-protected)
   DataFrame export       ->  /api/admin/leads/export.csv | .xlsx
 """
 import io
 import logging
-import secrets
 from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
@@ -21,20 +20,21 @@ from fastapi import (
     File,
     Form,
     HTTPException,
+    Request,
     UploadFile,
-    status,
 )
 from fastapi.responses import (
     FileResponse,
-    JSONResponse,
+    RedirectResponse,
     StreamingResponse,
 )
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from starlette.middleware.sessions import SessionMiddleware
 
 from . import config
+from .auth import current_user, require_user, router as auth_router
 from .database import get_db, init_db
 from .emailer import send_lead_notification
 from .models import LEAD_STATUSES, Lead, TalentApplication
@@ -55,23 +55,15 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=config.APP_NAME, version="1.0.0", lifespan=lifespan)
 
-
-# --------------------------------------------------------------------------
-# Telecaller dashboard auth (HTTP Basic)
-# --------------------------------------------------------------------------
-security = HTTPBasic()
-
-
-def require_admin(creds: HTTPBasicCredentials = Depends(security)) -> str:
-    ok_user = secrets.compare_digest(creds.username, config.ADMIN_USER)
-    ok_pass = secrets.compare_digest(creds.password, config.ADMIN_PASS)
-    if not (ok_user and ok_pass):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return creds.username
+# Signed session cookies (carry the Google-authenticated user).
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=config.SESSION_SECRET,
+    https_only=config.SESSION_HTTPS_ONLY,
+    same_site="lax",
+    max_age=config.SESSION_MAX_AGE,
+)
+app.include_router(auth_router)
 
 
 # --------------------------------------------------------------------------
@@ -142,7 +134,7 @@ async def create_talent(
 def list_leads(
     status_filter: str | None = None,
     q: str | None = None,
-    _: str = Depends(require_admin),
+    _: dict = Depends(require_user),
     db: Session = Depends(get_db),
 ):
     stmt = select(Lead).order_by(Lead.created_at.desc())
@@ -166,7 +158,7 @@ def list_leads(
 
 
 @app.get("/api/admin/stats")
-def lead_stats(_: str = Depends(require_admin), db: Session = Depends(get_db)):
+def lead_stats(_: dict = Depends(require_user), db: Session = Depends(get_db)):
     leads = db.scalars(select(Lead)).all()
     by_status = {s: 0 for s in LEAD_STATUSES}
     for l in leads:
@@ -182,7 +174,7 @@ def lead_stats(_: str = Depends(require_admin), db: Session = Depends(get_db)):
 def update_lead(
     lead_id: int,
     payload: LeadUpdate,
-    _: str = Depends(require_admin),
+    _: dict = Depends(require_user),
     db: Session = Depends(get_db),
 ):
     lead = db.get(Lead, lead_id)
@@ -211,7 +203,7 @@ def _leads_dataframe(db: Session) -> pd.DataFrame:
 
 
 @app.get("/api/admin/leads/export.csv")
-def export_csv(_: str = Depends(require_admin), db: Session = Depends(get_db)):
+def export_csv(_: dict = Depends(require_user), db: Session = Depends(get_db)):
     df = _leads_dataframe(db)
     buf = io.StringIO()
     df.to_csv(buf, index=False)
@@ -225,7 +217,7 @@ def export_csv(_: str = Depends(require_admin), db: Session = Depends(get_db)):
 
 
 @app.get("/api/admin/leads/export.xlsx")
-def export_xlsx(_: str = Depends(require_admin), db: Session = Depends(get_db)):
+def export_xlsx(_: dict = Depends(require_user), db: Session = Depends(get_db)):
     df = _leads_dataframe(db)
     buf = io.BytesIO()
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
@@ -240,13 +232,28 @@ def export_xlsx(_: str = Depends(require_admin), db: Session = Depends(get_db)):
 
 
 @app.get("/dashboard")
-def dashboard(_: str = Depends(require_admin)):
+def dashboard(request: Request):
+    # Page-level gate: bounce to the Google sign-in page if no session yet.
+    if not current_user(request):
+        return RedirectResponse(url="/login", status_code=302)
     return FileResponse(FRONTEND_DIR / "dashboard.html")
+
+
+@app.get("/login")
+def login_page(request: Request):
+    if current_user(request):
+        return RedirectResponse(url="/dashboard", status_code=302)
+    return FileResponse(FRONTEND_DIR / "login.html")
 
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "email_configured": config.EMAIL_CONFIGURED}
+    return {
+        "status": "ok",
+        "email_configured": config.EMAIL_CONFIGURED,
+        "oauth_configured": config.OAUTH_CONFIGURED,
+        "login_domain": config.ALLOWED_EMAIL_DOMAIN,
+    }
 
 
 # --------------------------------------------------------------------------

@@ -44,6 +44,8 @@
     <div style="display:flex;align-items:center;gap:14px;">
       <a class="btn ghost sm" href="/api/admin/leads/export.csv">Export CSV</a>
       <a class="btn ghost sm" href="/api/admin/leads/export.xlsx">Export Excel</a>
+      <span id="who" class="muted" style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+      <a class="btn ghost sm" href="/auth/logout">Log out</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="flex:none;width:36px;height:36px;border-radius:50%;border:1px solid rgba(var(--border),0.32);background:rgba(var(--surface),0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(var(--head),1);position:relative;"><span id="artintele-theme-sun" style="position:absolute;display:flex;transition:opacity .3s,transform .4s;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4 19 19M19 5l-1.6 1.6M6.6 17.4 5 19"></path></svg></span><span id="artintele-theme-moon" style="position:absolute;display:flex;opacity:0;transform:rotate(-40deg);transition:opacity .3s,transform .4s;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8Z"></path></svg></span></button>
     </div>
   </nav>
@@ -79,6 +81,8 @@
 window.ArtinteleCRM = (function () {
   var STATUSES = [];
   function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  // Session expired / not signed in -> back to the Google login page.
+  function unauth(r) { if (r.status === 401) { location.href = '/login'; throw new Error('unauth'); } return r.json(); }
   function fmt(iso) { if (!iso) return '—'; var d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
   function dtLocal(iso) { if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; var p = function (n) { return String(n).padStart(2, '0'); }; return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes()); }
 
@@ -134,9 +138,9 @@ window.ArtinteleCRM = (function () {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(collect(id))
-    }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    }).then(function (r) { if (r.status === 401) { location.href = '/login'; throw new Error('unauth'); } if (!r.ok) throw new Error(); return r.json(); })
       .then(function () { load(); })
-      .catch(function () { alert('Could not save lead #' + id); });
+      .catch(function (e) { if (e.message !== 'unauth') alert('Could not save lead #' + id); });
   }
 
   function load() {
@@ -144,8 +148,8 @@ window.ArtinteleCRM = (function () {
     var q = document.getElementById('search').value.trim();
     var url = '/api/admin/leads?status_filter=' + encodeURIComponent(status) + (q ? '&q=' + encodeURIComponent(q) : '');
     Promise.all([
-      fetch(url).then(function (r) { return r.json(); }),
-      fetch('/api/admin/stats').then(function (r) { return r.json(); })
+      fetch(url).then(unauth),
+      fetch('/api/admin/stats').then(unauth)
     ]).then(function (res) {
       var data = res[0];
       if (!STATUSES.length) {
@@ -160,7 +164,17 @@ window.ArtinteleCRM = (function () {
     });
   }
 
+  function whoami() {
+    fetch('/api/me').then(function (r) { return r.status === 401 ? null : r.json(); })
+      .then(function (d) {
+        if (!d || !d.authenticated) { location.href = '/login'; return; }
+        var el = document.getElementById('who');
+        if (el) el.textContent = d.user.email;
+      }).catch(function () {});
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    whoami();
     document.getElementById('statusFilter').addEventListener('change', load);
     var t; document.getElementById('search').addEventListener('input', function () { clearTimeout(t); t = setTimeout(load, 280); });
     load();

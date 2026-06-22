@@ -5,6 +5,7 @@ Configure SMTP_* to actually deliver email; otherwise mail is logged to the
 console and the lead is still stored.
 """
 import os
+import secrets
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -32,9 +33,27 @@ SMTP_USE_TLS = os.getenv("SMTP_USE_TLS", "true").lower() == "true"
 
 EMAIL_CONFIGURED = bool(SMTP_HOST and SMTP_USER and SMTP_PASS)
 
-# --- Telecaller dashboard auth (HTTP Basic) ------------------------------
-ADMIN_USER = os.getenv("ADMIN_USER", "admin")
-ADMIN_PASS = os.getenv("ADMIN_PASS", "artintele")
+# --- Telecaller dashboard auth: Google Workspace SSO ---------------------
+# Only Google accounts on this email domain may sign in. Enforced server-side
+# (not just the Google `hd` hint).
+ALLOWED_EMAIL_DOMAIN = os.getenv("ALLOWED_EMAIL_DOMAIN", "prachalas.com")
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
+OAUTH_CONFIGURED = bool(GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET)
+
+# Explicit public origin used to build the OAuth redirect URI (e.g.
+# https://artintele.up.railway.app). Falls back to the request URL when unset.
+PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").rstrip("/")
+
+# Session signing + cookie hardening.
+SESSION_SECRET = os.getenv("SESSION_SECRET", secrets.token_urlsafe(48))
+SESSION_HTTPS_ONLY = os.getenv("SESSION_HTTPS_ONLY", "false").lower() == "true"
+SESSION_MAX_AGE = int(os.getenv("SESSION_MAX_AGE", str(60 * 60 * 8)))  # 8h
+
+# Dev-only: when true, /auth/dev-login grants a session WITHOUT Google.
+# MUST stay false in production. Defaults off.
+DASHBOARD_DEV_BYPASS = os.getenv("DASHBOARD_DEV_BYPASS", "false").lower() == "true"
 
 # --- App -----------------------------------------------------------------
 APP_NAME = "Artintele.ai"

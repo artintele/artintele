@@ -1,5 +1,4 @@
 """Public lead-capture API — the demo-booking flow."""
-from tests.conftest import ADMIN_AUTH
 
 
 def test_health_ok(client):
@@ -45,9 +44,9 @@ def test_missing_name_is_rejected(client):
     assert r.status_code == 422
 
 
-def test_lead_persists_and_is_retrievable_by_admin(client, demo_payload):
-    client.post("/api/leads", json=demo_payload)
-    r = client.get("/api/admin/leads", auth=ADMIN_AUTH)
+def test_lead_persists_and_is_retrievable_by_admin(auth_client, demo_payload):
+    auth_client.post("/api/leads", json=demo_payload)
+    r = auth_client.get("/api/admin/leads")
     assert r.status_code == 200
     data = r.json()
     assert data["count"] == 1

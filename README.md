@@ -14,7 +14,7 @@ leads from a built-in **telecaller CRM**, and can export the whole pipeline as a
 | API + server | FastAPI | `backend/` |
 | Database | SQLite via SQLAlchemy | `data/artintele.db` |
 | Email notifications | SMTP (`smtplib`) | `backend/emailer.py` |
-| Telecaller CRM dashboard | HTML + FastAPI (HTTP Basic auth) | `frontend/dashboard.html` |
+| Telecaller CRM dashboard | HTML + FastAPI (Google SSO, `@prachalas.com` only) | `frontend/dashboard.html` |
 | Lead export ("the df") | pandas → CSV / XLSX | `/api/admin/leads/export.*` |
 
 ## Quick start
@@ -30,7 +30,12 @@ Then open:
 
 - **Website** → http://localhost:8000
 - **Book-a-demo form** → http://localhost:8000/contact.html
-- **Telecaller CRM** → http://localhost:8000/dashboard (login: `admin` / `artintele`)
+- **Telecaller CRM** → http://localhost:8000/dashboard
+
+The dashboard is protected by **Google Workspace SSO, restricted to
+`@prachalas.com` accounts**. Locally, set `DASHBOARD_DEV_BYPASS=true` in `.env`
+to open it without Google (the `.env` shipped for dev already does this). In
+production you configure a Google OAuth client — see [DEPLOY.md](DEPLOY.md).
 
 ## How a demo booking flows
 
@@ -62,12 +67,18 @@ and set `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`, `SMTP_USER`, `SMTP_PASS`.
 |--------|----------|------|---------|
 | `POST` | `/api/leads` | — | Create a lead (contact / demo booking) + email sales |
 | `POST` | `/api/talent` | — | Careers talent-network submission (+ resume upload) |
-| `GET`  | `/api/admin/leads` | Basic | List / filter / search leads |
-| `GET`  | `/api/admin/stats` | Basic | Pipeline counts by status |
-| `PATCH`| `/api/admin/leads/{id}` | Basic | Update status / assignee / notes / follow-up |
-| `GET`  | `/api/admin/leads/export.csv` | Basic | Download leads as CSV |
-| `GET`  | `/api/admin/leads/export.xlsx` | Basic | Download leads as Excel |
+| `GET`  | `/auth/login` → `/auth/callback` | — | Google SSO sign-in |
+| `GET`  | `/auth/logout` | — | Clear session |
+| `GET`  | `/api/me` | Session | Current signed-in user |
+| `GET`  | `/api/admin/leads` | Session | List / filter / search leads |
+| `GET`  | `/api/admin/stats` | Session | Pipeline counts by status |
+| `PATCH`| `/api/admin/leads/{id}` | Session | Update status / assignee / notes / follow-up |
+| `GET`  | `/api/admin/leads/export.csv` | Session | Download leads as CSV |
+| `GET`  | `/api/admin/leads/export.xlsx` | Session | Download leads as Excel |
 | `GET`  | `/api/health` | — | Health check |
+
+**Deployment:** see [DEPLOY.md](DEPLOY.md) for Railway / Fly.io + the Google
+OAuth client setup.
 
 ## Testing
 
@@ -84,12 +95,13 @@ pytest
 ```
 tests/
   test_leads.py   # POST /api/leads: demo tagging, email-to-sales, validation
-  test_admin.py   # CRM auth, stats, status updates, filters, CSV/XLSX export
+  test_admin.py   # session gate, stats, status updates, filters, CSV/XLSX, logout
+  test_auth.py    # @prachalas.com domain restriction (incl. spoof attempts)
   test_talent.py  # careers form + resume upload
   test_email.py   # email subject/recipient + no-SMTP fallback (never raises)
 ```
 
-24 tests, all passing.
+38 tests, all passing.
 
 ## Notes
 

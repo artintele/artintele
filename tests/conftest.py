@@ -10,11 +10,19 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from backend import config
 from backend import main as app_main
 from backend.database import Base, get_db
 
-# Default dashboard credentials (see backend/config.py).
-ADMIN_AUTH = ("admin", "artintele")
+
+def _authenticate(client):
+    """Establish a dashboard session via the dev-login route (no Google needed).
+
+    Exercises the real SessionMiddleware/cookie path, so the admin routes are
+    tested through the same session gate production uses."""
+    r = client.get("/auth/dev-login", follow_redirects=False)
+    assert r.status_code in (302, 307)
+    return client
 
 
 @pytest.fixture()
@@ -45,6 +53,10 @@ def client(tmp_path, monkeypatch):
 
     monkeypatch.setattr(app_main, "send_lead_notification", fake_send)
 
+    # Allow the dev-login route so tests can establish a session.
+    monkeypatch.setattr(config, "DASHBOARD_DEV_BYPASS", True)
+    monkeypatch.setattr(config, "ALLOWED_EMAIL_DOMAIN", "prachalas.com")
+
     # NOT used as a context manager on purpose: that keeps the startup event
     # (which would create the *real* DB) from firing.
     c = TestClient(app_main.app)
@@ -52,6 +64,12 @@ def client(tmp_path, monkeypatch):
     yield c
 
     app_main.app.dependency_overrides.clear()
+
+
+@pytest.fixture()
+def auth_client(client):
+    """A client with an active dashboard session."""
+    return _authenticate(client)
 
 
 @pytest.fixture()
