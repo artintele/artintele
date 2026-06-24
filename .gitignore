@@ -21,3 +21,6 @@ frontend/uploads/*
 .DS_Store
 .idea/
 .vscode/
+
+# stray pasted image (real logo lives in frontend/assets/img/logo.png)
+image.png
