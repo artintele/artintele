@@ -23,4 +23,4 @@ frontend/uploads/*
 .vscode/
 
 # stray pasted image (real logo lives in frontend/assets/img/logo.png)
-image.png
+/image.png
