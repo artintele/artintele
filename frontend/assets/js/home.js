@@ -34,7 +34,8 @@
       { n: '3', title: 'Solution Design', desc: 'We architect the right agents and flows.' },
       { n: '4', title: 'Development', desc: 'We build and integrate with your stack.' },
       { n: '5', title: 'Deployment', desc: 'We launch into your live operations.' },
-      { n: '6', title: 'Optimization', desc: 'We measure, tune, and improve continuously.' }
+      { n: '6', title: 'Optimization', desc: 'We measure, tune, and improve continuously.' },
+      { n: '7', title: 'Maintenance', desc: 'We keep systems patched, monitored, and reliably running.' }
     ],
     caseStudies: [
       { n: '01', title: 'Hospital AI Receptionist', desc: 'Answers patient calls, books appointments, and routes emergencies — clearing routine queries off the front desk automatically.' },
