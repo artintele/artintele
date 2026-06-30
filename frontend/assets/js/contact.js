@@ -8,20 +8,21 @@
       e.preventDefault();
       var btn = document.getElementById('artintele-contact-submit');
       var msg = document.getElementById('artintele-contact-msg');
-      var services = Array.prototype.slice
-        .call(form.querySelectorAll('input[name="services"]:checked'))
-        .map(function (c) { return c.value; });
+      function checked(name) {
+        return Array.prototype.slice
+          .call(form.querySelectorAll('input[name="' + name + '"]:checked'))
+          .map(function (c) { return c.value; });
+      }
       var payload = {
         name: form.name.value.trim(),
         company: form.company.value.trim(),
         email: form.email.value.trim(),
         phone: form.phone.value.trim(),
         intent: form.intent.value,
-        message: form.message.value.trim(),
         website: form.website ? form.website.value.trim() : '',
         call_volume: form.call_volume ? form.call_volume.value : '',
-        services: services,
-        lead_source: form.lead_source ? form.lead_source.value : '',
+        services: checked('services'),
+        lead_source: checked('lead_source').join(', '),
         source: 'contact-page'
       };
 

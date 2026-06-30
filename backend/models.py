@@ -36,7 +36,7 @@ class Lead(Base):
     website = Column(String(300), default="")       # prospect's company website
     call_volume = Column(String(60), default="")    # calls per month (range)
     services = Column(Text, default="")             # services of interest (comma-joined)
-    lead_source = Column(String(120), default="")   # how they heard about us
+    lead_source = Column(String(400), default="")   # where their leads come from (comma-joined)
 
     # --- telecaller / follow-up fields ---
     status = Column(String(40), default="new", index=True)

@@ -32,7 +32,7 @@ _LEAD_COLUMNS = {
     "website": "VARCHAR(300) DEFAULT ''",
     "call_volume": "VARCHAR(60) DEFAULT ''",
     "services": "TEXT DEFAULT ''",
-    "lead_source": "VARCHAR(120) DEFAULT ''",
+    "lead_source": "VARCHAR(400) DEFAULT ''",
 }
 
 
