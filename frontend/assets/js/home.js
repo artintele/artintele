@@ -377,7 +377,9 @@
     var rotX = function (v, a) { var c = Math.cos(a), s = Math.sin(a); return [v[0], c * v[1] - s * v[2], s * v[1] + c * v[2]]; };
     var auto = 0;
     var start = performance.now();
+    var rafId = null;
     var draw = function (now) {
+      if (document.hidden) { rafId = null; return; }   // pause when tab is hidden (battery/CPU)
       var time = (now - start) / 1000;
       var ink = document.documentElement.dataset.theme === 'dark' ? '150,226,182' : '24,112,72';
       auto += 0.0016;
@@ -460,9 +462,12 @@
       };
       drawFeat(eyes, 6, 1);
       drawFeat(mouth, 2.4, 0.85);
-      requestAnimationFrame(draw);
+      rafId = requestAnimationFrame(draw);
     };
-    requestAnimationFrame(draw);
+    rafId = requestAnimationFrame(draw);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && rafId == null) rafId = requestAnimationFrame(draw);
+    });
   }
 
   function init() {
