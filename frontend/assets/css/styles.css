@@ -83,6 +83,7 @@ nav a.nav-link:hover{color:rgba(var(--head),1)!important;}
   .ai-voices-grid{grid-template-columns:1fr!important;}
   .ai-industries-grid{grid-template-columns:1fr!important;}
   .ai-process-grid{grid-template-columns:repeat(3,1fr)!important;gap:28px 0!important;}
+  .ai-process-rail{display:none!important;}  /* single horizontal rail can't connect a wrapped multi-row grid */
   .ai-footer-grid{grid-template-columns:1fr 1fr!important;}
   section{padding-left:40px!important;padding-right:40px!important;}
   footer{padding-left:40px!important;padding-right:40px!important;}
