@@ -39,7 +39,7 @@
           form.reset();
           if (lbl) { lbl.textContent = 'Click to upload — PDF, DOC, DOCX'; lbl.style.color = 'rgba(var(--text),0.75)'; }
         })
-        .catch(function () { show('Sorry, something went wrong. Please email sales@prachalas.com.', false); })
+        .catch(function () { show('Sorry, something went wrong. Please try again in a moment.', false); })
         .finally(function () { if (btn) { btn.disabled = false; btn.textContent = 'Submit Profile'; btn.style.opacity = '1'; } });
     });
   }

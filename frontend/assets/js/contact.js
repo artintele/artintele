@@ -49,7 +49,7 @@
                   : 'We’ve received your request and will reach out within one business day.'), true);
         form.reset();
       }).catch(function () {
-        show('Sorry, something went wrong sending your request. Please email sales@prachalas.com directly.', false);
+        show('Sorry, something went wrong sending your request. Please try again in a moment.', false);
       }).finally(function () {
         if (btn) { btn.disabled = false; btn.textContent = 'Send & Book →'; btn.style.opacity = '1'; }
       });
