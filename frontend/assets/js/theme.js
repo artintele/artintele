@@ -18,9 +18,24 @@
     try { localStorage.setItem('artintele-theme', next); } catch (e) {}
     icons(next === 'dark');
   };
+  // Mobile hamburger menu toggle.
+  window.toggleMenu = function (btn) {
+    var nav = btn && btn.closest ? btn.closest('nav') : null;
+    var menu = nav ? nav.querySelector('.nav-menu') : document.querySelector('.nav-menu');
+    if (menu) menu.classList.toggle('open');
+  };
+  function wireMenuClose() {
+    document.querySelectorAll('.nav-menu a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var m = a.closest('.nav-menu');
+        if (m) m.classList.remove('open');
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTheme);
+    document.addEventListener('DOMContentLoaded', function () { initTheme(); wireMenuClose(); });
   } else {
-    initTheme();
+    initTheme(); wireMenuClose();
   }
 })();
