@@ -25,7 +25,9 @@ from fastapi import (
 )
 from fastapi.responses import (
     FileResponse,
+    PlainTextResponse,
     RedirectResponse,
+    Response,
     StreamingResponse,
 )
 from fastapi.staticfiles import StaticFiles
@@ -254,6 +256,49 @@ def health():
         "oauth_configured": config.OAUTH_CONFIGURED,
         "login_domain": config.ALLOWED_EMAIL_DOMAIN,
     }
+
+
+# --------------------------------------------------------------------------
+# SEO — robots.txt + sitemap.xml (served before the static mount)
+# --------------------------------------------------------------------------
+@app.get("/robots.txt", include_in_schema=False)
+def robots_txt():
+    """Allow crawling of the public site; keep the CRM/API out of search."""
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /dashboard\n"
+        "Disallow: /login\n"
+        "Disallow: /api/\n"
+        "Disallow: /auth/\n"
+        "\n"
+        f"Sitemap: {config.SITE_URL}/sitemap.xml\n"
+    )
+    return PlainTextResponse(body)
+
+
+@app.get("/sitemap.xml", include_in_schema=False)
+def sitemap_xml():
+    """List the indexable public pages with the canonical production domain."""
+    today = f"{datetime.utcnow():%Y-%m-%d}"
+    pages = [
+        ("/", "1.0", "weekly"),
+        ("/contact.html", "0.9", "monthly"),
+        ("/careers.html", "0.7", "monthly"),
+    ]
+    urls = "".join(
+        f"<url><loc>{config.SITE_URL}{path}</loc>"
+        f"<lastmod>{today}</lastmod>"
+        f"<changefreq>{freq}</changefreq>"
+        f"<priority>{prio}</priority></url>"
+        for path, prio, freq in pages
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        f"{urls}</urlset>"
+    )
+    return Response(content=xml, media_type="application/xml")
 
 
 # --------------------------------------------------------------------------

@@ -53,6 +53,10 @@ OAUTH_CONFIGURED = bool(GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET)
 # https://artintele.up.railway.app). Falls back to the request URL when unset.
 PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").rstrip("/")
 
+# Canonical public site origin, used for SEO (robots.txt, sitemap.xml, canonical
+# URLs). Defaults to the production domain; override via PUBLIC_BASE_URL.
+SITE_URL = (PUBLIC_BASE_URL or "https://artintele.ai").rstrip("/")
+
 # Session signing + cookie hardening.
 SESSION_SECRET = os.getenv("SESSION_SECRET", secrets.token_urlsafe(48))
 SESSION_HTTPS_ONLY = os.getenv("SESSION_HTTPS_ONLY", "false").lower() == "true"
