@@ -1,0 +1,6 @@
+# Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
+# SITE_DOMAIN is injected from the .env file via docker-compose.
+{$SITE_DOMAIN} {
+	reverse_proxy app:8080
+	encode gzip
+}

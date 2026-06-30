@@ -1,0 +1,42 @@
+# Artintele.ai — single-VM deployment (AWS Lightsail / EC2 / any Ubuntu box).
+# Runs the app behind Caddy, which auto-provisions HTTPS via Let's Encrypt.
+#
+# On the server:
+#   cd deploy
+#   cp .env.example .env   # then fill in real values
+#   docker compose up -d --build
+#
+# Requires: SITE_DOMAIN's DNS A-record pointing at this server's public IP,
+# and ports 80 + 443 open in the firewall.
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - app_data:/app/data                  # SQLite leads DB (persists)
+      - app_uploads:/app/frontend/uploads   # uploaded resumes (persists)
+    expose:
+      - "8080"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SITE_DOMAIN=${SITE_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data       # stores the TLS certs (persists)
+      - caddy_config:/config
+
+volumes:
+  app_data:
+  app_uploads:
+  caddy_data:
+  caddy_config:
