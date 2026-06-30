@@ -13,7 +13,12 @@
       { n: '05', title: 'Knowledge Assistants', desc: 'Turn your documents and SOPs into an assistant your team and customers can simply ask.' },
       { n: '06', title: 'AI Consulting', desc: 'We map where AI pays off fastest and build the roadmap to get you there.' },
       { n: '07', title: 'Custom AI Development', desc: 'Bespoke agents and integrations built around your exact processes — never a rigid template.' },
-      { n: '08', title: 'Custom AI Voices', desc: 'Branded, multilingual voices that sound like your business, in the languages your customers speak.' }
+      { n: '08', title: 'Custom AI Voices', desc: 'Branded, multilingual voices that sound like your business, in the languages your customers speak.' },
+      { n: '09', title: 'Website Development & SEO', desc: 'High-performance websites engineered for SEO, AEO, GEO & GAIO — so you rank in search and surface in AI answers.' },
+      { n: '10', title: 'Social Media Handling', desc: 'End-to-end social media management — content, scheduling, and engagement that keeps your brand active and growing.' },
+      { n: '11', title: 'WhatsApp Automation', desc: 'Automated WhatsApp journeys that qualify leads, send updates, and reply instantly — at scale, around the clock.' },
+      { n: '12', title: 'CRM Tools', desc: 'Custom CRM setups and integrations that capture every lead and keep your follow-ups organised.' },
+      { n: '13', title: 'Customized AI Tools', desc: 'Bespoke AI tools built around your exact workflows — from internal copilots to customer-facing assistants.' }
     ],
     voiceCaps: [
       'Custom voice personalities', 'Multilingual voices', 'Brand-aligned communication', 'Voice cloning with consent',
@@ -53,7 +58,7 @@
     var sv = document.getElementById('artintele-services');
     if (sv) sv.innerHTML = DATA.services.map(function (s) {
       return '<div class="ai-card" data-reveal style="position:relative;padding:26px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);min-height:188px;display:flex;flex-direction:column;">'
-        + '<span style="font-family:\'Space Mono\';font-size:12px;color:rgba(var(--label),0.62);">' + s.n + '</span>'
+        + '<span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;border-radius:50%;background:#2bbf7a;box-shadow:0 0 8px rgba(43,191,122,0.7);animation:ai-pulse 2s ease-in-out infinite;"></span><span style="font-family:\'Space Mono\';font-size:12px;color:rgba(var(--label),0.62);">' + s.n + '</span></span>'
         + '<h3 style="font-family:\'Sora\';font-weight:600;font-size:19px;letter-spacing:-0.01em;margin:14px 0 10px;">' + s.title + '</h3>'
         + '<p style="margin:0;font-size:13.5px;line-height:1.5;color:rgba(var(--text),0.66);">' + s.desc + '</p></div>';
     }).join('');
