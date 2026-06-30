@@ -102,3 +102,19 @@ nav a.nav-link:hover{color:rgba(var(--head),1)!important;}
 @media(max-width:420px){
   .ai-process-grid{grid-template-columns:1fr!important;}
 }
+
+/* ---------- Mobile overflow guards & polish ---------- */
+/* App-wide safety net: nothing should scroll the page sideways on a phone. */
+html, body { overflow-x: hidden; }
+/* Stop flex/grid children (e.g. the voice waveform) from forcing a column
+   wider than the screen, which previously clipped the Custom AI Voices copy. */
+.ai-voices-grid > div, .ai-industries-grid > div, .ai-grid-4 > *, .ai-grid-3 > * { min-width: 0; }
+#artintele-voicewave { overflow: hidden; }
+
+@media(max-width:680px){
+  #voices > div { padding: 26px !important; }      /* was 52px — too tight on phones */
+  .ai-voices-grid { gap: 26px !important; }
+  #artintele-voicewave { height: 92px !important; }
+  .ai-cta-card { padding: 40px 22px !important; }   /* big centred CTA cards */
+  .ai-pad-lg { padding: 28px !important; }          /* large glass cards (forms, panels) */
+}
