@@ -86,6 +86,10 @@ def create_lead(payload: LeadCreate, db: Session = Depends(get_db)):
         intent=payload.intent.strip(),
         message=payload.message.strip(),
         source=payload.source.strip() or "website",
+        website=payload.website.strip(),
+        call_volume=payload.call_volume.strip(),
+        services=", ".join(s.strip() for s in payload.services if s.strip()),
+        lead_source=payload.lead_source.strip(),
         status="demo_booked" if "demo" in payload.intent.lower() else "new",
     )
     db.add(lead)
@@ -198,6 +202,7 @@ def _leads_dataframe(db: Session) -> pd.DataFrame:
     cols = [
         "id", "created_at", "name", "company", "email", "phone",
         "intent", "status", "assigned_to", "follow_up_at", "call_notes",
+        "website", "call_volume", "services", "lead_source",
         "source", "message",
     ]
     rows = [{c: l.as_dict().get(c) for c in cols} for l in leads]

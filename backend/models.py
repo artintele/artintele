@@ -30,7 +30,13 @@ class Lead(Base):
     phone = Column(String(60), default="")
     intent = Column(String(80), default="")        # what the user picked on the form
     message = Column(Text, default="")
-    source = Column(String(60), default="website")  # which page / channel
+    source = Column(String(60), default="website")  # which page / channel submitted
+
+    # --- qualifying details captured on the contact form ---
+    website = Column(String(300), default="")       # prospect's company website
+    call_volume = Column(String(60), default="")    # calls per month (range)
+    services = Column(Text, default="")             # services of interest (comma-joined)
+    lead_source = Column(String(120), default="")   # how they heard about us
 
     # --- telecaller / follow-up fields ---
     status = Column(String(40), default="new", index=True)
@@ -55,6 +61,10 @@ class Lead(Base):
             "intent": self.intent,
             "message": self.message,
             "source": self.source,
+            "website": self.website,
+            "call_volume": self.call_volume,
+            "services": self.services,
+            "lead_source": self.lead_source,
             "status": self.status,
             "assigned_to": self.assigned_to,
             "call_notes": self.call_notes,

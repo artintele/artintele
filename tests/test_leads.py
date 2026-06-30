@@ -34,6 +34,27 @@ def test_consultation_lead_defaults_to_new(client, consult_payload):
     assert client.sent_emails[0].is_demo is False
 
 
+def test_lead_captures_qualifying_fields(client):
+    payload = {
+        "name": "Ravi", "email": "ravi@acme.example", "intent": "Schedule a demo",
+        "website": "https://acme.example", "call_volume": "100–500",
+        "services": ["AI Voice Agents", "WhatsApp Automation"],
+        "lead_source": "WhatsApp", "source": "contact-page",
+    }
+    r = client.post("/api/leads", json=payload)
+    assert r.status_code == 201
+    b = r.json()
+    assert b["website"] == "https://acme.example"
+    assert b["call_volume"] == "100–500"
+    assert b["services"] == "AI Voice Agents, WhatsApp Automation"  # checkbox list -> joined
+    assert b["lead_source"] == "WhatsApp"
+    # the notification email carries the qualifying details
+    body = None
+    from backend import emailer
+    body = emailer._build_lead_email(client.sent_emails[-1]).get_content()
+    assert "acme.example" in body and "WhatsApp Automation" in body and "100–500" in body
+
+
 def test_invalid_email_is_rejected(client):
     r = client.post("/api/leads", json={"name": "X", "email": "not-an-email", "intent": "demo"})
     assert r.status_code == 422

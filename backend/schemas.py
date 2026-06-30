@@ -1,6 +1,6 @@
 """Pydantic request/response schemas."""
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -13,6 +13,11 @@ class LeadCreate(BaseModel):
     intent: str = Field("", max_length=80)
     message: str = Field("", max_length=4000)
     source: str = Field("website", max_length=60)
+    # Qualifying details from the contact form.
+    website: str = Field("", max_length=300)
+    call_volume: str = Field("", max_length=60)
+    services: List[str] = Field(default_factory=list)   # checkbox multi-select
+    lead_source: str = Field("", max_length=120)
 
 
 class LeadUpdate(BaseModel):
@@ -32,6 +37,10 @@ class LeadOut(BaseModel):
     intent: str
     message: str
     source: str
+    website: str
+    call_volume: str
+    services: str
+    lead_source: str
     status: str
     assigned_to: str
     call_notes: str
