@@ -4,3 +4,8 @@
 	reverse_proxy app:8080
 	encode gzip
 }
+
+# Redirect www.<domain> -> the canonical apex (also gets its own HTTPS cert).
+www.{$SITE_DOMAIN} {
+	redir https://{$SITE_DOMAIN}{uri} permanent
+}
