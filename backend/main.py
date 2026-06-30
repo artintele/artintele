@@ -307,8 +307,12 @@ def llms_txt():
 ## Industries
 - Healthcare, Education, Real Estate, Manufacturing, Finance, Retail
 
+## Pricing
+Pricing is scoped to requirements; a human receptionist in India costs ~₹15,000–25,000/month — AI covers 24/7 across many calls and languages for a custom quote. See {config.SITE_URL}/pricing.html
+
 ## Pages
 - Home: {config.SITE_URL}/
+- Pricing: {config.SITE_URL}/pricing.html
 - Contact / book a demo: {config.SITE_URL}/contact.html
 - Careers: {config.SITE_URL}/careers.html
 
@@ -325,6 +329,7 @@ def sitemap_xml():
     today = f"{datetime.utcnow():%Y-%m-%d}"
     pages = [
         ("/", "1.0", "weekly"),
+        ("/pricing.html", "0.8", "monthly"),
         ("/contact.html", "0.9", "monthly"),
         ("/careers.html", "0.7", "monthly"),
     ]
