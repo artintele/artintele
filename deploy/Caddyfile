@@ -1,8 +1,23 @@
 # Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
 # SITE_DOMAIN is injected from the .env file via docker-compose.
 {$SITE_DOMAIN} {
-	reverse_proxy app:8080
 	encode gzip
+
+	# Security headers (cleared the Lighthouse "high severity" flags).
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Frame-Options "SAMEORIGIN"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Cross-Origin-Opener-Policy "same-origin"
+		-Server
+	}
+
+	# Long, immutable cache for versioned static assets (?v=… busts it on change).
+	@static path /assets/*
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	reverse_proxy app:8080
 }
 
 # Redirect www.<domain> -> the canonical apex (also gets its own HTTPS cert).

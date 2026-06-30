@@ -292,38 +292,34 @@ def robots_txt():
 @app.get("/llms.txt", include_in_schema=False)
 def llms_txt():
     """Agent-readable summary of the company + services (llms.txt convention)."""
+    u = config.SITE_URL
     body = f"""# Artintele.ai
 
-> Artintele.ai is a full-service AI automation company that builds and deploys custom AI agents, voice assistants, AI telecallers, chatbots, WhatsApp automation and workflow automation for businesses. Solutions are multilingual — customizable to virtually any regional language, including English, Hindi, Kannada, Tamil, Telugu and Malayalam — and built end to end, from discovery through deployment and ongoing optimization.
+> AI automation company for businesses — AI voice agents, AI telecallers, receptionists, chatbots, and workflow automation that answer, understand, and act in any regional language, 24/7. Built and deployed end to end, from discovery through optimization.
 
-## Services
-- AI Voice Agents — inbound/outbound calls handled 24/7
-- AI Telecaller — automated calling that qualifies leads and books appointments
-- AI Receptionists — greet, route and book, always on
-- Workflow Automation — end-to-end business process automation
-- AI Chatbot Development — website and WhatsApp chatbots
-- Knowledge Assistants — documents and SOPs turned into an askable assistant
-- AI Consulting — a roadmap for where AI pays off fastest
-- Custom AI Software Development — bespoke agents and integrations
-- Custom AI Voices — branded voices in any regional language (listed languages are examples, not a fixed list)
-- WhatsApp Automation — compliant WhatsApp journeys at scale
-- CRM Tools — custom CRM setups and integrations
+## Capabilities
+- [AI Voice Agents]({u}/#services): 24/7 inbound and outbound call handling.
+- [AI Telecaller]({u}/#services): automated calling that qualifies leads and books appointments.
+- [AI Receptionists]({u}/#services): greet callers, route requests, and book appointments.
+- [Workflow Automation]({u}/#services): connect tools and run repetitive steps end to end.
+- [AI Chatbots]({u}/#services): website and WhatsApp assistants that qualify and convert.
+- [Knowledge Assistants]({u}/#services): turn documents and SOPs into an askable assistant.
+- [Custom AI Voices]({u}/#voices): branded voices in any regional language (listed languages are examples, not a fixed list).
+- [WhatsApp Automation]({u}/#services): compliant WhatsApp journeys at scale.
 
 ## Industries
-- Healthcare, Education, Real Estate, Manufacturing, Finance, Retail
+- [Healthcare]({u}/#industries): appointment booking, insurance workflows, patient support.
+- [Education]({u}/#industries): admissions, lead qualification, student support.
+- [Real Estate]({u}/#industries): lead handling, site-visit scheduling, follow-up automation.
+- [Manufacturing]({u}/#industries): reporting, vendor communication, process tracking.
+- [Finance]({u}/#industries): document processing, customer support, KYC workflows.
+- [Retail]({u}/#industries): customer engagement, order support, returns handling.
 
 ## Pricing
-Pricing is scoped to requirements; a human receptionist in India costs ~₹15,000–25,000/month — AI covers 24/7 across many calls and languages for a custom quote. See {config.SITE_URL}/pricing.html
-
-## Pages
-- Home: {config.SITE_URL}/
-- Pricing: {config.SITE_URL}/pricing.html
-- Contact / book a demo: {config.SITE_URL}/contact.html
-- Careers: {config.SITE_URL}/careers.html
+- [Pricing]({u}/pricing.html): scoped to call volume, channels and languages; custom quote on request.
 
 ## Contact
-- Email: marketing@prachalas.com
-- Area served: India (and remote engagements)
+- [Book a consultation]({u}/contact.html): we reply within one business day.
 """
     return PlainTextResponse(body)
 
