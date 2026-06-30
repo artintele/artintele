@@ -263,17 +263,59 @@ def health():
 # --------------------------------------------------------------------------
 @app.get("/robots.txt", include_in_schema=False)
 def robots_txt():
-    """Allow crawling of the public site; keep the CRM/API out of search."""
-    body = (
-        "User-agent: *\n"
+    """Allow crawling of the public site (including AI/answer-engine bots);
+    keep the CRM/API out of search for every crawler."""
+    rules = (
         "Allow: /\n"
         "Disallow: /dashboard\n"
         "Disallow: /login\n"
         "Disallow: /api/\n"
         "Disallow: /auth/\n"
-        "\n"
-        f"Sitemap: {config.SITE_URL}/sitemap.xml\n"
     )
+    # AI / answer-engine crawlers explicitly welcomed (same CRM/API exclusions).
+    ai_bots = [
+        "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "anthropic-ai",
+        "PerplexityBot", "Google-Extended", "Applebot-Extended", "Bingbot", "CCBot",
+    ]
+    body = f"User-agent: *\n{rules}"
+    for bot in ai_bots:
+        body += f"\nUser-agent: {bot}\n{rules}"
+    body += f"\nSitemap: {config.SITE_URL}/sitemap.xml\n"
+    return PlainTextResponse(body)
+
+
+@app.get("/llms.txt", include_in_schema=False)
+def llms_txt():
+    """Agent-readable summary of the company + services (llms.txt convention)."""
+    body = f"""# Artintele.ai
+
+> Artintele.ai is a full-service AI automation company that builds and deploys custom AI agents, voice assistants, AI telecallers, chatbots, WhatsApp automation and workflow automation for businesses. Solutions are multilingual — customizable to virtually any regional language, including English, Hindi, Kannada, Tamil, Telugu and Malayalam — and built end to end, from discovery through deployment and ongoing optimization.
+
+## Services
+- AI Voice Agents — inbound/outbound calls handled 24/7
+- AI Telecaller — automated calling that qualifies leads and books appointments
+- AI Receptionists — greet, route and book, always on
+- Workflow Automation — end-to-end business process automation
+- AI Chatbot Development — website and WhatsApp chatbots
+- Knowledge Assistants — documents and SOPs turned into an askable assistant
+- AI Consulting — a roadmap for where AI pays off fastest
+- Custom AI Software Development — bespoke agents and integrations
+- Custom AI Voices — branded, multilingual voices
+- WhatsApp Automation — compliant WhatsApp journeys at scale
+- CRM Tools — custom CRM setups and integrations
+
+## Industries
+- Healthcare, Education, Real Estate, Manufacturing, Finance, Retail
+
+## Pages
+- Home: {config.SITE_URL}/
+- Contact / book a demo: {config.SITE_URL}/contact.html
+- Careers: {config.SITE_URL}/careers.html
+
+## Contact
+- Email: marketing@prachalas.com
+- Area served: India (and remote engagements)
+"""
     return PlainTextResponse(body)
 
 
