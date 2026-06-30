@@ -66,7 +66,9 @@
     var lg = document.getElementById('artintele-languages');
     if (lg) lg.innerHTML = DATA.languages.map(function (l) {
       return '<span style="font-family:\'Space Mono\';font-size:12.5px;padding:8px 14px;border-radius:100px;border:1px solid rgba(var(--border),0.3);background:rgba(var(--surface),0.55);color:rgba(var(--text),0.85);">' + l + '</span>';
-    }).join('');
+    }).join('') +
+      // the listed languages are examples — voices are built for any regional language
+      '<span style="font-family:\'Space Mono\';font-size:12.5px;padding:8px 14px;border-radius:100px;border:1px dashed rgba(40,150,95,0.55);background:rgba(31,157,91,0.10);color:rgba(var(--label),0.95);">+ your regional language</span>';
 
     var vc = document.getElementById('artintele-voicecaps');
     if (vc) vc.innerHTML = DATA.voiceCaps.map(function (c) {
