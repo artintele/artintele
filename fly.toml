@@ -21,7 +21,11 @@ primary_region = "bom"   # Mumbai; change as needed
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  # "suspend" snapshots RAM instead of fully stopping, so an idle machine
+  # resumes in ~half a second on the next request (no slow cold start) while
+  # still costing almost nothing when idle. Flip to min_machines_running = 1
+  # for an always-warm machine once traffic/ads justify the ~$3-6/mo.
+  auto_stop_machines = "suspend"
   auto_start_machines = true
   min_machines_running = 0
 
