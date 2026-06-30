@@ -17,7 +17,9 @@ class LeadCreate(BaseModel):
     website: str = Field("", max_length=300)
     call_volume: str = Field("", max_length=60)
     services: List[str] = Field(default_factory=list)   # checkbox multi-select
-    lead_source: str = Field("", max_length=120)
+    # Multi-select of up to 16 sources joined into one string — must fit the
+    # VARCHAR(400) column (selecting many would overflow a smaller cap and 422).
+    lead_source: str = Field("", max_length=400)
 
 
 class LeadUpdate(BaseModel):
