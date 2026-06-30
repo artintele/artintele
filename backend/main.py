@@ -300,7 +300,7 @@ def llms_txt():
 - Knowledge Assistants — documents and SOPs turned into an askable assistant
 - AI Consulting — a roadmap for where AI pays off fastest
 - Custom AI Software Development — bespoke agents and integrations
-- Custom AI Voices — branded, multilingual voices
+- Custom AI Voices — branded voices in any regional language (listed languages are examples, not a fixed list)
 - WhatsApp Automation — compliant WhatsApp journeys at scale
 - CRM Tools — custom CRM setups and integrations
 
