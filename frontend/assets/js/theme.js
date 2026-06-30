@@ -7,7 +7,7 @@
     if (m) { m.style.opacity = dark ? '1' : '0'; m.style.transform = dark ? 'rotate(0deg)' : 'rotate(-40deg)'; }
   }
   // Swap the round badge (favicon + brand marks) to match the theme.
-  var BRAND_VER = '20260701';
+  var BRAND_VER = '20260702';
   function updateBrand(theme) {
     var src = '/assets/img/logo-' + (theme === 'dark' ? 'dark' : 'light') + '.png?v=' + BRAND_VER;
     document.querySelectorAll('img.brand-logo').forEach(function (i) { i.src = src; });
