@@ -42,9 +42,10 @@ production you configure a Google OAuth client — see [DEPLOY.md](DEPLOY.md).
 1. Visitor fills the form on `/contact.html` and submits.
 2. `POST /api/leads` validates and **stores the lead** in SQLite. If the intent
    contains "demo", the lead is auto-tagged `demo_booked`.
-3. A notification is **emailed to `sales@prachalas.com`** (high-priority subject
-   for demos). Email never blocks the save — if SMTP isn't configured the
-   message is logged instead and the lead is still recorded.
+3. A notification is **emailed to both `sales@prachalas.com` and
+   `marketing@prachalas.com`** (high-priority subject for demos). Email never
+   blocks the save — if SMTP isn't configured the message is logged instead and
+   the lead is still recorded. Add more recipients via `LEAD_NOTIFY_EMAILS`.
 4. The lead appears in the **telecaller CRM** for follow-up calling — set status,
    assign a caller, add call notes, schedule the next call-back.
 5. Sales exports the pipeline as CSV/Excel anytime for offline calling lists.

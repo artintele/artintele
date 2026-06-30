@@ -11,6 +11,8 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 
+import certifi
+
 from . import config
 
 log = logging.getLogger("artintele.email")
@@ -35,15 +37,16 @@ def _build_lead_email(lead) -> EmailMessage:
         (lead.message or "—"),
         "",
         "—",
-        "Follow up from the telecaller dashboard: /dashboard",
-        "This contact has been stored for follow-up calling.",
+        "This lead has been saved to the CRM for follow-up calling.",
+        "Work it from the telecaller dashboard: /dashboard",
     ]
     body = "\n".join(lines)
 
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = config.SMTP_FROM
-    msg["To"] = config.SALES_EMAIL
+    # Notify sales + marketing (and any extra configured recipients).
+    msg["To"] = ", ".join(config.LEAD_NOTIFY_EMAILS)
     if lead.email:
         msg["Reply-To"] = lead.email
     msg.set_content(body)
@@ -58,23 +61,25 @@ def send_lead_notification(lead) -> bool:
     if not config.EMAIL_CONFIGURED:
         log.warning(
             "SMTP not configured — email NOT sent. Would deliver to %s:\n%s",
-            config.SALES_EMAIL,
+            msg["To"],
             msg.get_content(),
         )
         return False
 
     try:
+        # Use certifi's CA bundle so TLS verification works regardless of the
+        # host's system certificate store.
+        ctx = ssl.create_default_context(cafile=certifi.where())
         if config.SMTP_USE_TLS:
-            ctx = ssl.create_default_context()
             with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=20) as server:
                 server.starttls(context=ctx)
                 server.login(config.SMTP_USER, config.SMTP_PASS)
                 server.send_message(msg)
         else:
-            with smtplib.SMTP_SSL(config.SMTP_HOST, config.SMTP_PORT, timeout=20) as server:
+            with smtplib.SMTP_SSL(config.SMTP_HOST, config.SMTP_PORT, timeout=20, context=ctx) as server:
                 server.login(config.SMTP_USER, config.SMTP_PASS)
                 server.send_message(msg)
-        log.info("Sent lead notification for #%s to %s", getattr(lead, "id", "?"), config.SALES_EMAIL)
+        log.info("Sent lead notification for #%s to %s", getattr(lead, "id", "?"), msg["To"])
         return True
     except Exception as exc:  # noqa: BLE001 — log and move on
         log.exception("Failed to send lead notification: %s", exc)

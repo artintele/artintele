@@ -22,8 +22,15 @@ UPLOAD_DIR = BASE_DIR / "frontend" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # --- Email ---------------------------------------------------------------
-# Where booking / lead notifications are sent.
+# Every new lead notifies BOTH sales and marketing (and is stored in the CRM).
 SALES_EMAIL = os.getenv("SALES_EMAIL", "sales@prachalas.com")
+MARKETING_EMAIL = os.getenv("MARKETING_EMAIL", "marketing@prachalas.com")
+# Optional extra recipients, comma-separated.
+_EXTRA_NOTIFY = os.getenv("LEAD_NOTIFY_EMAILS", "")
+LEAD_NOTIFY_EMAILS = list(dict.fromkeys(
+    e.strip() for e in ([SALES_EMAIL, MARKETING_EMAIL] + _EXTRA_NOTIFY.split(","))
+    if e and e.strip()
+))
 SMTP_HOST = os.getenv("SMTP_HOST", "")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")

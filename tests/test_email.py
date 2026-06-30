@@ -18,14 +18,19 @@ def _lead(**kw):
     return SimpleNamespace(**base)
 
 
-def test_demo_email_goes_to_sales_with_demo_subject():
+def test_demo_email_notifies_sales_and_marketing():
     msg = emailer._build_lead_email(_lead())
-    assert msg["To"] == config.SALES_EMAIL == "sales@prachalas.com"
+    # Both sales and marketing are notified.
+    assert "sales@prachalas.com" in msg["To"]
+    assert "marketing@prachalas.com" in msg["To"]
+    assert "sales@prachalas.com" in config.LEAD_NOTIFY_EMAILS
+    assert "marketing@prachalas.com" in config.LEAD_NOTIFY_EMAILS
     assert "DEMO BOOKED" in msg["Subject"]
     assert msg["Reply-To"] == "priya@sunrise.example"
     body = msg.get_content()
     assert "Sunrise Clinic" in body
     assert "priya@sunrise.example" in body
+    assert "CRM" in body  # confirms it's saved to the CRM
 
 
 def test_non_demo_email_uses_lead_subject():
