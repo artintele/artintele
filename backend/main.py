@@ -316,10 +316,10 @@ def llms_txt():
 - [Retail]({u}/#industries): customer engagement, order support, returns handling.
 
 ## Pricing
-- [Pricing]({u}/pricing.html): scoped to call volume, channels and languages; custom quote on request.
+- [Pricing]({u}/pricing): scoped to call volume, channels and languages; custom quote on request.
 
 ## Contact
-- [Book a consultation]({u}/contact.html): we reply within one business day.
+- [Book a consultation]({u}/contact): we reply within one business day.
 """
     return PlainTextResponse(body)
 
@@ -330,9 +330,9 @@ def sitemap_xml():
     today = f"{datetime.utcnow():%Y-%m-%d}"
     pages = [
         ("/", "1.0", "weekly"),
-        ("/pricing.html", "0.8", "monthly"),
-        ("/contact.html", "0.9", "monthly"),
-        ("/careers.html", "0.7", "monthly"),
+        ("/pricing", "0.8", "monthly"),
+        ("/contact", "0.9", "monthly"),
+        ("/careers", "0.7", "monthly"),
     ]
     urls = "".join(
         f"<url><loc>{config.SITE_URL}{path}</loc>"
@@ -355,6 +355,46 @@ def sitemap_xml():
 @app.get("/")
 def index():
     return FileResponse(FRONTEND_DIR / "index.html")
+
+
+# --- Clean URLs -----------------------------------------------------------
+# Serve the public pages at extensionless paths (/contact, not /contact.html).
+# StaticFiles(html=True) only maps directories -> index.html, so we route the
+# pretty paths explicitly and 301 the old .html paths onto them (one canonical
+# URL per page = no duplicate content for SEO, and old links keep working).
+@app.get("/contact", include_in_schema=False)
+def contact_page():
+    return FileResponse(FRONTEND_DIR / "contact.html")
+
+
+@app.get("/pricing", include_in_schema=False)
+def pricing_page():
+    return FileResponse(FRONTEND_DIR / "pricing.html")
+
+
+@app.get("/careers", include_in_schema=False)
+def careers_page():
+    return FileResponse(FRONTEND_DIR / "careers.html")
+
+
+@app.get("/contact.html", include_in_schema=False)
+def contact_html():
+    return RedirectResponse("/contact", status_code=301)
+
+
+@app.get("/pricing.html", include_in_schema=False)
+def pricing_html():
+    return RedirectResponse("/pricing", status_code=301)
+
+
+@app.get("/careers.html", include_in_schema=False)
+def careers_html():
+    return RedirectResponse("/careers", status_code=301)
+
+
+@app.get("/index.html", include_in_schema=False)
+def index_html():
+    return RedirectResponse("/", status_code=301)
 
 
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
