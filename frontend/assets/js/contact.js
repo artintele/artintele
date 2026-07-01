@@ -4,34 +4,128 @@
   function initForm() {
     var form = document.getElementById('artintele-contact-form');
     if (!form) return;
+    var msg = document.getElementById('artintele-contact-msg');
+
+    // Use form.elements so `name` isn't shadowed by the form's own .name prop.
+    var nameEl = form.elements['name'];
+    var emailEl = form.elements['email'];
+    var phoneEl = form.elements['phone'];
+    var websiteEl = form.elements['website'];
+    var intentEl = form.elements['intent'];
+    var companyEl = form.elements['company'];
+    var callVolEl = form.elements['call_volume'];
+
+    function checked(name) {
+      return Array.prototype.slice
+        .call(form.querySelectorAll('input[name="' + name + '"]:checked'))
+        .map(function (c) { return c.value; });
+    }
+
+    // --- validators ----------------------------------------------------
+    function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || '').trim()); }
+    function phoneDigits(raw) {
+      var d = (raw || '').replace(/[^\d]/g, '');
+      if (d.length === 12 && d.indexOf('91') === 0) d = d.slice(2);   // +91…
+      else if (d.length === 11 && d.charAt(0) === '0') d = d.slice(1); // leading 0
+      return d;
+    }
+    function validPhone(raw) { return phoneDigits(raw).length === 10; }
+    // Not everyone types the protocol — add it for them so the link works.
+    function normalizeWebsite(raw) {
+      var v = (raw || '').trim();
+      if (!v) return '';
+      if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
+      return v;
+    }
+    function validWebsite(raw) {
+      var v = (raw || '').trim().replace(/^https?:\/\//i, '');
+      if (!v) return true; // optional
+      return /^([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(v);
+    }
+
+    // --- inline error helpers -----------------------------------------
+    function setErr(el, spanId, text) {
+      if (el) el.classList.add('ai-invalid');
+      var s = document.getElementById(spanId);
+      if (s) { s.textContent = text; s.classList.add('show'); }
+    }
+    function clearErr(el, spanId) {
+      if (el) el.classList.remove('ai-invalid');
+      var s = document.getElementById(spanId);
+      if (s) { s.classList.remove('show'); s.textContent = ''; }
+    }
+
+    function checkEmail(report) {
+      var v = emailEl.value.trim();
+      if (!v) { if (report) setErr(emailEl, 'err-email', 'Please enter your email address.'); return false; }
+      if (!validEmail(v)) { if (report) setErr(emailEl, 'err-email', 'That doesn’t look like a valid email — check for typos.'); return false; }
+      clearErr(emailEl, 'err-email'); return true;
+    }
+    function checkPhone(report) {
+      var v = phoneEl.value.trim();
+      if (!v) { if (report) setErr(phoneEl, 'err-phone', 'Please enter your phone number.'); return false; }
+      if (!validPhone(v)) { if (report) setErr(phoneEl, 'err-phone', 'Enter a valid 10-digit phone number.'); return false; }
+      clearErr(phoneEl, 'err-phone'); return true;
+    }
+    function checkWebsite(report) {
+      if (!websiteEl) return true;
+      if (!validWebsite(websiteEl.value)) { if (report) setErr(websiteEl, 'err-website', 'Enter a valid website, like yourcompany.com.'); return false; }
+      clearErr(websiteEl, 'err-website'); return true;
+    }
+
+    // Report on blur; clear the moment the user starts fixing it.
+    if (emailEl) {
+      emailEl.addEventListener('blur', function () { checkEmail(true); });
+      emailEl.addEventListener('input', function () { clearErr(emailEl, 'err-email'); });
+    }
+    if (phoneEl) {
+      phoneEl.addEventListener('blur', function () { checkPhone(true); });
+      phoneEl.addEventListener('input', function () { clearErr(phoneEl, 'err-phone'); });
+    }
+    if (websiteEl) {
+      websiteEl.addEventListener('blur', function () { checkWebsite(true); });
+      websiteEl.addEventListener('input', function () { clearErr(websiteEl, 'err-website'); });
+    }
+
+    function show(text, ok) {
+      if (!msg) return;
+      msg.style.display = 'block';
+      msg.textContent = text;
+      msg.style.borderColor = ok ? 'rgba(43,191,122,0.5)' : 'rgba(214,90,90,0.5)';
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var btn = document.getElementById('artintele-contact-submit');
-      var msg = document.getElementById('artintele-contact-msg');
-      function checked(name) {
-        return Array.prototype.slice
-          .call(form.querySelectorAll('input[name="' + name + '"]:checked'))
-          .map(function (c) { return c.value; });
+
+      var okName = !!nameEl.value.trim();
+      var okEmail = checkEmail(true);
+      var okPhone = checkPhone(true);
+      var okWebsite = checkWebsite(true);
+      var okIntent = !!intentEl.value;
+      if (nameEl) nameEl.classList.toggle('ai-invalid', !okName);
+      if (intentEl) intentEl.classList.toggle('ai-invalid', !okIntent);
+
+      if (!okName || !okEmail || !okPhone || !okWebsite || !okIntent) {
+        var first = !okName ? nameEl : !okEmail ? emailEl : !okPhone ? phoneEl
+                  : !okWebsite ? websiteEl : intentEl;
+        if (first && first.focus) first.focus();
+        show('Please fix the highlighted fields and try again.', false);
+        return;
       }
+
       var payload = {
-        name: form.name.value.trim(),
-        company: form.company.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        intent: form.intent.value,
-        website: form.website ? form.website.value.trim() : '',
-        call_volume: form.call_volume ? form.call_volume.value : '',
+        name: nameEl.value.trim(),
+        company: companyEl ? companyEl.value.trim() : '',
+        email: emailEl.value.trim(),
+        phone: phoneEl.value.trim(),
+        intent: intentEl.value,
+        website: websiteEl ? normalizeWebsite(websiteEl.value) : '',
+        call_volume: callVolEl ? callVolEl.value : '',
         services: checked('services'),
         lead_source: checked('lead_source').join(', '),
         source: 'contact-page'
       };
-
-      function show(text, ok) {
-        if (!msg) return;
-        msg.style.display = 'block';
-        msg.textContent = text;
-        msg.style.borderColor = ok ? 'rgba(43,191,122,0.5)' : 'rgba(214,90,90,0.5)';
-      }
 
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; btn.style.opacity = '0.75'; }
 
@@ -48,6 +142,7 @@
           (isDemo ? 'Your demo request is in — our team will reach out to schedule it within one business day.'
                   : 'We’ve received your request and will reach out within one business day.'), true);
         form.reset();
+        [nameEl, emailEl, phoneEl, websiteEl, intentEl].forEach(function (el) { if (el) el.classList.remove('ai-invalid'); });
       }).catch(function () {
         show('Sorry, something went wrong sending your request. Please try again in a moment.', false);
       }).finally(function () {
