@@ -73,7 +73,7 @@ app.include_router(auth_router)
 # --------------------------------------------------------------------------
 @app.post("/api/leads", response_model=LeadOut, status_code=201)
 def create_lead(payload: LeadCreate, db: Session = Depends(get_db)):
-    """Store a contact / demo-booking request, then notify sales@prachalas.com.
+    """Store a contact / demo-booking request, then notify marketing@artintele.ai.
 
     The lead is stored in the database (the follow-up DataFrame) *first*; email
     is best-effort and never blocks the save.

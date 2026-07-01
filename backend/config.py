@@ -22,13 +22,14 @@ UPLOAD_DIR = BASE_DIR / "frontend" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # --- Email ---------------------------------------------------------------
-# Every new lead notifies BOTH sales and marketing (and is stored in the CRM).
-SALES_EMAIL = os.getenv("SALES_EMAIL", "sales@prachalas.com")
-MARKETING_EMAIL = os.getenv("MARKETING_EMAIL", "marketing@prachalas.com")
+# Every new lead notifies marketing (and is stored in the CRM). Marketing is
+# the primary inbox; sales is optional (blank until the company is registered).
+MARKETING_EMAIL = os.getenv("MARKETING_EMAIL", "marketing@artintele.ai")
+SALES_EMAIL = os.getenv("SALES_EMAIL", "")
 # Optional extra recipients, comma-separated.
 _EXTRA_NOTIFY = os.getenv("LEAD_NOTIFY_EMAILS", "")
 LEAD_NOTIFY_EMAILS = list(dict.fromkeys(
-    e.strip() for e in ([SALES_EMAIL, MARKETING_EMAIL] + _EXTRA_NOTIFY.split(","))
+    e.strip() for e in ([MARKETING_EMAIL, SALES_EMAIL] + _EXTRA_NOTIFY.split(","))
     if e and e.strip()
 ))
 SMTP_HOST = os.getenv("SMTP_HOST", "")
