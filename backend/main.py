@@ -295,31 +295,40 @@ def llms_txt():
     u = config.SITE_URL
     body = f"""# Artintele.ai
 
-> AI automation company for businesses — AI voice agents, AI telecallers, receptionists, chatbots, and workflow automation that answer, understand, and act in any regional language, 24/7. Built and deployed end to end, from discovery through optimization.
+> Artintele.ai is an AI automation company (a brand of Prachalas Pvt Ltd) that builds custom AI agents, voice assistants, chatbots, AI telecallers and workflow automation for businesses across India. Solutions are built around each client's existing processes and deployed end to end. AI voice agents operate 24/7 and support multiple languages, including English, Hindi, Kannada, Tamil, Telugu and Malayalam.
 
-## Capabilities
-- [AI Voice Agents]({u}/#services): 24/7 inbound and outbound call handling.
-- [AI Telecaller]({u}/#services): automated calling that qualifies leads and books appointments.
-- [AI Receptionists]({u}/#services): greet callers, route requests, and book appointments.
-- [Workflow Automation]({u}/#services): connect tools and run repetitive steps end to end.
-- [AI Chatbots]({u}/#services): website and WhatsApp assistants that qualify and convert.
-- [Knowledge Assistants]({u}/#services): turn documents and SOPs into an askable assistant.
-- [Custom AI Voices]({u}/#voices): branded voices in any regional language (listed languages are examples, not a fixed list).
-- [WhatsApp Automation]({u}/#services): compliant WhatsApp journeys at scale.
+Artintele.ai designs, builds and deploys AI agents and automation. Engagements run end to end: discovery, workflow analysis, solution design, development, deployment, optimization and maintenance. The company serves businesses across India and works across healthcare, education, real estate, manufacturing, finance and retail.
 
-## Industries
-- [Healthcare]({u}/#industries): appointment booking, insurance workflows, patient support.
-- [Education]({u}/#industries): admissions, lead qualification, student support.
-- [Real Estate]({u}/#industries): lead handling, site-visit scheduling, follow-up automation.
-- [Manufacturing]({u}/#industries): reporting, vendor communication, process tracking.
-- [Finance]({u}/#industries): document processing, customer support, KYC workflows.
-- [Retail]({u}/#industries): customer engagement, order support, returns handling.
+## Core Pages
 
-## Pricing
-- [Pricing]({u}/pricing): scoped to call volume, channels and languages; custom quote on request.
+- [Home]({u}/): Overview of Artintele.ai's AI agents, voice assistants and automation services.
+- [Services]({u}/md/services.md): Full list of services — AI voice agents, telecallers, receptionists, chatbots, workflow automation and more.
+- [Industries]({u}/md/industries.md): Sectors served and example automations for each.
+- [Process]({u}/md/process.md): The seven-step delivery process from discovery to maintenance.
+- [FAQ]({u}/md/faq.md): Answers to common questions about AI telecallers, languages, WhatsApp automation and deployment timelines.
+- [Pricing]({u}/pricing): Pricing and packages.
+- [Contact]({u}/contact): Book a free consultation.
+- [Careers]({u}/careers): Open roles.
 
-## Contact
-- [Book a consultation]({u}/contact): we reply within one business day.
+## Services
+
+- AI Voice Agents — human-like agents handle inbound and outbound calls 24/7.
+- AI Telecaller — automated calling that qualifies leads and books appointments.
+- AI Receptionists — an always-on front desk that greets, routes and books.
+- Workflow Automation — business process automation that runs repetitive steps end to end.
+- AI Chatbot Development — chatbots on website and WhatsApp that qualify and convert.
+- Knowledge Assistants — turn documents and SOPs into an assistant your team can ask.
+- AI Consulting — mapping where AI pays off fastest and building the roadmap.
+- Custom AI Software Development — bespoke AI agents and integrations.
+- Custom AI Voices — branded voices in any regional language customers speak.
+- WhatsApp Automation — compliant journeys on the official WhatsApp Business Platform.
+- CRM Tools — custom CRM setups and integrations that capture every lead.
+- Website Development & SEO — sites engineered for SEO, AEO, GEO and GAIO.
+- Social Media Handling — content, scheduling and engagement.
+
+## Optional
+
+- [Full site as markdown]({u}/md/): Clean markdown mirrors of all key pages.
 """
     return PlainTextResponse(body)
 
@@ -347,6 +356,29 @@ def sitemap_xml():
         f"{urls}</urlset>"
     )
     return Response(content=xml, media_type="application/xml")
+
+
+# --------------------------------------------------------------------------
+# Markdown mirror — /md/ (clean plain-text pages for AI answer engines)
+# Served with an explicit text/markdown content type; the whitelist keeps the
+# route from serving anything outside the mirror.
+# --------------------------------------------------------------------------
+MD_DIR = FRONTEND_DIR / "md"
+_MD_PAGES = {"home", "services", "industries", "process", "faq"}
+_MD_TYPE = "text/markdown; charset=utf-8"
+
+
+@app.get("/md", include_in_schema=False)
+@app.get("/md/", include_in_schema=False)
+def md_index():
+    return FileResponse(MD_DIR / "index.md", media_type=_MD_TYPE)
+
+
+@app.get("/md/{page}.md", include_in_schema=False)
+def md_page(page: str):
+    if page not in _MD_PAGES:
+        raise HTTPException(status_code=404)
+    return FileResponse(MD_DIR / f"{page}.md", media_type=_MD_TYPE)
 
 
 # --------------------------------------------------------------------------
