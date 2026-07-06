@@ -18,16 +18,17 @@ def _lead(**kw):
     return SimpleNamespace(**base)
 
 
-def test_demo_email_notifies_sales_and_marketing():
+def test_demo_email_notifies_configured_recipients():
     msg = emailer._build_lead_email(_lead())
-    # Both sales and marketing are notified.
-    assert "sales@prachalas.com" in msg["To"]
-    assert "marketing@prachalas.com" in msg["To"]
-    assert "sales@prachalas.com" in config.LEAD_NOTIFY_EMAILS
-    assert "marketing@prachalas.com" in config.LEAD_NOTIFY_EMAILS
+    # Every configured recipient (marketing, plus sales/extras when set) is on
+    # the To line — driven by config, not hard-coded addresses.
+    assert config.LEAD_NOTIFY_EMAILS, "expected at least one notify recipient"
+    for addr in config.LEAD_NOTIFY_EMAILS:
+        assert addr in msg["To"]
+    assert config.MARKETING_EMAIL in config.LEAD_NOTIFY_EMAILS
     assert "DEMO BOOKED" in msg["Subject"]
     assert msg["Reply-To"] == "priya@sunrise.example"
-    body = msg.get_content()
+    body = msg.get_body(preferencelist=("plain",)).get_content()
     assert "Sunrise Clinic" in body
     assert "priya@sunrise.example" in body
     assert "CRM" in body  # confirms it's saved to the CRM
