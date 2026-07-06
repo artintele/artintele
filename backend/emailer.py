@@ -1,6 +1,6 @@
 """Email notifications.
 
-On every booking/lead, marketing@artintele.ai gets a notification laid out as a
+On every booking/lead, hello@artintele.ai gets a notification laid out as a
 clean table (HTML, with a plain-text fallback). Demo bookings get a distinct,
 high-priority subject so the team can spot them fast.
 

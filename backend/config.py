@@ -24,7 +24,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 # --- Email ---------------------------------------------------------------
 # Every new lead notifies marketing (and is stored in the CRM). Marketing is
 # the primary inbox; sales is optional (blank until the company is registered).
-MARKETING_EMAIL = os.getenv("MARKETING_EMAIL", "marketing@artintele.ai")
+MARKETING_EMAIL = os.getenv("MARKETING_EMAIL", "hello@artintele.ai")
 SALES_EMAIL = os.getenv("SALES_EMAIL", "")
 # Optional extra recipients, comma-separated.
 _EXTRA_NOTIFY = os.getenv("LEAD_NOTIFY_EMAILS", "")
