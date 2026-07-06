@@ -49,9 +49,9 @@ def test_lead_captures_qualifying_fields(client):
     assert b["services"] == "AI Voice Agents, WhatsApp Automation"  # checkbox list -> joined
     assert b["lead_source"] == "WhatsApp"
     # the notification email carries the qualifying details
-    body = None
     from backend import emailer
-    body = emailer._build_lead_email(client.sent_emails[-1]).get_content()
+    msg = emailer._build_lead_email(client.sent_emails[-1])
+    body = msg.get_body(preferencelist=("plain",)).get_content()
     assert "acme.example" in body and "WhatsApp Automation" in body and "100–500" in body
 
 

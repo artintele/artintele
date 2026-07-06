@@ -160,6 +160,17 @@ def _build_html(lead, is_demo) -> str:
 </html>"""
 
 
+def _plain_body(msg: EmailMessage) -> str:
+    """The text/plain part of a (possibly multipart) message, for logging.
+
+    `msg.get_content()` raises on a multipart/alternative message, so reach for
+    the plain part explicitly — used on the no-SMTP path where we log instead
+    of send.
+    """
+    part = msg.get_body(preferencelist=("plain",))
+    return part.get_content() if part is not None else ""
+
+
 def _build_lead_email(lead) -> EmailMessage:
     is_demo = "demo" in (lead.intent or "").lower()
     tag = "DEMO BOOKED" if is_demo else "NEW LEAD"
@@ -187,7 +198,7 @@ def send_lead_notification(lead) -> bool:
         log.warning(
             "SMTP not configured — email NOT sent. Would deliver to %s:\n%s",
             msg["To"],
-            msg.get_content(),
+            _plain_body(msg),
         )
         return False
 
