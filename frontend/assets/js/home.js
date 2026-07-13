@@ -196,7 +196,8 @@
         var line = document.createElement('span');
         line.style.cssText = 'position:absolute;left:13px;top:31px;width:2px;height:24px;background:rgba(var(--border),0.2);z-index:1;border-radius:2px;overflow:hidden;';
         var fill = document.createElement('span');
-        fill.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:0%;background:linear-gradient(to bottom,#1f9d5b,#36c07e);transition:height .5s ease;';
+        // scaleY (not height) so the fill animation stays compositor-only
+        fill.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;transform:scaleY(0);transform-origin:top;background:linear-gradient(to bottom,#1f9d5b,#36c07e);transition:transform .5s ease;';
         line.appendChild(fill); row.appendChild(line); row._fill = fill;
       }
       var node = document.createElement('span'); node.style.cssText = nodeBase(); node.textContent = String(idx + 1);
@@ -215,12 +216,12 @@
       row._node.textContent = '✓';
       row._label.style.color = '#16241c';
       row._label.style.fontWeight = '600';
-      if (row._fill) T(function () { row._fill.style.height = '100%'; }, 150);
+      if (row._fill) T(function () { row._fill.style.transform = 'scaleY(1)'; }, 150);
       i++;
       if (i < rows.length) { T(activate, 850); }
       else {
         T(function () {
-          rows.forEach(function (r, idx) { r._node.style.cssText = nodeBase(); r._node.textContent = String(idx + 1); r._label.style.color = 'rgba(var(--text),0.55)'; r._label.style.fontWeight = '400'; if (r._fill) r._fill.style.height = '0%'; });
+          rows.forEach(function (r, idx) { r._node.style.cssText = nodeBase(); r._node.textContent = String(idx + 1); r._label.style.color = 'rgba(var(--text),0.55)'; r._label.style.fontWeight = '400'; if (r._fill) r._fill.style.transform = 'scaleY(0)'; });
           i = 0; T(activate, 650);
         }, 2600);
       }
@@ -256,8 +257,11 @@
   }
 
   // ---- industries -------------------------------------------------------
-  var indState = { active: 0, token: 0, tabEls: [] };
-  function startIndustries() {
+  var indState = { active: 0, token: 0, tabEls: [], cycling: false };
+  // Tab DOM affects layout outside its card (the grid row grows to fit it),
+  // so on anchored loads it must exist before first paint to keep CLS at 0.
+  // The cycling animation itself is started separately, on visibility.
+  function buildIndustriesTabs() {
     var tabHost = document.getElementById('artintele-ind-tabs');
     if (!tabHost || tabHost.childElementCount) return;
     DATA.industries.forEach(function (ind, i) {
@@ -272,11 +276,20 @@
       t.addEventListener('click', function () { indShow(i); });
       tabHost.appendChild(t); indState.tabEls.push(t);
     });
+    // static first-paint state: tab 0 active, name/tag set with no timers
+    indStyleTabs(0);
+    var nameEl = document.getElementById('artintele-ind-name');
+    var tagEl = document.getElementById('artintele-ind-tag');
+    if (nameEl) nameEl.textContent = DATA.industries[0].name;
+    if (tagEl) tagEl.textContent = indTags[DATA.industries[0].name] || '';
+  }
+  function startIndustries() {
+    if (indState.cycling) return;
+    indState.cycling = true;
+    buildIndustriesTabs();
     indShow(0);
   }
-  function indShow(idx) {
-    indState.active = idx;
-    var token = ++indState.token;
+  function indStyleTabs(idx) {
     indState.tabEls.forEach(function (t, i) {
       var on = i === idx;
       t.style.background = on ? 'linear-gradient(135deg,rgba(70,190,130,0.2),rgba(120,205,165,0.16))' : 'rgba(var(--surface),0.5)';
@@ -284,6 +297,12 @@
       t._bar.style.opacity = on ? '1' : '0';
       t._name.style.color = on ? '#16241c' : 'rgba(var(--text),0.78)';
     });
+  }
+  function indShow(idx) {
+    indState.active = idx;
+    indState.cycling = true;   // a direct tab click also starts the cycle
+    var token = ++indState.token;
+    indStyleTabs(idx);
     var ind = DATA.industries[idx];
     var nameEl = document.getElementById('artintele-ind-name');
     var tagEl = document.getElementById('artintele-ind-tag');
@@ -325,8 +344,10 @@
   // ---- scroll progress --------------------------------------------------
   // rAF-throttled with cached document metrics: scroll events never read
   // layout (scrollHeight/innerHeight forced a reflow per event before), and
-  // the rail moves via transform so it stays compositor-only.
-  var scrollGlow = null, scrollFill = null, scrollMax = 1, scrollWinH = 0, scrollTicking = false;
+  // the rail moves via transform so it stays compositor-only. scrollY is
+  // read in the scroll handler (layout is clean there) — reading it inside
+  // the rAF callback forced a reflow when widget timers had dirtied styles.
+  var scrollGlow = null, scrollFill = null, scrollMax = 1, scrollWinH = 0, scrollTicking = false, scrollLastY = 0;
   function measureScroll() {
     scrollGlow = scrollGlow || document.getElementById('artintele-scroll-glow');
     scrollFill = scrollFill || document.getElementById('artintele-scroll-fill');
@@ -335,12 +356,13 @@
   }
   function applyScroll() {
     scrollTicking = false;
-    var p = Math.min(1, Math.max(0, window.scrollY / scrollMax));
+    var p = Math.min(1, Math.max(0, scrollLastY / scrollMax));
     window.__artintele_scrollP = p;
     if (scrollGlow) scrollGlow.style.transform = 'translateY(' + (p * (scrollWinH - 96)) + 'px)';
     if (scrollFill) scrollFill.style.transform = 'scaleY(' + p + ')';
   }
   function onScroll() {
+    scrollLastY = window.scrollY;
     if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(applyScroll); }
   }
 
@@ -349,15 +371,43 @@
     var canvas = document.getElementById('artintele-robot-canvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    var W, H, DPR;
+    var W, H, DPR, cx, cy, R, halo = null;
     var resize = function () {
       DPR = Math.min(2, window.devicePixelRatio || 1);
       W = window.innerWidth; H = window.innerHeight;
       canvas.width = W * DPR; canvas.height = H * DPR;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      cx = W * (W > 900 ? 0.66 : 0.5);
+      cy = H * 0.46;
+      R = Math.min(W, H) * 0.27;
+      halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.6);
+      halo.addColorStop(0, 'rgba(60,190,130,0.34)');
+      halo.addColorStop(0.45, 'rgba(150,205,165,0.18)');
+      halo.addColorStop(1, 'rgba(0,0,0,0)');
     };
     resize();
     window.addEventListener('resize', resize, { passive: true });
+
+    // Pre-rendered glow sprites replace per-draw shadowBlur — Canvas2D runs
+    // a gaussian blur for every shadowed fill, which made this loop the
+    // page's single biggest main-thread cost on throttled mobile.
+    var spriteCache = {};
+    var glowSprite = function (color) {
+      if (spriteCache[color]) return spriteCache[color];
+      var s = document.createElement('canvas'); s.width = s.height = 32;
+      var sc = s.getContext('2d');
+      var g = sc.createRadialGradient(16, 16, 0, 16, 16, 16);
+      g.addColorStop(0, 'rgba(' + color + ',1)');
+      g.addColorStop(0.28, 'rgba(' + color + ',0.6)');
+      g.addColorStop(1, 'rgba(' + color + ',0)');
+      sc.fillStyle = g; sc.fillRect(0, 0, 32, 32);
+      spriteCache[color] = s; return s;
+    };
+    var drawGlow = function (sprite, x, y, r, alpha) {
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
+      ctx.globalAlpha = 1;
+    };
 
     var t = (1 + Math.sqrt(5)) / 2;
     var norm = function (v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; };
@@ -386,54 +436,58 @@
     });
     var eyes = [[-0.34, 0.16, 0.97], [0.34, 0.16, 0.97]];
     var mouth = [[-0.26, -0.42, 0.92], [-0.09, -0.46, 0.94], [0.09, -0.46, 0.94], [0.26, -0.42, 0.92]];
-    var rotY = function (v, a) { var c = Math.cos(a), s = Math.sin(a); return [c * v[0] + s * v[2], v[1], -s * v[0] + c * v[2]]; };
-    var rotX = function (v, a) { var c = Math.cos(a), s = Math.sin(a); return [v[0], c * v[1] - s * v[2], s * v[1] + c * v[2]]; };
-    var auto = 0;
+    // cos/sin hoisted per frame (not per vertex): cY/sY spin, cX/sX tilt
+    var rotYcs = function (v, c, s) { return [c * v[0] + s * v[2], v[1], -s * v[0] + c * v[2]]; };
+    var rotXcs = function (v, c, s) { return [v[0], c * v[1] - s * v[2], s * v[1] + c * v[2]]; };
+    var EDGE_BUCKETS = 6;
+    var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var start = performance.now();
     var rafId = null;
     var draw = function (now) {
       if (document.hidden) { rafId = null; return; }   // pause when tab is hidden (battery/CPU)
       var time = (now - start) / 1000;
       var ink = document.documentElement.dataset.theme === 'dark' ? '150,226,182' : '24,112,72';
-      auto += 0.0016;
+      var dot = glowSprite(ink), spark = glowSprite('47,174,116');
       var sp = window.__artintele_scrollP || 0;
-      var ay = auto + sp * Math.PI * 2.2;
+      var ay = time * 0.096 + sp * Math.PI * 2.2;
       var ax = -0.14 + Math.sin(time * 0.25) * 0.06;
-      var cx = W * (W > 900 ? 0.66 : 0.5);
-      var cy = H * 0.46;
-      var R = Math.min(W, H) * 0.27;
+      var cY = Math.cos(ay), sY = Math.sin(ay), cX = Math.cos(ax), sX = Math.sin(ax);
       ctx.clearRect(0, 0, W, H);
-      var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.6);
-      g.addColorStop(0, 'rgba(60,190,130,0.34)');
-      g.addColorStop(0.45, 'rgba(150,205,165,0.18)');
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
       var P = new Array(verts.length);
       for (var i = 0; i < verts.length; i++) {
-        var v = rotY(verts[i], ay); v = rotX(v, ax);
+        var v = rotXcs(rotYcs(verts[i], cY, sY), cX, sX);
         var persp = 1 / (1 - v[2] * 0.32);
         P[i] = { x: cx + v[0] * R * persp, y: cy + v[1] * R * persp, z: v[2] };
       }
+      // one stroke per depth bucket instead of one per edge (480 -> 6)
+      var buckets = new Array(EDGE_BUCKETS);
       edges.forEach(function (e) {
-        var a = P[e[0]], b = P[e[1]];
-        if (!a || !b) return;
-        var fz = ((a.z + b.z) / 2 + 1) / 2;
-        ctx.strokeStyle = 'rgba(' + ink + ',' + (0.12 + fz * 0.58) + ')';
-        ctx.lineWidth = 0.4 + fz * 1.0;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        var fz = ((P[e[0]].z + P[e[1]].z) / 2 + 1) / 2;
+        var b = Math.min(EDGE_BUCKETS - 1, Math.max(0, Math.floor(fz * EDGE_BUCKETS)));
+        (buckets[b] = buckets[b] || []).push(e);
       });
-      ctx.shadowColor = 'rgba(' + ink + ',0.85)';
+      for (var bi = 0; bi < EDGE_BUCKETS; bi++) {
+        if (!buckets[bi]) continue;
+        var bz = (bi + 0.5) / EDGE_BUCKETS;
+        ctx.strokeStyle = 'rgba(' + ink + ',' + (0.12 + bz * 0.58) + ')';
+        ctx.lineWidth = 0.4 + bz * 1.0;
+        ctx.beginPath();
+        buckets[bi].forEach(function (e) {
+          var a = P[e[0]], b = P[e[1]];
+          ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+        });
+        ctx.stroke();
+      }
       for (var k = 0; k < P.length; k++) {
         var fz2 = (P[k].z + 1) / 2;
-        ctx.shadowBlur = fz2 * 8;
-        ctx.fillStyle = 'rgba(' + ink + ',' + (0.34 + fz2 * 0.58) + ')';
-        ctx.beginPath(); ctx.arc(P[k].x, P[k].y, 0.8 + fz2 * 1.7, 0, 7); ctx.fill();
+        drawGlow(dot, P[k].x, P[k].y, (0.8 + fz2 * 1.7) * 2 + fz2 * 4, 0.34 + fz2 * 0.58);
       }
-      ctx.shadowBlur = 0;
       for (var r = 0; r < 3; r++) {
         var rr = R * (1.45 + r * 0.32);
         var tilt = 0.7 + r * 0.5;
         var spin = ay * (0.5 + r * 0.3) + r * 1.3;
+        var cT = Math.cos(tilt), sT = Math.sin(tilt), cS = Math.cos(spin), sS = Math.sin(spin);
         ctx.strokeStyle = 'rgba(' + ink + ',0.24)';
         ctx.lineWidth = 1;
         ctx.beginPath();
@@ -441,7 +495,7 @@
         for (var q = 0; q <= 80; q++) {
           var a2 = (q / 80) * Math.PI * 2;
           var p = [Math.cos(a2) * rr, Math.sin(a2) * rr * 0.34, 0];
-          p = rotX(p, tilt); p = rotY(p, spin); p = rotX(p, ax);
+          p = rotXcs(rotYcs(rotXcs(p, cT, sT), cS, sS), cX, sX);
           var persp2 = 1 / (1 - p[2] * 0.0009);
           var x = cx + p[0] * persp2, y = cy + p[1] * persp2;
           pts.push({ x: x, y: y, z: p[2] });
@@ -454,29 +508,24 @@
           var pt = pts[idx2];
           if (!pt) continue;
           var fz3 = (pt.z / rr + 1) / 2;
-          ctx.shadowColor = '#2fae74'; ctx.shadowBlur = 12;
-          ctx.fillStyle = 'rgba(40,165,105,' + (0.55 + fz3 * 0.45) + ')';
-          ctx.beginPath(); ctx.arc(pt.x, pt.y, 2.2, 0, 7); ctx.fill();
-          ctx.shadowBlur = 0;
+          drawGlow(spark, pt.x, pt.y, 4.4 + 10, 0.55 + fz3 * 0.45);
         }
       }
       var drawFeat = function (ptsF, size, baseAlpha) {
         ptsF.forEach(function (fp) {
-          var v = rotY(fp, ay); v = rotX(v, ax);
+          var v = rotXcs(rotYcs(fp, cY, sY), cX, sX);
           if (v[2] < 0.05) return;
           var persp3 = 1 / (1 - v[2] * 0.32);
           var x = cx + v[0] * R * persp3, y = cy + v[1] * R * persp3;
           var fz4 = Math.max(0, v[2]);
-          ctx.shadowColor = '#2fae74'; ctx.shadowBlur = 18 * fz4;
-          ctx.fillStyle = 'rgba(' + ink + ',' + (baseAlpha * fz4) + ')';
-          ctx.beginPath(); ctx.arc(x, y, size * (0.6 + fz4 * 0.7), 0, 7); ctx.fill();
-          ctx.shadowBlur = 0;
+          drawGlow(dot, x, y, size * (0.6 + fz4 * 0.7) * 2 + 9 * fz4, baseAlpha * fz4);
         });
       };
       drawFeat(eyes, 6, 1);
       drawFeat(mouth, 2.4, 0.85);
-      rafId = requestAnimationFrame(draw);
+      if (!reduced) rafId = requestAnimationFrame(draw);
     };
+    if (reduced) { draw(start); return; }   // a11y: single static frame
     rafId = requestAnimationFrame(draw);
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden && rafId == null) rafId = requestAnimationFrame(draw);
@@ -521,10 +570,14 @@
     ];
     if (location.hash.length > 1) {
       // Anchored load (/#voices etc.): the target section is IN the viewport,
-      // so anything injected later shifts it — build everything before first
-      // paint (defer scripts run pre-paint) to keep CLS at zero.
+      // so DOM that grows the page must exist before first paint (defer
+      // scripts run pre-paint) to keep CLS at zero. That's the sections and
+      // the industries tabs — every other widget renders inside a fixed-size
+      // card. The animations themselves start on approach (lazyStart), not
+      // eagerly: running all five loops at once was ~3s of mobile TBT.
       buildSections();
-      widgets.forEach(function (w) { w[1](); });
+      buildIndustriesTabs();
+      lazyStart(widgets);
       return;
     }
     // Plain load — sections at idle (below fold), widgets on approach.
