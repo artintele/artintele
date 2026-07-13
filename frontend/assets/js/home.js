@@ -187,7 +187,7 @@
     var host = document.getElementById('artintele-flow');
     if (!host || host.childElementCount) return;
     var steps = ['Lead captured', 'AI qualifies lead', 'CRM updated', 'Meeting booked'];
-    var nodeBase = function () { return "position:relative;z-index:2;width:27px;height:27px;border-radius:50%;flex:none;border:1px solid rgba(var(--border),0.4);background:rgba(var(--surface),0.85);display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-size:11px;color:#9a7ec8;transition:all .45s ease;"; };
+    var nodeBase = function () { return "position:relative;z-index:2;width:27px;height:27px;border-radius:50%;flex:none;border:1px solid rgba(var(--border),0.4);background:rgba(var(--surface),0.85);display:flex;align-items:center;justify-content:center;font-family:'Space Mono','Space Mono Fallback';font-size:11px;color:#9a7ec8;transition:all .45s ease;"; };
     var rows = [];
     steps.forEach(function (s, idx) {
       var row = document.createElement('div');
@@ -264,7 +264,7 @@
       var t = document.createElement('button'); t.type = 'button';
       t.style.cssText = 'position:relative;text-align:left;cursor:pointer;padding:15px 16px 15px 20px;border-radius:14px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);transition:all .3s ease;font-family:inherit;';
       var bar = document.createElement('span'); bar.style.cssText = 'position:absolute;left:0;top:13px;bottom:13px;width:3px;border-radius:3px;background:linear-gradient(to bottom,#1f9d5b,#36c07e);opacity:0;transition:opacity .3s ease;';
-      var name = document.createElement('div'); name.textContent = ind.name; name.style.cssText = "font-family:'Sora';font-weight:600;font-size:16px;color:rgba(var(--text),0.78);transition:color .3s ease;";
+      var name = document.createElement('div'); name.textContent = ind.name; name.style.cssText = "font-family:'Sora','Sora Fallback';font-weight:600;font-size:16px;color:rgba(var(--text),0.78);transition:color .3s ease;";
       var sub = document.createElement('div'); sub.textContent = ind.items.length + ' automations'; sub.style.cssText = 'font-size:11.5px;color:rgba(var(--label),0.6);margin-top:2px;';
       t.appendChild(bar); t.appendChild(name); t.appendChild(sub); t._bar = bar; t._name = name;
       t.addEventListener('mouseenter', function () { if (i !== indState.active) { t.style.borderColor = 'rgba(var(--border),0.4)'; t.style.background = 'rgba(var(--surface),0.72)'; } });
@@ -300,7 +300,7 @@
     var icon = document.createElement('span');
     icon.style.cssText = 'width:22px;height:22px;border-radius:50%;flex:none;box-sizing:border-box;border:2px solid rgba(var(--border),0.35);border-top-color:#1f9d5b;animation:ai-spin .7s linear infinite;';
     var lab = document.createElement('span'); lab.textContent = label; lab.style.cssText = 'font-size:14px;color:rgba(var(--text),0.8);flex:1;';
-    var st = document.createElement('span'); st.textContent = 'Automating'; st.style.cssText = "font-family:'Space Mono';font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--label),0.6);";
+    var st = document.createElement('span'); st.textContent = 'Automating'; st.style.cssText = "font-family:'Space Mono','Space Mono Fallback';font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--label),0.6);";
     var prog = document.createElement('span'); prog.style.cssText = 'position:absolute;left:0;bottom:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(to right,#1f9d5b,#36c07e);transition:transform 1s ease;';
     row.appendChild(icon); row.appendChild(lab); row.appendChild(st); row.appendChild(prog);
     box.appendChild(row);
@@ -507,19 +507,31 @@
     window.addEventListener('resize', function () { measureScroll(); onScroll(); }, { passive: true });
     window.addEventListener('load', function () { measureScroll(); onScroll(); });
     onScroll();
-    // Below the fold — content injection at idle, widgets on approach.
-    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1); };
-    idle(function () {
+    var buildSections = function () {
       renderStatic();
       initReveal();
       measureScroll();
-      lazyStart([
-        ['artintele-wa-chat', startWhatsApp],
-        ['artintele-flow', startWorkflow],
-        ['artintele-voice-bars', startVoice],
-        ['artintele-voicewave', buildVoiceWave],
-        ['artintele-ind-tabs', startIndustries]
-      ]);
+    };
+    var widgets = [
+      ['artintele-wa-chat', startWhatsApp],
+      ['artintele-flow', startWorkflow],
+      ['artintele-voice-bars', startVoice],
+      ['artintele-voicewave', buildVoiceWave],
+      ['artintele-ind-tabs', startIndustries]
+    ];
+    if (location.hash.length > 1) {
+      // Anchored load (/#voices etc.): the target section is IN the viewport,
+      // so anything injected later shifts it — build everything before first
+      // paint (defer scripts run pre-paint) to keep CLS at zero.
+      buildSections();
+      widgets.forEach(function (w) { w[1](); });
+      return;
+    }
+    // Plain load — sections at idle (below fold), widgets on approach.
+    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1); };
+    idle(function () {
+      buildSections();
+      lazyStart(widgets);
     });
   }
 

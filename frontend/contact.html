@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Book a Free AI Consultation &amp; Demo | Artintele.ai</title>
-<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.2">
-<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.2">
+<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
+<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <meta name="description" content="Book a free consultation or live demo with Artintele.ai. Our AI voice agents and AI telecallers speak your customers' language — any regional language, 24/7.">
 <meta name="theme-color" content="#1f9d5b">
 <link rel="canonical" href="https://artintele.ai/contact">
@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://artintele.ai/contact">
 <meta property="og:title" content="Book a Demo — Artintele.ai">
 <meta property="og:description" content="Tell us about your business and we'll map the highest-impact AI automation for you. Free consultation, no commitment.">
-<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Book a Demo — Artintele.ai">
 <meta name="twitter:description" content="Tell us about your business and we'll map the highest-impact AI automation for you. Free consultation, no commitment.">
-<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 
 <script type="application/ld+json">
 {
@@ -57,7 +57,7 @@
 </script>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/sora-700.woff2" crossorigin>
-<!-- inlined fonts.css + styles.css v=20260713.2 — source of truth: /assets/css/fonts.css + styles.css -->
+<!-- inlined fonts.css + styles.css v=20260713.3 — source of truth: /assets/css/fonts.css + styles.css -->
 <style>
 /* Self-hosted fonts — replaces the Google Fonts CDN.
    Only the weights/subsets actually used by the site (audited).
@@ -76,6 +76,14 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-tamil-400.woff2) format('woff2');unicode-range:U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;}
 @font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-telugu-400.woff2) format('woff2');unicode-range:U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2, U+200C-200D, U+25CC;}
 @font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-malayalam-400.woff2) format('woff2');unicode-range:U+0307, U+0323, U+0951-0952, U+0964-0965, U+0D00-0D7F, U+1CDA, U+1CF2, U+200C-200D, U+20B9, U+25CC, U+A830-A832;}
+
+/* Metric-matched fallbacks: during font-display:swap the text renders in
+   Arial/Courier New adjusted to the web font's metrics, so the swap causes
+   near-zero layout shift (CLS). Computed from the woff2 hhea tables with
+   frequency-weighted advance widths. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+@font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
   color-scheme:light;
@@ -115,12 +123,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
@@ -212,7 +220,7 @@ html, body { overflow-x: hidden; }
   .reach-card{display:flex;align-items:center;gap:13px;padding:16px 18px;border-radius:16px;border:1px solid rgba(var(--border),0.24);background:linear-gradient(155deg,rgba(var(--surface),0.85),rgba(var(--surface),0.5));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);text-decoration:none;color:rgba(var(--head),1);transition:transform .2s ease,border-color .2s ease,box-shadow .25s ease;}
   .reach-card:hover{transform:translateY(-2px);border-color:rgba(45,170,108,0.55);box-shadow:0 18px 44px -22px rgba(35,150,95,0.45);}
   .reach-icon{flex:none;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(70,190,130,0.14);color:#1f9d5b;}
-  .reach-label{font-family:'Space Mono';font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.7);}
+  .reach-label{font-family:'Space Mono','Space Mono Fallback';font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.7);}
   .reach-value{font-size:13.5px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap;}
   @media(max-width:680px){.reach-grid{grid-template-columns:1fr;}.reach-value{white-space:normal;}}
 </style>
@@ -225,8 +233,8 @@ html, body { overflow-x: hidden; }
 
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.85), rgba(var(--surface),0.38));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
     </a>
     <div style="display:flex;align-items:center;gap:16px;"><div class="nav-menu" style="display:flex;align-items:center;gap:22px;">
       <a class="nav-link" href="/#services" style="text-decoration:none;color:rgba(var(--text),0.78);font-size:14px;font-weight:500;white-space:nowrap;">Services</a>
@@ -240,7 +248,7 @@ html, body { overflow-x: hidden; }
   </nav>
 
   <section style="position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 40px 80px;">
-    <h1 style="font-family:'Sora';font-weight:700;font-size:clamp(40px,6vw,84px);line-height:0.98;letter-spacing:-0.035em;margin:0;text-align:center;max-width:16ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">We speak your customers' language.</h1>
+    <h1 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(40px,6vw,84px);line-height:0.98;letter-spacing:-0.035em;margin:0;text-align:center;max-width:16ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">We speak your customers' language.</h1>
     <p style="margin:24px auto 0;font-size:18px;line-height:1.55;color:rgba(var(--text),0.72);max-width:52ch;text-align:center;">Book a consultation or schedule a demo. Our AI agents converse fluently across English, Kannada, Hindi, Tamil, Telugu, Malayalam and more.</p>
 
     <div class="ai-pad-lg" style="width:100%;max-width:640px;margin-top:48px;position:relative;padding:38px;border-radius:24px;border:1px solid rgba(var(--border),0.24);background:linear-gradient(155deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(26px) saturate(120%);-webkit-backdrop-filter:blur(26px);box-shadow:0 50px 120px -40px rgba(var(--shadow),0.24),inset 0 1px 0 rgba(var(--edge),0.9);">
@@ -343,7 +351,7 @@ html, body { overflow-x: hidden; }
 
     <div style="display:flex;align-items:center;gap:14px;width:100%;max-width:640px;margin-top:34px;">
       <span style="flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(var(--border),0.4));"></span>
-      <span style="font-family:'Space Mono';font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(var(--label),0.7);white-space:nowrap;">or reach us directly</span>
+      <span style="font-family:'Space Mono','Space Mono Fallback';font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(var(--label),0.7);white-space:nowrap;">or reach us directly</span>
       <span style="flex:1;height:1px;background:linear-gradient(to left,transparent,rgba(var(--border),0.4));"></span>
     </div>
 
@@ -377,7 +385,7 @@ html, body { overflow-x: hidden; }
   </section>
 
 </div>
-<script src="/assets/js/theme.js?v=20260713.2" defer></script>
+<script src="/assets/js/theme.js?v=20260713.3" defer></script>
 <script src="/assets/js/contact.js?v=20260713.3" defer></script>
 </body>
 </html>

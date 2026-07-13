@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Receptionist & Voice Agent Pricing in India — Artintele.ai</title>
-<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.2">
-<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.2">
+<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
+<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <meta name="description" content="What does an AI receptionist or telecaller cost in India? See how AI compares to a ₹15,000–25,000/month human hire — then get a custom quote built around your call volume and languages.">
 <meta name="theme-color" content="#1f9d5b">
 <link rel="canonical" href="https://artintele.ai/pricing">
@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://artintele.ai/pricing">
 <meta property="og:title" content="AI Receptionist & Voice Agent Pricing in India — Artintele.ai">
 <meta property="og:description" content="How AI agent pricing compares to a ₹15,000–25,000/month human hire in India — then get a custom quote scoped to your call volume and languages.">
-<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI Receptionist & Voice Agent Pricing in India — Artintele.ai">
 <meta name="twitter:description" content="How AI agent pricing compares to a ₹15,000–25,000/month human hire in India — then get a custom quote.">
-<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 
 <script type="application/ld+json">
 { "@context":"https://schema.org","@graph":[
@@ -55,7 +55,7 @@
 
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/sora-700.woff2" crossorigin>
-<!-- inlined fonts.css + styles.css v=20260713.2 — source of truth: /assets/css/fonts.css + styles.css -->
+<!-- inlined fonts.css + styles.css v=20260713.3 — source of truth: /assets/css/fonts.css + styles.css -->
 <style>
 /* Self-hosted fonts — replaces the Google Fonts CDN.
    Only the weights/subsets actually used by the site (audited).
@@ -74,6 +74,14 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-tamil-400.woff2) format('woff2');unicode-range:U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;}
 @font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-telugu-400.woff2) format('woff2');unicode-range:U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2, U+200C-200D, U+25CC;}
 @font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-malayalam-400.woff2) format('woff2');unicode-range:U+0307, U+0323, U+0951-0952, U+0964-0965, U+0D00-0D7F, U+1CDA, U+1CF2, U+200C-200D, U+20B9, U+25CC, U+A830-A832;}
+
+/* Metric-matched fallbacks: during font-display:swap the text renders in
+   Arial/Courier New adjusted to the web font's metrics, so the swap causes
+   near-zero layout shift (CLS). Computed from the woff2 hhea tables with
+   frequency-weighted advance widths. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+@font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
   color-scheme:light;
@@ -113,12 +121,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
@@ -205,8 +213,8 @@ html, body { overflow-x: hidden; }
 
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.85), rgba(var(--surface),0.38));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele.ai logo" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele.ai logo" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
     </a>
     <div style="display:flex;align-items:center;gap:16px;"><div class="nav-menu" style="display:flex;align-items:center;gap:22px;">
       <a class="nav-link" href="/#services" style="text-decoration:none;color:rgba(var(--text),0.78);font-size:14px;font-weight:500;white-space:nowrap;">Services</a>
@@ -221,8 +229,8 @@ html, body { overflow-x: hidden; }
   <!-- Hero: answer-first (this is what AI extracts) -->
   <section style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:130px 40px 50px 96px;">
     <div style="max-width:64ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Pricing</div>
-      <h1 style="font-family:'Sora';font-weight:700;font-size:clamp(34px,5vw,64px);line-height:1.02;letter-spacing:-0.03em;margin:0;max-width:20ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">What does an AI receptionist cost — and what does it save?</h1>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Pricing</div>
+      <h1 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(34px,5vw,64px);line-height:1.02;letter-spacing:-0.03em;margin:0;max-width:20ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">What does an AI receptionist cost — and what does it save?</h1>
       <p style="margin:22px 0 0;font-size:18px;line-height:1.6;color:rgba(var(--text),0.72);">A full-time receptionist or telecaller in India typically costs <strong style="color:rgba(var(--head),1);">₹15,000–25,000 per month</strong> — plus benefits, training, and attrition — and still covers only one person, one shift, one or two languages, one call at a time. An Artintele AI agent works <strong style="color:rgba(var(--head),1);">24/7</strong>, handles many calls at once, speaks your customers' languages, and never takes leave. We price it to your actual requirements, so you only pay for what you need. <strong style="color:rgba(var(--head),1);">Share your requirements and we'll send a custom quote within one business day.</strong></p>
     </div>
   </section>
@@ -230,20 +238,20 @@ html, body { overflow-x: hidden; }
   <!-- The value anchor: what you're replacing -->
   <section style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:30px 40px 50px 96px;">
     <div style="margin-bottom:36px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ The real cost of the work today</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">What an AI agent replaces</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ The real cost of the work today</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">What an AI agent replaces</h2>
     </div>
     <div class="ai-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
       <div class="ai-card" style="position:relative;padding:26px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">Front-desk receptionist</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">Front-desk receptionist</h3>
         <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(var(--text),0.66);">~₹15,000–25,000/month + benefits. One ~9-hour shift, 1–2 languages, one call at a time. Missed calls after hours = lost leads.</p>
       </div>
       <div class="ai-card" style="position:relative;padding:26px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">Telecaller / inside sales</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">Telecaller / inside sales</h3>
         <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(var(--text),0.66);">~₹18,000–35,000/month + incentives. Limited dials per day, ramp-up time, and ongoing attrition and re-hiring.</p>
       </div>
       <div class="ai-card" style="position:relative;padding:26px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">After-hours &amp; overflow</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 10px;">After-hours &amp; overflow</h3>
         <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(var(--text),0.66);">Calls outside 9–6, weekends, and festival days usually go unanswered — each one a potential customer lost to a competitor who picked up.</p>
       </div>
     </div>
@@ -253,12 +261,12 @@ html, body { overflow-x: hidden; }
   <!-- Comparison table (highly citable) -->
   <section style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:30px 40px 50px 96px;">
     <div style="margin-bottom:30px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Side by side</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Human hire vs. an Artintele AI agent</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Side by side</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Human hire vs. an Artintele AI agent</h2>
     </div>
     <div class="ai-card" style="overflow-x:auto;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);">
       <table style="width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;">
-        <thead><tr style="text-align:left;color:rgba(var(--label),0.72);font-family:'Space Mono';font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">
+        <thead><tr style="text-align:left;color:rgba(var(--label),0.72);font-family:'Space Mono','Space Mono Fallback';font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">
           <th scope="col" style="padding:16px 18px;border-bottom:1px solid rgba(var(--border),0.18);"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Comparison factor</span></th>
           <th scope="col" style="padding:16px 18px;border-bottom:1px solid rgba(var(--border),0.18);">One human hire</th>
           <th scope="col" style="padding:16px 18px;border-bottom:1px solid rgba(var(--border),0.18);color:#1f9d5b;">Artintele AI agent</th>
@@ -278,24 +286,24 @@ html, body { overflow-x: hidden; }
   <!-- How pricing works -->
   <section style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:30px 40px 50px 96px;">
     <div style="margin-bottom:36px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ How pricing works</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Built around your requirements</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ How pricing works</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Built around your requirements</h2>
       <p style="margin:16px 0 0;font-size:16px;line-height:1.6;color:rgba(var(--text),0.66);">We don't do one-size-fits-all packages because the right setup depends on your business. Tell us a few things and we'll scope a solution and a price that fits.</p>
     </div>
     <div class="ai-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;">1. Call &amp; message volume</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">How many calls or chats per day, and your busy hours.</p></div>
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;">2. Channels</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Voice, WhatsApp, website chat — or all three.</p></div>
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;">3. Languages</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Which Indian or regional languages your customers speak.</p></div>
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;">4. Integrations</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Your CRM, calendar, or systems the agent should act in.</p></div>
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;">5. Customization</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">How tailored the voice, flows, and knowledge need to be.</p></div>
-      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(31,157,91,0.4);background:linear-gradient(160deg,rgba(31,157,91,0.12),rgba(var(--surface),0.5));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora';font-weight:600;font-size:17px;margin:0 0 8px;color:#1f9d5b;">6. Your quote</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.7);">We send a clear, custom quote within one business day.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;">1. Call &amp; message volume</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">How many calls or chats per day, and your busy hours.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;">2. Channels</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Voice, WhatsApp, website chat — or all three.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;">3. Languages</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Which Indian or regional languages your customers speak.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;">4. Integrations</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">Your CRM, calendar, or systems the agent should act in.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;">5. Customization</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.66);">How tailored the voice, flows, and knowledge need to be.</p></div>
+      <div class="ai-card" style="position:relative;padding:24px;border-radius:18px;border:1px solid rgba(31,157,91,0.4);background:linear-gradient(160deg,rgba(31,157,91,0.12),rgba(var(--surface),0.5));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);"><h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;margin:0 0 8px;color:#1f9d5b;">6. Your quote</h3><p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(var(--text),0.7);">We send a clear, custom quote within one business day.</p></div>
     </div>
   </section>
 
   <!-- CTA -->
   <section style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:30px 40px 70px 96px;">
     <div class="ai-card ai-cta-card" style="position:relative;text-align:center;padding:52px 40px;border-radius:24px;border:1px solid rgba(var(--border),0.26);background:linear-gradient(155deg,rgba(var(--surface),0.92),rgba(var(--surface),0.53));backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px);box-shadow:0 50px 120px -40px rgba(var(--shadow),0.24),inset 0 1px 0 rgba(var(--edge),0.9);">
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.025em;margin:0 auto;max-width:22ch;">Tell us your requirements — get a custom quote.</h2>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.025em;margin:0 auto;max-width:22ch;">Tell us your requirements — get a custom quote.</h2>
       <p style="margin:16px auto 28px;max-width:52ch;font-size:16px;line-height:1.55;color:rgba(var(--text),0.7);">No fixed packages, no pressure. Share your call volume and goals; we'll reply within one business day with where AI delivers the most value and what it costs.</p>
       <a href="/contact" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;font-weight:700;font-size:15px;padding:15px 28px;border-radius:12px;box-shadow:0 16px 40px -14px rgba(35,150,95,0.55);">Get my custom quote <span style="font-size:17px;">&rarr;</span></a>
     </div>
@@ -304,43 +312,43 @@ html, body { overflow-x: hidden; }
   <!-- FAQ (visible + feeds schema; .faq-q / .faq-a for Speakable) -->
   <section id="faq" style="position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:30px 40px 100px 96px;">
     <div style="margin-bottom:32px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ FAQ</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Pricing questions, answered.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ FAQ</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.03em;margin:0;">Pricing questions, answered.</h2>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;max-width:90ch;">
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How much does an AI receptionist cost in India?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How much does an AI receptionist cost in India?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">A human receptionist in India typically costs ₹15,000–25,000 per month plus benefits, for one shift in one or two languages. An Artintele AI agent works 24/7 across many calls and languages, priced to your call volume and needs — so most businesses pay less than a single full-time hire. Share your requirements for a custom quote.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Is an AI agent cheaper than hiring a receptionist or telecaller?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Is an AI agent cheaper than hiring a receptionist or telecaller?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">For most small and mid-sized businesses, yes. One human covers a single shift and one call at a time, with training and attrition costs. An AI agent answers every call 24/7, in parallel, with no leave or turnover — so it usually does more for less than the loaded cost of an equivalent human team.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Why doesn't Artintele publish fixed prices?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Why doesn't Artintele publish fixed prices?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Because the right setup — and price — depends on your call volume, channels, languages, integrations, and how customized the agent needs to be. Fixed packages would either overcharge simple needs or underserve complex ones. We scope to your actual requirements and send a clear quote within one business day.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What affects the price of an AI voice agent?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What affects the price of an AI voice agent?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Five things: how many calls and messages you handle, which channels you use (voice, WhatsApp, chat), how many languages you need, what systems we integrate with (CRM, calendar), and how much custom voice and workflow design is involved. More volume and complexity, higher cost — but always scoped to you.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How do I get a price quote from Artintele?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How do I get a price quote from Artintele?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Tell us your call volume, languages, and what you want to automate — through the contact form or a quick consultation. We reply within one business day with a recommended setup and a custom quote. There's no obligation, and we'll be honest about where AI does and doesn't pay off.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 class="faq-q" style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Can an AI agent really replace a human receptionist or salesperson?</h3>
+        <h3 class="faq-q" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Can an AI agent really replace a human receptionist or salesperson?</h3>
         <p class="faq-a" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">For repetitive, high-volume work — answering calls, booking appointments, qualifying leads, answering FAQs — yes, end to end. Your team then handles the exceptions and the high-value conversations. Most clients use AI to cover 24/7 and overflow that a human team could never staff cost-effectively.</p>
       </div>
     </div>
   </section>
 
   <footer style="position:relative;z-index:5;border-top:1px solid rgba(var(--border),0.18);background:rgba(var(--surface),0.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:36px 40px;text-align:center;">
-    <div style="font-family:'Space Mono';font-size:12.5px;color:rgba(var(--label),0.62);">&copy; 2026 artintele.ai &middot; AI Solutions &amp; Automation</div>
+    <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12.5px;color:rgba(var(--label),0.62);">&copy; 2026 artintele.ai &middot; AI Solutions &amp; Automation</div>
   </footer>
 
 </div>
-<script src="/assets/js/theme.js?v=20260713.2" defer></script>
-<script src="/assets/js/pricing.js?v=20260713.2" defer></script>
+<script src="/assets/js/theme.js?v=20260713.3" defer></script>
+<script src="/assets/js/pricing.js?v=20260713.3" defer></script>
 </body>
 </html>

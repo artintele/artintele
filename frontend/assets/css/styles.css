@@ -36,12 +36,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
