@@ -525,7 +525,17 @@
       drawFeat(mouth, 2.4, 0.85);
       if (!reduced) rafId = requestAnimationFrame(draw);
     };
-    if (reduced) { draw(start); return; }   // a11y: single static frame
+    if (reduced) {
+      // a11y: no animation — draw one still frame, and redraw it whenever
+      // something invalidates the bitmap (resize clears the canvas) or it
+      // could not paint yet (hidden tab) or the theme recolors the ink.
+      var still = function () { draw(performance.now()); };
+      still();
+      window.addEventListener('resize', still, { passive: true });
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) still(); });
+      new MutationObserver(still).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      return;
+    }
     rafId = requestAnimationFrame(draw);
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden && rafId == null) rafId = requestAnimationFrame(draw);
