@@ -210,7 +210,13 @@
     requestAnimationFrame(draw);
   }
 
-  function init() { initForm(); initCanvas(); }
+  function init() {
+    initForm();
+    // The glyph canvas is decorative background; starting it at idle keeps
+    // its 5 Noto script fonts (~150 KB) out of the critical load window.
+    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 200); };
+    idle(function () { initCanvas(); });
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
