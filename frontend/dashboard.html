@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Telecaller CRM — Artintele.ai</title>
-<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.2">
-<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.2">
+<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
+<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/sora-700.woff2" crossorigin>
-<!-- inlined fonts.css + styles.css v=20260713.2 — source of truth: /assets/css/fonts.css + styles.css -->
+<!-- inlined fonts.css + styles.css v=20260713.3 — source of truth: /assets/css/fonts.css + styles.css -->
 <style>
 /* Self-hosted fonts — replaces the Google Fonts CDN.
    Only the weights/subsets actually used by the site (audited).
@@ -28,6 +28,14 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-tamil-400.woff2) format('woff2');unicode-range:U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;}
 @font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-telugu-400.woff2) format('woff2');unicode-range:U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2, U+200C-200D, U+25CC;}
 @font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-malayalam-400.woff2) format('woff2');unicode-range:U+0307, U+0323, U+0951-0952, U+0964-0965, U+0D00-0D7F, U+1CDA, U+1CF2, U+200C-200D, U+20B9, U+25CC, U+A830-A832;}
+
+/* Metric-matched fallbacks: during font-display:swap the text renders in
+   Arial/Courier New adjusted to the web font's metrics, so the swap causes
+   near-zero layout shift (CLS). Computed from the woff2 hhea tables with
+   frequency-weighted advance widths. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+@font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
   color-scheme:light;
@@ -67,12 +75,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
@@ -155,10 +163,10 @@ html, body { overflow-x: hidden; }
   .dash-wrap{max-width:1320px;margin:0 auto;padding:90px 28px 60px;position:relative;z-index:5;}
   .card{border-radius:16px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.92),rgba(var(--surface),0.6));backdrop-filter:blur(14px);box-shadow:0 18px 48px -24px rgba(var(--shadow),0.22);}
   .stat{padding:18px 20px;}
-  .stat .num{font-family:'Sora';font-weight:700;font-size:30px;color:rgba(var(--head),1);}
+  .stat .num{font-family:'Sora','Sora Fallback';font-weight:700;font-size:30px;color:rgba(var(--head),1);}
   .stat .lbl{font-size:12px;color:rgba(var(--label),0.8);margin-top:2px;text-transform:capitalize;}
   table{width:100%;border-collapse:collapse;font-size:13px;}
-  th{font-family:'Space Mono';font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--label),0.7);text-align:left;padding:12px 12px;border-bottom:1px solid rgba(var(--border),0.2);white-space:nowrap;}
+  th{font-family:'Space Mono','Space Mono Fallback';font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--label),0.7);text-align:left;padding:12px 12px;border-bottom:1px solid rgba(var(--border),0.2);white-space:nowrap;}
   td{padding:12px 12px;border-bottom:1px solid rgba(var(--border),0.12);vertical-align:top;color:rgba(var(--text),0.9);}
   tr:hover td{background:rgba(var(--surface),0.5);}
   input,select,textarea{background:rgba(var(--surface),0.7);border:1px solid rgba(var(--border),0.28);border-radius:8px;padding:8px 10px;color:rgba(var(--head),1);font-size:13px;width:100%;}
@@ -166,7 +174,7 @@ html, body { overflow-x: hidden; }
   .btn{cursor:pointer;border:none;border-radius:9px;font-weight:700;font-size:13px;padding:9px 16px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;}
   .btn.ghost{background:rgba(var(--surface),0.6);border:1px solid rgba(var(--border),0.3);color:rgba(var(--head),1);font-weight:600;}
   .btn.sm{padding:6px 12px;font-size:12px;}
-  .pill{display:inline-block;font-family:'Space Mono';font-size:10px;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid rgba(var(--border),0.3);}
+  .pill{display:inline-block;font-family:'Space Mono','Space Mono Fallback';font-size:10px;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid rgba(var(--border),0.3);}
   .demo-flag{color:#12231a;background:linear-gradient(135deg,#1f9d5b,#36c07e);border:none;font-weight:700;}
   .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:22px 0 16px;}
   .toolbar .grow{flex:1;min-width:180px;}
@@ -179,8 +187,8 @@ html, body { overflow-x: hidden; }
 <div data-screen-label="Dashboard" style="position:relative;width:100%;min-height:100vh;">
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 28px;backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.9), rgba(var(--surface),0.5));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora';font-weight:700;font-size:16px;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:16px;">artintele<span style="opacity:0.45;">.ai</span></span>
       <span class="pill" style="margin-left:8px;">Telecaller CRM</span>
     </a>
     <div style="display:flex;align-items:center;gap:14px;">
@@ -193,7 +201,7 @@ html, body { overflow-x: hidden; }
   </nav>
 
   <div class="dash-wrap">
-    <h1 style="font-family:'Sora';font-weight:700;font-size:clamp(26px,3vw,38px);margin:0 0 4px;letter-spacing:-0.02em;">Lead pipeline</h1>
+    <h1 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(26px,3vw,38px);margin:0 0 4px;letter-spacing:-0.02em;">Lead pipeline</h1>
     <p class="muted" style="margin:0 0 22px;">Every demo booking and contact request lands here for follow-up calling. Update status and notes as you work each lead.</p>
 
     <div id="stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;"></div>
@@ -218,7 +226,7 @@ html, body { overflow-x: hidden; }
   </div>
 </div>
 
-<script src="/assets/js/theme.js?v=20260713.2" defer></script>
+<script src="/assets/js/theme.js?v=20260713.3" defer></script>
 <script>
 window.ArtinteleCRM = (function () {
   var STATUSES = [];

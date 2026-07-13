@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Agents, Voice Assistants & Automation | Artintele.ai</title>
-<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.2">
-<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.2">
+<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
+<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <meta name="description" content="Artintele.ai is an AI automation company building custom AI agents, voice assistants, chatbots, AI telecallers & workflow automation that help businesses cut costs and scale 24/7.">
 <meta name="keywords" content="AI automation company, AI agents, AI voice agents, AI telecaller, AI chatbot development, workflow automation, business process automation, custom AI software development, AI consulting, WhatsApp automation, multilingual AI agents">
 <meta name="theme-color" content="#1f9d5b">
@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://artintele.ai/">
 <meta property="og:title" content="Artintele.ai — Automate Your Business With AI">
 <meta property="og:description" content="Custom AI agents, voice assistants & automations, built and deployed for your business — fluent in any language, including regional Indian languages.">
-<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Artintele.ai — Automate Your Business With AI">
 <meta name="twitter:description" content="Custom AI agents, voice assistants & automations, built and deployed for your business — fluent in any language, including regional Indian languages.">
-<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -132,7 +132,7 @@
 </script>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/sora-700.woff2" crossorigin>
-<!-- inlined fonts.css + styles.css v=20260713.2 — source of truth: /assets/css/fonts.css + styles.css -->
+<!-- inlined fonts.css + styles.css v=20260713.3 — source of truth: /assets/css/fonts.css + styles.css -->
 <style>
 /* Self-hosted fonts — replaces the Google Fonts CDN.
    Only the weights/subsets actually used by the site (audited).
@@ -151,6 +151,14 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-tamil-400.woff2) format('woff2');unicode-range:U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;}
 @font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-telugu-400.woff2) format('woff2');unicode-range:U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2, U+200C-200D, U+25CC;}
 @font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-malayalam-400.woff2) format('woff2');unicode-range:U+0307, U+0323, U+0951-0952, U+0964-0965, U+0D00-0D7F, U+1CDA, U+1CF2, U+200C-200D, U+20B9, U+25CC, U+A830-A832;}
+
+/* Metric-matched fallbacks: during font-display:swap the text renders in
+   Arial/Courier New adjusted to the web font's metrics, so the swap causes
+   near-zero layout shift (CLS). Computed from the woff2 hhea tables with
+   frequency-weighted advance widths. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+@font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
   color-scheme:light;
@@ -190,12 +198,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
@@ -288,8 +296,8 @@ html, body { overflow-x: hidden; }
 
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.85), rgba(var(--surface),0.38));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele.ai logo" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele.ai logo" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
     </a>
     <div style="display:flex;align-items:center;gap:16px;"><div class="nav-menu" style="display:flex;align-items:center;gap:22px;">
       <a class="nav-link" href="#services" style="text-decoration:none;color:rgba(var(--text),0.78);font-size:14px;font-weight:500;white-space:nowrap;">Services</a>
@@ -304,25 +312,25 @@ html, body { overflow-x: hidden; }
   </nav>
 
   <section style="position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px 96px;max-width:1280px;margin:0 auto;">
-    <h1 id="artintele-hero-title" style="font-family:'Sora';font-weight:700;font-size:clamp(42px,6.4vw,92px);line-height:0.98;letter-spacing:-0.035em;margin:0;max-width:14ch;min-height:2.94em;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;"><span id="artintele-type-text"></span><span id="artintele-type-caret" style="display:inline-block;width:0.07em;height:0.82em;margin-left:0.08em;border-radius:3px;background:#1f9d5b;vertical-align:-0.06em;animation:ai-caret 0.9s steps(1,end) infinite;"></span></h1>
+    <h1 id="artintele-hero-title" style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(42px,6.4vw,92px);line-height:0.98;letter-spacing:-0.035em;margin:0;max-width:14ch;min-height:2.94em;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;"><span id="artintele-type-text"></span><span id="artintele-type-caret" style="display:inline-block;width:0.07em;height:0.82em;margin-left:0.08em;border-radius:3px;background:#1f9d5b;vertical-align:-0.06em;animation:ai-caret 0.9s steps(1,end) infinite;"></span></h1>
     <p style="margin:28px 0 0;font-size:clamp(16px,1.5vw,20px);line-height:1.55;max-width:54ch;color:rgba(var(--text),0.75);animation:ai-rise .7s ease .2s both;">We build AI agents, voice assistants, and workflow automations that help businesses save time, reduce costs, and scale operations.</p>
     <div style="display:flex;gap:14px;margin-top:40px;flex-wrap:wrap;animation:ai-rise .7s ease .35s both;">
       <a href="/contact" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;font-weight:700;font-size:15px;padding:15px 26px;border-radius:12px;box-shadow:0 16px 40px -14px rgba(35,150,95,0.55);">Book Consultation <span style="font-size:17px;">&rarr;</span></a>
       <a href="/contact" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;color:rgba(var(--head),1);font-weight:600;font-size:15px;padding:15px 26px;border-radius:12px;border:1px solid rgba(var(--border),0.32);background:rgba(var(--surface),0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);">Schedule Demo</a>
     </div>
     <div style="display:flex;gap:38px;margin-top:64px;flex-wrap:wrap;animation:ai-rise .7s ease .5s both;">
-      <div><div style="font-family:'Sora';font-weight:700;font-size:30px;">24/7</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Always-on agents</div></div>
+      <div><div style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:30px;">24/7</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Always-on agents</div></div>
       <div style="width:1px;background:rgba(var(--border),0.28);"></div>
-      <div><div style="font-family:'Sora';font-weight:700;font-size:30px;">6+</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Languages spoken</div></div>
+      <div><div style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:30px;">6+</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Languages spoken</div></div>
       <div style="width:1px;background:rgba(var(--border),0.28);"></div>
-      <div><div style="font-family:'Sora';font-weight:700;font-size:30px;">End&#8209;to&#8209;end</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Built &amp; deployed for you</div></div>
+      <div><div style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:30px;">End&#8209;to&#8209;end</div><div style="font-size:13px;color:rgba(var(--label),0.72);margin-top:2px;">Built &amp; deployed for you</div></div>
     </div>
   </section>
 
   <section id="services" style="position:relative;z-index:5;padding:90px 40px 80px 96px;max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:46px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ What we deliver</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">AI that does the work, not just the talking.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ What we deliver</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">AI that does the work, not just the talking.</h2>
       <p style="margin:18px 0 0;font-size:17px;line-height:1.55;color:rgba(var(--text),0.68);">A full suite of services that plug into how your business already runs — from AI agents and automation to websites, SEO, social media, and custom tools.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px;" class="ai-grid-3">
@@ -332,30 +340,30 @@ html, body { overflow-x: hidden; }
         <div style="display:flex;align-items:center;gap:10px;padding:13px 16px;background:linear-gradient(135deg,#1f9d6b,#27c285);">
           <span style="width:30px;height:30px;border-radius:50%;background:rgba(var(--surface),0.22);display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,0.8);"></span></span>
           <div style="line-height:1.18;">
-            <div style="font-family:'Sora';font-weight:600;font-size:13.5px;color:#fff;">Artintele Assistant</div>
+            <div style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:13.5px;color:#fff;">Artintele Assistant</div>
             <div style="font-size:10.5px;color:rgba(255,255,255,0.85);">online · replies instantly</div>
           </div>
-          <span style="margin-left:auto;font-family:'Space Mono';font-size:9px;letter-spacing:0.1em;color:rgba(255,255,255,0.9);text-transform:uppercase;">WhatsApp</span>
+          <span style="margin-left:auto;font-family:'Space Mono','Space Mono Fallback';font-size:9px;letter-spacing:0.1em;color:rgba(255,255,255,0.9);text-transform:uppercase;">WhatsApp</span>
         </div>
         <div id="artintele-wa-chat" style="flex:1;display:flex;flex-direction:column;gap:8px;padding:16px;background:linear-gradient(160deg,#f3efe9,#eee8e1);"></div>
       </div>
 
       <!-- DEMO 2: Workflow automation -->
       <div class="ai-card" data-reveal="" style="position:relative;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.9),rgba(var(--surface),0.55));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);overflow:hidden;display:flex;flex-direction:column;min-height:372px;padding:22px 24px;">
-        <div style="font-family:'Space Mono';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.7);margin-bottom:7px;">Workflow Automation</div>
-        <div style="font-family:'Sora';font-weight:600;font-size:17px;letter-spacing:-0.01em;color:rgba(var(--head),1);margin-bottom:6px;">Lead to booked, on autopilot</div>
+        <div style="font-family:'Space Mono','Space Mono Fallback';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.7);margin-bottom:7px;">Workflow Automation</div>
+        <div style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:17px;letter-spacing:-0.01em;color:rgba(var(--head),1);margin-bottom:6px;">Lead to booked, on autopilot</div>
         <div id="artintele-flow" style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;"></div>
       </div>
 
       <!-- DEMO 3: Voice agent call -->
       <div class="ai-card" data-reveal="" style="position:relative;border-radius:18px;border:1px solid rgba(var(--border),0.22);background:linear-gradient(160deg,rgba(var(--surface),0.9),rgba(var(--surface),0.55));backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 60px -24px rgba(var(--shadow),0.22),inset 0 1px 0 rgba(var(--edge),0.85);overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:372px;padding:22px;">
-        <div style="align-self:flex-start;font-family:'Space Mono';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.7);">AI Voice Agent</div>
+        <div style="align-self:flex-start;font-family:'Space Mono','Space Mono Fallback';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.7);">AI Voice Agent</div>
         <div style="position:relative;margin:26px 0 8px;width:90px;height:90px;display:flex;align-items:center;justify-content:center;">
           <span style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(70,190,130,0.6);animation:ai-ring 2.4s ease-out infinite;"></span>
           <span style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(120,205,165,0.6);animation:ai-ring 2.4s ease-out 1.2s infinite;"></span>
           <span style="position:relative;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#5fd49b,#1f9d5b 55%,#36c07e);box-shadow:0 10px 28px -8px rgba(35,150,95,0.6);display:flex;align-items:center;justify-content:center;animation:ai-float 3.6s ease-in-out infinite;"><span style="width:14px;height:14px;border-radius:50%;background:rgba(var(--surface),0.92);box-shadow:0 0 12px rgba(255,255,255,0.8);"></span></span>
         </div>
-        <div id="artintele-voice-status" style="font-family:'Sora';font-weight:600;font-size:15px;color:rgba(var(--text),0.7);">Incoming call&hellip;</div>
+        <div id="artintele-voice-status" style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:15px;color:rgba(var(--text),0.7);">Incoming call&hellip;</div>
         <div id="artintele-voice-bars" style="display:flex;align-items:center;justify-content:center;gap:3px;height:38px;margin:16px 0 12px;"></div>
         <div id="artintele-voice-transcript" style="font-size:12.5px;line-height:1.5;color:rgba(var(--text),0.7);min-height:3.2em;max-width:30ch;"></div>
       </div>
@@ -384,8 +392,8 @@ html, body { overflow-x: hidden; }
     <div style="position:relative;padding:52px;border-radius:28px;border:1px solid rgba(var(--border),0.24);background:linear-gradient(155deg,rgba(var(--surface),0.9),rgba(var(--surface),0.53));backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px);box-shadow:0 40px 100px -40px rgba(var(--shadow),0.24),inset 0 1px 0 rgba(var(--edge),0.9);overflow:hidden;">
       <div class="ai-voices-grid" style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;">
         <div>
-          <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Custom AI Voices</div>
-          <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(32px,4.4vw,58px);line-height:1.0;letter-spacing:-0.03em;margin:0;">Your AI.<br>Your Voice.</h2>
+          <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Custom AI Voices</div>
+          <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(32px,4.4vw,58px);line-height:1.0;letter-spacing:-0.03em;margin:0;">Your AI.<br>Your Voice.</h2>
           <p style="margin:20px 0 0;font-size:16.5px;line-height:1.6;color:rgba(var(--text),0.72);max-width:46ch;">We create customized AI voices tailored to your business, industry, and brand identity — speaking any regional language your customers use, not just a fixed list. The languages below are examples; we build for yours.</p>
           <div id="artintele-languages" style="display:flex;flex-wrap:wrap;gap:9px;margin-top:26px;"></div>
         </div>
@@ -399,8 +407,8 @@ html, body { overflow-x: hidden; }
 
   <section id="industries" style="position:relative;z-index:5;padding:90px 40px 80px 96px;max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:46px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Industries</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">Solutions shaped to your sector.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Industries</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">Solutions shaped to your sector.</h2>
     </div>
     <div class="ai-industries-grid" style="display:grid;grid-template-columns:0.82fr 1.45fr;gap:22px;align-items:stretch;">
       <div id="artintele-ind-tabs" style="display:flex;flex-direction:column;gap:9px;"></div>
@@ -419,8 +427,8 @@ html, body { overflow-x: hidden; }
         <div style="position:absolute;width:230px;height:230px;border-radius:50%;right:-50px;top:-50px;background:radial-gradient(circle,rgba(70,190,130,0.22),transparent 70%);animation:ai-float 5s ease-in-out infinite;pointer-events:none;"></div>
         <div style="position:absolute;width:190px;height:190px;border-radius:50%;left:-40px;bottom:-60px;background:radial-gradient(circle,rgba(120,205,165,0.2),transparent 70%);animation:ai-float 6s ease-in-out 1s infinite;pointer-events:none;"></div>
         <div style="position:relative;z-index:2;">
-          <div style="font-family:'Space Mono';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:12px;">Live automation feed</div>
-          <div id="artintele-ind-name" style="font-family:'Sora';font-weight:700;font-size:clamp(26px,2.6vw,34px);letter-spacing:-0.02em;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;transition:opacity .4s ease,transform .4s ease;min-height:1.2em;"></div>
+          <div style="font-family:'Space Mono','Space Mono Fallback';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:12px;">Live automation feed</div>
+          <div id="artintele-ind-name" style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(26px,2.6vw,34px);letter-spacing:-0.02em;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;transition:opacity .4s ease,transform .4s ease;min-height:1.2em;"></div>
           <div id="artintele-ind-tag" style="font-size:14px;color:rgba(var(--text),0.6);margin-top:6px;transition:opacity .4s ease;min-height:1.3em;"></div>
           <div id="artintele-ind-items" style="display:flex;flex-direction:column;gap:10px;margin-top:24px;"></div>
         </div>
@@ -430,8 +438,8 @@ html, body { overflow-x: hidden; }
 
   <section id="process" style="position:relative;z-index:5;padding:90px 40px 80px 96px;max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:50px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ How we work</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">From idea to deployed, in seven clear steps.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ How we work</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">From idea to deployed, in seven clear steps.</h2>
     </div>
     <div id="artintele-process" class="ai-process-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:0;position:relative;">
       <div class="ai-process-rail" style="position:absolute;top:23px;left:6%;right:6%;height:1px;background:linear-gradient(to right,transparent,rgba(var(--border),0.35),transparent);"></div>
@@ -451,8 +459,8 @@ html, body { overflow-x: hidden; }
 
   <section style="position:relative;z-index:5;padding:90px 40px 80px 96px;max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:40px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Sample solutions</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">What we can build for you.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ Sample solutions</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">What we can build for you.</h2>
       <p style="margin:18px 0 0;font-size:15px;line-height:1.55;color:rgba(var(--text),0.6);">Reference architectures, not client work — illustrating how an Artintele.ai engagement comes together.</p>
     </div>
     <div id="artintele-cases" style="display:flex;flex-direction:column;gap:14px;"></div>
@@ -469,36 +477,36 @@ html, body { overflow-x: hidden; }
 
   <section id="faq" style="position:relative;z-index:5;padding:90px 40px 80px 96px;max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:40px;max-width:60ch;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ FAQ</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">Questions, answered.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:16px;">/ FAQ</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-0.03em;margin:0;">Questions, answered.</h2>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;max-width:90ch;">
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What is an AI telecaller?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What is an AI telecaller?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">An AI telecaller is a human-like voice agent that makes and answers phone calls automatically — qualifying leads, booking appointments and handling support 24/7. Artintele.ai builds custom AI telecallers that speak your customers' language and integrate with your CRM, so no call ever goes unanswered.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Which languages do your AI agents support?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Which languages do your AI agents support?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Our AI voice agents and chatbots can be customized to virtually any language or regional dialect. We commonly deploy in English, Hindi, Kannada, Tamil, Telugu and Malayalam, and tailor a branded voice to whichever languages your customers actually speak.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How quickly does an AI voice agent answer calls?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How quickly does an AI voice agent answer calls?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Instantly. Artintele.ai voice agents pick up on the first ring, 24/7, with no hold time — handling inbound and outbound calls simultaneously at scale, so every lead is engaged the moment they reach out, day or night.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Will WhatsApp automation get my number banned?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Will WhatsApp automation get my number banned?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Not when it's done correctly. We build WhatsApp automation on the official WhatsApp Business Platform with compliant, opt-in messaging flows — not grey-market tools. This keeps your number in good standing while qualifying leads, sending updates and replying instantly at scale.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What does Artintele.ai build?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">What does Artintele.ai build?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">Artintele.ai is a full-service AI automation company. We build AI voice agents, AI telecallers, receptionists, chatbots, WhatsApp automation, workflow automation, knowledge assistants, custom AI tools and CRM integrations — designed around your existing processes and deployed into your live operations end to end.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Which industries do you serve?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">Which industries do you serve?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">We work across healthcare, education, real estate, manufacturing, finance and retail — automating appointment booking, lead qualification, customer support, document processing and more. Because every solution is custom-built, we adapt the same AI capabilities to almost any sector.</p>
       </div>
       <div style="padding:22px 26px;border-radius:16px;border:1px solid rgba(var(--border),0.2);background:rgba(var(--surface),0.5);">
-        <h3 style="font-family:'Sora';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How long does it take to deploy an AI solution?</h3>
+        <h3 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:18px;letter-spacing:-0.01em;margin:0 0 9px;">How long does it take to deploy an AI solution?</h3>
         <p class="speakable" style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(var(--text),0.68);">It depends on scope, but our process is fast: discovery, workflow analysis, solution design, development, deployment, optimization and maintenance. Many focused automations go live in a few weeks, and we keep tuning them after launch. Book a consultation for a timeline.</p>
       </div>
     </div>
@@ -506,7 +514,7 @@ html, body { overflow-x: hidden; }
 
   <section style="position:relative;z-index:5;padding:60px 40px 110px 96px;max-width:1280px;margin:0 auto;">
     <div class="ai-cta-card" style="position:relative;text-align:center;padding:72px 40px;border-radius:28px;border:1px solid rgba(var(--border),0.26);background:linear-gradient(155deg,rgba(var(--surface),0.92),rgba(var(--surface),0.53));backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px);box-shadow:0 50px 120px -40px rgba(var(--shadow),0.24),inset 0 1px 0 rgba(var(--edge),0.9);overflow:hidden;">
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(32px,5vw,64px);line-height:1.0;letter-spacing:-0.035em;margin:0 auto;max-width:18ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">Let's automate the work you shouldn't be doing.</h2>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(32px,5vw,64px);line-height:1.0;letter-spacing:-0.035em;margin:0 auto;max-width:18ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">Let's automate the work you shouldn't be doing.</h2>
       <p style="margin:20px auto 0;font-size:17px;line-height:1.55;color:rgba(var(--text),0.72);max-width:52ch;">Book a free consultation and we'll map the highest-impact automation for your business.</p>
       <div style="display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap;">
         <a href="/contact" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;font-weight:700;font-size:15px;padding:15px 28px;border-radius:12px;box-shadow:0 16px 40px -14px rgba(35,150,95,0.55);">Book Consultation <span style="font-size:17px;">&rarr;</span></a>
@@ -518,13 +526,13 @@ html, body { overflow-x: hidden; }
     <div class="ai-footer-grid" style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;">
       <div>
         <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
-          <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele.ai logo" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
-          <span style="font-family:'Sora';font-weight:700;font-size:16px;">artintele<span style="opacity:0.45;">.ai</span></span>
+          <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele.ai logo" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
+          <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:16px;">artintele<span style="opacity:0.45;">.ai</span></span>
         </div>
         <p style="margin:0;font-size:13.5px;line-height:1.6;color:rgba(var(--label),0.72);max-width:34ch;">AI Solutions &amp; Automation. We help businesses automate workflows with Voice AI, conversational AI, and agentic systems.</p>
       </div>
       <div>
-        <div style="font-family:'Space Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Explore</div>
+        <div style="font-family:'Space Mono','Space Mono Fallback';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Explore</div>
         <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
           <a class="nav-link" href="#services" style="text-decoration:none;color:rgba(var(--text),0.75);">Services</a>
           <a class="nav-link" href="#voices" style="text-decoration:none;color:rgba(var(--text),0.75);">Custom AI Voices</a>
@@ -534,25 +542,25 @@ html, body { overflow-x: hidden; }
         </div>
       </div>
       <div>
-        <div style="font-family:'Space Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Company</div>
+        <div style="font-family:'Space Mono','Space Mono Fallback';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Company</div>
         <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
           <a class="nav-link" href="/careers" style="text-decoration:none;color:rgba(var(--text),0.75);">Careers</a>
           <a class="nav-link" href="/contact" style="text-decoration:none;color:rgba(var(--text),0.75);">Contact</a>
         </div>
       </div>
       <div>
-        <div style="font-family:'Space Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Get started</div>
+        <div style="font-family:'Space Mono','Space Mono Fallback';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--label),0.62);margin-bottom:14px;">Get started</div>
         <a href="/contact" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1f9d5b,#36c07e);color:#12231a;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:10px;">Book Consultation &rarr;</a>
       </div>
     </div>
-    <div style="max-width:1280px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(var(--border),0.16);display:flex;justify-content:space-between;font-size:12.5px;color:rgba(var(--label),0.62);font-family:'Space Mono';">
+    <div style="max-width:1280px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(var(--border),0.16);display:flex;justify-content:space-between;font-size:12.5px;color:rgba(var(--label),0.62);font-family:'Space Mono','Space Mono Fallback';">
       <span>&copy; 2026 artintele.ai</span>
       <span>Automate. Engage. Scale.</span>
     </div>
   </footer>
 
 </div>
-<script src="/assets/js/theme.js?v=20260713.2" defer></script>
-<script src="/assets/js/home.js?v=20260713.2" defer></script>
+<script src="/assets/js/theme.js?v=20260713.3" defer></script>
+<script src="/assets/js/home.js?v=20260713.3" defer></script>
 </body>
 </html>

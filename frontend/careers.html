@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Careers — Build AI That Businesses Run On | Artintele.ai</title>
-<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.2">
-<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.2">
+<link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
+<link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <meta name="description" content="Join the Artintele.ai talent network. Work on production AI agents, voice assistants, and automation for real businesses. Remote-friendly roles.">
 <meta name="theme-color" content="#1f9d5b">
 <link rel="canonical" href="https://artintele.ai/careers">
@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://artintele.ai/careers">
 <meta property="og:title" content="Careers at Artintele.ai">
 <meta property="og:description" content="Build the AI that businesses run on. Join our talent network of engineers, designers, and AI specialists.">
-<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta property="og:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Careers at Artintele.ai">
 <meta name="twitter:description" content="Build the AI that businesses run on. Join our talent network of engineers, designers, and AI specialists.">
-<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.2">
+<meta name="twitter:image" content="https://artintele.ai/assets/img/og-image.png?v=20260713.3">
 
 <script type="application/ld+json">
 {
@@ -50,7 +50,7 @@
 </script>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/sora-700.woff2" crossorigin>
-<!-- inlined fonts.css + styles.css v=20260713.2 — source of truth: /assets/css/fonts.css + styles.css -->
+<!-- inlined fonts.css + styles.css v=20260713.3 — source of truth: /assets/css/fonts.css + styles.css -->
 <style>
 /* Self-hosted fonts — replaces the Google Fonts CDN.
    Only the weights/subsets actually used by the site (audited).
@@ -69,6 +69,14 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-tamil-400.woff2) format('woff2');unicode-range:U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;}
 @font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-telugu-400.woff2) format('woff2');unicode-range:U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2, U+200C-200D, U+25CC;}
 @font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/noto-malayalam-400.woff2) format('woff2');unicode-range:U+0307, U+0323, U+0951-0952, U+0964-0965, U+0D00-0D7F, U+1CDA, U+1CF2, U+200C-200D, U+20B9, U+25CC, U+A830-A832;}
+
+/* Metric-matched fallbacks: during font-display:swap the text renders in
+   Arial/Courier New adjusted to the web font's metrics, so the swap causes
+   near-zero layout shift (CLS). Computed from the woff2 hhea tables with
+   frequency-weighted advance widths. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+@font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
   color-scheme:light;
@@ -108,12 +116,12 @@ html:not([data-theme="dark"]) [data-screen-label]{background:linear-gradient(160
 html[data-theme="dark"] [data-screen-label]{background:#121212;}
 html:not([data-theme="dark"]) body{background:#fcfdfb;}
 html[data-theme="dark"] body{background:#121212;}
-body{margin:0;color:rgba(var(--text),1);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;color:rgba(var(--text),1);font-family:'Manrope','Manrope Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 ::selection{background:#c7ecd6;color:#12231a;}
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--chip);}
 ::-webkit-scrollbar-thumb{background:rgba(40,150,95,0.4);border-radius:8px;}
-input,select,textarea{font-family:'Manrope',sans-serif;}
+input,select,textarea{font-family:'Manrope','Manrope Fallback',sans-serif;}
 input::placeholder,textarea::placeholder{color:rgba(90,72,120,0.5);}
 input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(var(--border),0.6)!important;}
 a{ -webkit-tap-highlight-color:transparent; }
@@ -200,8 +208,8 @@ html, body { overflow-x: hidden; }
 
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.85), rgba(var(--surface),0.38));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.2" alt="Artintele" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="Artintele" width="34" height="34" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:17px;letter-spacing:-0.02em;">artintele<span style="opacity:0.45;">.ai</span></span>
     </a>
     <div style="display:flex;align-items:center;gap:16px;"><div class="nav-menu" style="display:flex;align-items:center;gap:22px;">
       <a class="nav-link" href="/#services" style="text-decoration:none;color:rgba(var(--text),0.78);font-size:14px;font-weight:500;white-space:nowrap;">Services</a>
@@ -215,22 +223,22 @@ html, body { overflow-x: hidden; }
   </nav>
 
   <section style="position:relative;z-index:5;max-width:1080px;margin:0 auto;padding:150px 40px 50px;text-align:center;">
-    <h1 style="font-family:'Sora';font-weight:700;font-size:clamp(38px,5.5vw,72px);line-height:1.0;letter-spacing:-0.035em;margin:0 auto;max-width:18ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">Build the AI that businesses run on.</h1>
+    <h1 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(38px,5.5vw,72px);line-height:1.0;letter-spacing:-0.035em;margin:0 auto;max-width:18ch;background:linear-gradient(135deg,var(--head-from),#1f9d5b);-webkit-background-clip:text;background-clip:text;color:transparent;">Build the AI that businesses run on.</h1>
     <p style="margin:24px auto 0;font-size:18px;line-height:1.55;color:rgba(var(--text),0.72);max-width:54ch;">We're a small team shipping real AI automation for real businesses. We hire for craft, curiosity, and care.</p>
   </section>
 
   <section style="position:relative;z-index:5;max-width:760px;margin:0 auto;padding:30px 40px 60px;">
     <div class="ai-pad-lg" style="position:relative;padding:48px;border-radius:24px;text-align:center;border:1px solid rgba(var(--border),0.24);background:linear-gradient(155deg,rgba(var(--surface),0.88),rgba(var(--surface),0.53));backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px);box-shadow:0 40px 100px -40px rgba(var(--shadow),0.24),inset 0 1px 0 rgba(var(--edge),0.9);">
       <div style="width:54px;height:54px;margin:0 auto 22px;border-radius:14px;border:1px solid rgba(var(--border),0.32);display:flex;align-items:center;justify-content:center;background:rgba(var(--surface),0.55);font-size:24px;">&#9678;</div>
-      <h2 style="font-family:'Sora';font-weight:600;font-size:26px;margin:0;letter-spacing:-0.02em;">No active openings at this time.</h2>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:600;font-size:26px;margin:0;letter-spacing:-0.02em;">No active openings at this time.</h2>
       <p style="margin:16px auto 0;font-size:15.5px;line-height:1.6;color:rgba(var(--text),0.68);max-width:52ch;">We are always interested in meeting exceptional talent. If no suitable position is available today, feel free to submit your profile for future opportunities.</p>
     </div>
   </section>
 
   <section style="position:relative;z-index:5;max-width:760px;margin:0 auto;padding:10px 40px 120px;">
     <div style="margin-bottom:26px;">
-      <div style="font-family:'Space Mono';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:14px;">/ Talent Network</div>
-      <h2 style="font-family:'Sora';font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.05;letter-spacing:-0.025em;margin:0;">Join our talent network.</h2>
+      <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12px;letter-spacing:0.14em;color:rgba(var(--label),0.72);text-transform:uppercase;margin-bottom:14px;">/ Talent Network</div>
+      <h2 style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.05;letter-spacing:-0.025em;margin:0;">Join our talent network.</h2>
       <p style="margin:14px 0 0;font-size:15px;line-height:1.55;color:rgba(var(--text),0.66);">Share your profile and we'll reach out when the right role opens up.</p>
     </div>
 
@@ -275,11 +283,11 @@ html, body { overflow-x: hidden; }
   </section>
 
   <footer style="position:relative;z-index:5;border-top:1px solid rgba(var(--border),0.18);background:rgba(var(--surface),0.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:36px 40px;text-align:center;">
-    <div style="font-family:'Space Mono';font-size:12.5px;color:rgba(var(--label),0.62);">&copy; 2026 artintele.ai &middot; AI Solutions &amp; Automation</div>
+    <div style="font-family:'Space Mono','Space Mono Fallback';font-size:12.5px;color:rgba(var(--label),0.62);">&copy; 2026 artintele.ai &middot; AI Solutions &amp; Automation</div>
   </footer>
 
 </div>
-<script src="/assets/js/theme.js?v=20260713.2" defer></script>
-<script src="/assets/js/careers.js?v=20260713.2" defer></script>
+<script src="/assets/js/theme.js?v=20260713.3" defer></script>
+<script src="/assets/js/careers.js?v=20260713.3" defer></script>
 </body>
 </html>
