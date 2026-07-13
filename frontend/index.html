@@ -155,9 +155,15 @@
 /* Metric-matched fallbacks: during font-display:swap the text renders in
    Arial/Courier New adjusted to the web font's metrics, so the swap causes
    near-zero layout shift (CLS). Computed from the woff2 hhea tables with
-   frequency-weighted advance widths. */
-@font-face{font-family:'Sora Fallback';src:local('Arial');size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
-@font-face{font-family:'Manrope Fallback';src:local('Arial');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%;}
+   frequency-weighted advance widths — PER WEIGHT, because bold faces are
+   wider (Manrope 700 needs 108.94% vs 103.37% at 400); a single adjust let
+   <strong>/heading text re-wrap on swap and cost /pricing 0.1 CLS. */
+@font-face{font-family:'Sora Fallback';src:local('Arial');font-weight:600;size-adjust:115.36%;ascent-override:84.08%;descent-override:25.14%;line-gap-override:0%;}
+@font-face{font-family:'Sora Fallback';src:local('Arial');font-weight:700;size-adjust:116.18%;ascent-override:83.49%;descent-override:24.96%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');font-weight:400;size-adjust:103.37%;ascent-override:103.13%;descent-override:29.02%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');font-weight:500;size-adjust:105.23%;ascent-override:101.30%;descent-override:28.51%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');font-weight:600;size-adjust:107.10%;ascent-override:99.54%;descent-override:28.01%;line-gap-override:0%;}
+@font-face{font-family:'Manrope Fallback';src:local('Arial');font-weight:700;size-adjust:108.94%;ascent-override:97.85%;descent-override:27.54%;line-gap-override:0%;}
 @font-face{font-family:'Space Mono Fallback';src:local('Courier New');size-adjust:101.98%;ascent-override:109.82%;descent-override:35.4%;line-gap-override:0%;}
 
 :root{
