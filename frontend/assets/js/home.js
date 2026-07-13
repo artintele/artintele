@@ -301,10 +301,10 @@
     icon.style.cssText = 'width:22px;height:22px;border-radius:50%;flex:none;box-sizing:border-box;border:2px solid rgba(var(--border),0.35);border-top-color:#1f9d5b;animation:ai-spin .7s linear infinite;';
     var lab = document.createElement('span'); lab.textContent = label; lab.style.cssText = 'font-size:14px;color:rgba(var(--text),0.8);flex:1;';
     var st = document.createElement('span'); st.textContent = 'Automating'; st.style.cssText = "font-family:'Space Mono';font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--label),0.6);";
-    var prog = document.createElement('span'); prog.style.cssText = 'position:absolute;left:0;bottom:0;height:2px;width:0%;background:linear-gradient(to right,#1f9d5b,#36c07e);transition:width 1s ease;';
+    var prog = document.createElement('span'); prog.style.cssText = 'position:absolute;left:0;bottom:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(to right,#1f9d5b,#36c07e);transition:transform 1s ease;';
     row.appendChild(icon); row.appendChild(lab); row.appendChild(st); row.appendChild(prog);
     box.appendChild(row);
-    requestAnimationFrame(function () { row.style.opacity = '1'; row.style.transform = 'none'; prog.style.width = '100%'; });
+    requestAnimationFrame(function () { row.style.opacity = '1'; row.style.transform = 'none'; prog.style.transform = 'scaleX(1)'; });
     T(function () { icon.style.animation = 'none'; icon.style.border = 'none'; icon.style.background = 'linear-gradient(135deg,#1f9d5b,#36c07e)'; icon.style.boxShadow = '0 4px 12px -3px rgba(35,150,95,0.6)'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.color = '#fff'; icon.style.fontSize = '12px'; icon.textContent = '✓'; st.textContent = 'Automated'; st.style.color = '#2c9e6a'; }, 1000);
   }
 
@@ -323,14 +323,25 @@
   }
 
   // ---- scroll progress --------------------------------------------------
-  function onScroll() {
-    var max = (document.documentElement.scrollHeight - window.innerHeight) || 1;
-    var p = Math.min(1, Math.max(0, window.scrollY / max));
+  // rAF-throttled with cached document metrics: scroll events never read
+  // layout (scrollHeight/innerHeight forced a reflow per event before), and
+  // the rail moves via transform so it stays compositor-only.
+  var scrollGlow = null, scrollFill = null, scrollMax = 1, scrollWinH = 0, scrollTicking = false;
+  function measureScroll() {
+    scrollGlow = scrollGlow || document.getElementById('artintele-scroll-glow');
+    scrollFill = scrollFill || document.getElementById('artintele-scroll-fill');
+    scrollWinH = window.innerHeight;
+    scrollMax = (document.documentElement.scrollHeight - scrollWinH) || 1;
+  }
+  function applyScroll() {
+    scrollTicking = false;
+    var p = Math.min(1, Math.max(0, window.scrollY / scrollMax));
     window.__artintele_scrollP = p;
-    var glow = document.getElementById('artintele-scroll-glow');
-    var fill = document.getElementById('artintele-scroll-fill');
-    if (glow) glow.style.top = (p * (window.innerHeight - 96)) + 'px';
-    if (fill) fill.style.height = (p * 100) + '%';
+    if (scrollGlow) scrollGlow.style.transform = 'translateY(' + (p * (scrollWinH - 96)) + 'px)';
+    if (scrollFill) scrollFill.style.transform = 'scaleY(' + p + ')';
+  }
+  function onScroll() {
+    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(applyScroll); }
   }
 
   // ---- 3D wireframe robot canvas ---------------------------------------
@@ -472,18 +483,44 @@
     });
   }
 
+  // Start a widget only when its container nears the viewport, so page load
+  // does one short task (hero) instead of building every demo at once —
+  // that single long task was 240ms of mobile TBT.
+  function lazyStart(pairs) {
+    if (!('IntersectionObserver' in window)) { pairs.forEach(function (p) { p[1](); }); return; }
+    pairs.forEach(function (p) {
+      var el = document.getElementById(p[0]);
+      if (!el) return;
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); p[1](); }
+      }, { rootMargin: '400px 0px' });
+      io.observe(el);
+    });
+  }
+
   function init() {
-    renderStatic();
-    buildVoiceWave();
+    // Above the fold — eager.
     startRobot();
     startTyping();
-    initReveal();
-    startWhatsApp();
-    startWorkflow();
-    startVoice();
-    startIndustries();
+    measureScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { measureScroll(); onScroll(); }, { passive: true });
+    window.addEventListener('load', function () { measureScroll(); onScroll(); });
     onScroll();
+    // Below the fold — content injection at idle, widgets on approach.
+    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1); };
+    idle(function () {
+      renderStatic();
+      initReveal();
+      measureScroll();
+      lazyStart([
+        ['artintele-wa-chat', startWhatsApp],
+        ['artintele-flow', startWorkflow],
+        ['artintele-voice-bars', startVoice],
+        ['artintele-voicewave', buildVoiceWave],
+        ['artintele-ind-tabs', startIndustries]
+      ]);
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
