@@ -118,3 +118,51 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
     });
   },{passive:true});
 })();
+
+// cookie consent — shown once, choice kept in localStorage
+(function(){
+  try{if(localStorage.getItem('at-cookie-consent'))return;}catch(e){return;}
+  var bar=document.createElement('div');
+  bar.className='cookie-bar';bar.setAttribute('role','dialog');bar.setAttribute('aria-label','Cookie consent');
+  bar.innerHTML='<p>We use cookies to improve your experience and understand how our site is used. Non-essential cookies are only set if you accept.</p>'+
+    '<div class="cookie-actions"><button type="button" class="cookie-accept">Accept</button><button type="button" class="cookie-decline">Decline</button></div>';
+  document.body.appendChild(bar);
+  function choose(v){try{localStorage.setItem('at-cookie-consent',v);}catch(e){}bar.remove();}
+  bar.querySelector('.cookie-accept').addEventListener('click',function(){choose('accepted');});
+  bar.querySelector('.cookie-decline').addEventListener('click',function(){choose('declined');});
+})();
+
+// back to top — appears after the hero, smooth-scrolls home
+(function(){
+  var b=document.getElementById('totop');if(!b)return;
+  addEventListener('scroll',function(){b.classList.toggle('show',scrollY>600);},{passive:true});
+  b.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});
+})();
+
+// regional languages — drives Google Translate via its googtrans cookie:
+// pick a language, cookie is set, page reloads, GT translates in place.
+(function(){
+  var menu=document.getElementById('langmenu');if(!menu)return;
+  function current(){var m=document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([a-z-]+)/i);return m?m[1]:'en';}
+  var cur=menu.querySelector('.lang-cur');
+  if(cur)cur.textContent=current().toUpperCase();
+  if(current()!=='en'){ // returning translated visitor: boot the GT engine
+    var d=document.createElement('div');d.id='google_translate_element';document.body.appendChild(d);
+    window.googleTranslateElementInit=function(){new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false},'google_translate_element');};
+    var s=document.createElement('script');s.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';s.defer=true;document.head.appendChild(s);
+  }
+  menu.querySelectorAll('.lang-list button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.getAttribute('data-lang');
+      if(code==='en'){
+        document.cookie='googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie='googtrans=;path=/;domain='+location.hostname+';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie='googtrans=;path=/;domain=.'+location.hostname+';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      }else{
+        document.cookie='googtrans=/en/'+code+';path=/';
+      }
+      location.reload();
+    });
+  });
+  document.addEventListener('click',function(e){if(menu.open&&!menu.contains(e.target))menu.open=false;});
+})();
