@@ -24,3 +24,6 @@ frontend/uploads/*
 
 # stray pasted image (real logo lives in frontend/assets/img/logo.png)
 /image.png
+
+# Frontend deps (Vite dev server)
+frontend/node_modules/

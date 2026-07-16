@@ -22,6 +22,6 @@ See: [Services](https://artintele.ai/md/services.md) · [Industries](https://art
 
 ## About
 
-Artintele.ai is a full-service AI automation company and a brand of **Prachalas Pvt Ltd**. We help businesses automate workflows with voice AI, conversational AI, and agentic systems. Every solution is custom-built around your existing processes and deployed into your live operations end to end.
+Artintele.ai is a full-service AI automation company. We help businesses automate workflows with voice AI, conversational AI, and agentic systems. Every solution is custom-built around your existing processes and deployed into your live operations end to end.
 
 **Automate. Engage. Scale.**

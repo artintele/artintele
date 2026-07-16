@@ -3,13 +3,10 @@
   "configurations": [
     {
       "name": "artintele",
-      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeExecutable": "sh",
       "runtimeArgs": [
-        "backend.main:app",
-        "--host",
-        "127.0.0.1",
-        "--port",
-        "8000"
+        "-c",
+        "cd /Users/chiranthp/Documents/Artintele && PYTHONPATH=/Users/chiranthp/Documents/Artintele:/Users/chiranthp/Documents/Artintele/.venv/lib/python3.11/site-packages exec python3 -m uvicorn backend.main:app --host 127.0.0.1 --port ${PORT:-8000}"
       ],
       "port": 8000
     },
