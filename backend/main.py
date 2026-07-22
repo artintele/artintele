@@ -342,6 +342,7 @@ def sitemap_xml():
         ("/pricing", "0.8", "monthly"),
         ("/contact", "0.9", "monthly"),
         ("/careers", "0.7", "monthly"),
+        ("/blog", "0.6", "weekly"),
     ]
     urls = "".join(
         f"<url><loc>{config.SITE_URL}{path}</loc>"
@@ -409,6 +410,11 @@ def careers_page():
     return FileResponse(FRONTEND_DIR / "careers.html")
 
 
+@app.get("/blog", include_in_schema=False)
+def blog_page():
+    return FileResponse(FRONTEND_DIR / "blog.html")
+
+
 @app.get("/contact.html", include_in_schema=False)
 def contact_html():
     return RedirectResponse("/contact", status_code=301)
@@ -422,6 +428,11 @@ def pricing_html():
 @app.get("/careers.html", include_in_schema=False)
 def careers_html():
     return RedirectResponse("/careers", status_code=301)
+
+
+@app.get("/blog.html", include_in_schema=False)
+def blog_html():
+    return RedirectResponse("/blog", status_code=301)
 
 
 @app.get("/index.html", include_in_schema=False)
