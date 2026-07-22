@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Telecaller CRM — ArtInTele.ai</title>
+<title>Telecaller CRM — ArtIntele.ai</title>
 <link id="favicon" rel="icon" type="image/png" href="/assets/img/logo.png?v=20260713.3">
 <link rel="apple-touch-icon" href="/assets/img/logo.png?v=20260713.3">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-400.woff2" crossorigin>
@@ -199,8 +199,8 @@ html, body { overflow-x: hidden; }
 <div data-screen-label="Dashboard" style="position:relative;width:100%;min-height:100vh;">
   <nav style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 28px;backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(var(--surface),0.9), rgba(var(--surface),0.5));border-bottom:1px solid rgba(var(--border),0.16);">
     <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:rgba(var(--head),1);">
-      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="ArtInTele" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
-      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:16px;">ArtInTele<span style="opacity:0.45;">.ai</span></span>
+      <img class="brand-logo" src="/assets/img/logo-68.webp?v=20260713.3" alt="ArtIntele" width="30" height="30" style="display:block;flex:none;object-fit:contain;">
+      <span style="font-family:'Sora','Sora Fallback';font-weight:700;font-size:16px;">ArtIntele<span style="opacity:0.45;">.ai</span></span>
       <span class="pill" style="margin-left:8px;">Telecaller CRM</span>
     </a>
     <div style="display:flex;align-items:center;gap:14px;">
@@ -221,7 +221,7 @@ html, body { overflow-x: hidden; }
     <div class="toolbar">
       <div class="grow"><input id="search" type="text" placeholder="Search name, email, company, phone…"></div>
       <select id="statusFilter" style="width:auto;min-width:160px;"></select>
-      <button class="btn" onclick="ArtInTeleCRM.load()">Refresh</button>
+      <button class="btn" onclick="ArtInteleCRM.load()">Refresh</button>
     </div>
 
     <div class="card" style="overflow:hidden;">
@@ -240,7 +240,7 @@ html, body { overflow-x: hidden; }
 
 <script src="/assets/js/theme.js?v=20260713.3" defer></script>
 <script>
-window.ArtInTeleCRM = (function () {
+window.ArtInteleCRM = (function () {
   var STATUSES = [];
   function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
   // Session expired / not signed in -> back to the Google login page.
@@ -278,7 +278,7 @@ window.ArtInTeleCRM = (function () {
         + '<td style="min-width:120px;"><input data-field="assigned_to" data-id="' + l.id + '" value="' + esc(l.assigned_to) + '" placeholder="caller"></td>'
         + '<td style="min-width:170px;"><input type="datetime-local" data-field="follow_up_at" data-id="' + l.id + '" value="' + dtLocal(l.follow_up_at) + '"></td>'
         + '<td style="min-width:180px;"><textarea data-field="call_notes" data-id="' + l.id + '" placeholder="Call notes…">' + esc(l.call_notes) + '</textarea></td>'
-        + '<td><div class="row-actions"><button class="btn sm" onclick="ArtInTeleCRM.save(' + l.id + ')">Save</button></div></td>'
+        + '<td><div class="row-actions"><button class="btn sm" onclick="ArtInteleCRM.save(' + l.id + ')">Save</button></div></td>'
         + '</tr>';
     }).join('');
   }
