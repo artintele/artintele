@@ -149,10 +149,11 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
     var p=(vh-r.top)/(vh+r.height);      // 0 = entering below, 1 = left above
     p=Math.max(0,Math.min(1,p));
     var e=Math.max(0,(p-0.25)/0.75);     // hold together until well in view
-    // phones get a short throw — 34vw sends the words off a 375px screen
-    var vw=innerWidth<=640?9:34, drop=innerWidth<=640?54:190;
-    L.style.transform='translateX('+(-e*vw)+'vw)';
-    R.style.transform='translateX('+(e*vw)+'vw)';
+    // same 34vw throw everywhere (vw scales with the screen by nature);
+    // only the fixed-px drop shrinks so Scale. stays inside the section
+    var drop=innerWidth<=640?80:190;
+    L.style.transform='translateX('+(-e*34)+'vw)';
+    R.style.transform='translateX('+(e*34)+'vw)';
     D.style.transform='translateY('+(e*drop)+'px)';
     G.style.transform='rotate('+(p*540)+'deg)';   // mark spins the whole way
   }

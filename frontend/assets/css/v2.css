@@ -466,12 +466,10 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
   .container{padding:0 20px;}
   .section{padding:80px 0 64px;}
   .statement{padding:96px 20px 80px;}
-  /* phone: words stack (Automate / mark / Engage / Scale) and shrink so
-     nothing leaves the screen; the slide distance is capped in JS */
-  .st-grid{grid-template-columns:1fr;justify-items:center;row-gap:2px;}
-  .st-grid .st-left,.st-grid .st-right{justify-self:center;}
-  .st-word{font-size:clamp(38px,11.5vw,46px);}
-  .st-logo{width:40px;margin:6px 0;}
+  /* phone: same one-row slide-apart pattern as desktop, scaled to fit —
+     the row (Automate + mark + Engage) starts fully on screen */
+  .st-word{font-size:clamp(27px,8.4vw,34px);}
+  .st-logo{width:30px;margin:0 0.2em;}
 }
 
 /* ---------- subpages (pricing / contact / careers) ---------- */
