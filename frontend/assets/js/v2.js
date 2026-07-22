@@ -125,6 +125,15 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
 // close mobile menu on link tap
 document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navmenu').classList.remove('open');});});
 
+// close mobile menu on any tap outside the nav (hero, cards, anywhere)
+document.addEventListener('click',function(e){
+  var m=document.getElementById('navmenu');
+  if(m&&m.classList.contains('open')&&!(e.target.closest&&e.target.closest('#topnav')))m.classList.remove('open');
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){var m=document.getElementById('navmenu');if(m)m.classList.remove('open');}
+});
+
 // page loader — rotating mark, fades once the page is ready (2.5s hard cap)
 (function(){
   var l=document.getElementById('page-loader');if(!l)return;
