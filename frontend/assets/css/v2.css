@@ -301,6 +301,8 @@ body.modal-open{overflow:hidden;}
 /* the Custom AI Voices card itself stays perfectly still — its aurora was
    drifting behind the content, which read as the whole panel moving. */
 .voices-card .hero-aurora .blob{animation:none!important;}
+/* intro line above the language chips */
+.voices-card .lang-note{margin:18px 0 2px;font-size:13.5px;color:rgba(255,255,255,0.6);}
 .vc-who{font-size:13px;line-height:1.4;color:rgba(255,255,255,0.9);}
 .vc-who b{display:block;font-size:11px;font-family:var(--mono);letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px;font-weight:400;}
 
