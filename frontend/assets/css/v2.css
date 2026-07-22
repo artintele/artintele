@@ -801,7 +801,6 @@ body{top:0 !important;}
 /* AI summary: Claude and ChatGPT deliberately refuse to auto-send a prompt
    arriving from another site (anti prompt-injection), so we say plainly that
    the question is already typed and only Enter is left. */
-.foot-ai-hint{margin-top:8px!important;font-family:var(--mono);font-size:11.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.45);}
 
 /* policy-page tables never push the page wide on phones — when the columns
    need more room than the screen has, the table scrolls inside itself */
