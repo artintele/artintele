@@ -76,32 +76,46 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   setTimeout(function(){els.forEach(function(e){if(e.getBoundingClientRect().top<innerHeight)e.classList.add('in');});},4000);
 })();
 
-// hero headline typing — retypes the h1 character by character with a
-// blinking caret; skipped for reduced-motion users (full text stays)
+// hero headline typing — the full headline is laid out invisibly from the
+// first frame (zero layout shift) and characters are revealed in place;
+// the caret glides along on a transform. Skipped for reduced-motion users.
 (function(){
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var segs=[{t:'Automate Your Business'},{br:true},{t:'with '},{t:'AI.',accent:true}];
-  // an invisible copy of the finished headline holds the final height at
-  // every viewport width, so the typing never shifts the layout below it
   var sizer=document.createElement('span');sizer.className='type-sizer';sizer.setAttribute('aria-hidden','true');
   sizer.innerHTML='Automate Your Business<br>with <span class="accent">AI.</span>';
   var live=document.createElement('span');live.className='type-live';
   h1.innerHTML='';h1.appendChild(sizer);h1.appendChild(live);
-  var caret=document.createElement('span');caret.className='type-caret';
-  live.appendChild(caret);
-  var si=0,ci=0,cur=null;
-  function tick(){
-    if(si>=segs.length){setTimeout(function(){caret.style.opacity='0';},1400);return;}
-    var seg=segs[si];
-    if(seg.br){live.insertBefore(document.createElement('br'),caret);si++;cur=null;setTimeout(tick,120);return;}
-    if(!cur){
-      cur=seg.accent?document.createElement('span'):document.createTextNode('');
-      if(seg.accent)cur.className='accent';
-      live.insertBefore(cur,caret);ci=0;
+
+  function addChars(target,text,seq){
+    for(var i=0;i<text.length;i++){
+      var s=document.createElement('span');
+      s.textContent=text.charAt(i);s.style.visibility='hidden';
+      target.appendChild(s);seq.push(s);
     }
-    ci++;cur.textContent=seg.t.slice(0,ci);
-    if(ci>=seg.t.length){si++;cur=null;}
+  }
+  var seq=[];
+  addChars(live,'Automate Your Business',seq);
+  live.appendChild(document.createElement('br'));
+  addChars(live,'with ',seq);
+  var acc=document.createElement('span');acc.className='accent';live.appendChild(acc);
+  addChars(acc,'AI.',seq);
+
+  var caret=document.createElement('span');caret.className='type-caret';
+  caret.style.position='absolute';caret.style.left='0';caret.style.top='0';
+  live.appendChild(caret);
+  function placeCaret(el,after){
+    var x=el.offsetLeft+(after?el.offsetWidth:0),y=el.offsetTop;
+    caret.style.transform='translate('+x+'px,'+y+'px)';
+  }
+  placeCaret(seq[0],false);
+
+  var i=0;
+  function tick(){
+    if(i>=seq.length){setTimeout(function(){caret.style.opacity='0';},1400);return;}
+    seq[i].style.visibility='visible';
+    placeCaret(seq[i],true);
+    i++;
     setTimeout(tick,48+Math.random()*70);
   }
   setTimeout(tick,350);
