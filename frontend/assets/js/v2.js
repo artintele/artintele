@@ -14,12 +14,12 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   for(var i=0;i<5;i++){var b=document.createElement('i');b.style.animationDelay=(i*0.12)+'s';bars.appendChild(b);}
 
   var SCRIPT=[
-    {who:'ai',   tag:'ArtIntele AI', text:'Good evening, thanks for calling Sunrise Clinic. How can I help?'},
+    {who:'ai',   tag:'ArtInTele AI', text:'Good evening, thanks for calling Sunrise Clinic. How can I help?'},
     {who:'caller',tag:'Caller',      text:'Hi — I need to book an appointment for tomorrow.'},
-    {who:'ai',   tag:'ArtIntele AI', text:'Of course. Dr. Rao has 11:30 am or 4 pm free tomorrow.'},
+    {who:'ai',   tag:'ArtInTele AI', text:'Of course. Dr. Rao has 11:30 am or 4 pm free tomorrow.'},
     {who:'caller',tag:'Caller',      text:'ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಆಗುತ್ತಾ?'},
-    {who:'ai',   tag:'ArtIntele AI', text:'ಖಂಡಿತ — 11:30ಕ್ಕೆ ಬುಕ್ ಮಾಡಿದ್ದೇನೆ. Confirmation is on its way via WhatsApp.'},
-    {who:'ai',   tag:'ArtIntele AI', text:'Saved to your CRM as a booked appointment. Anything else?'}
+    {who:'ai',   tag:'ArtInTele AI', text:'ಖಂಡಿತ — 11:30ಕ್ಕೆ ಬುಕ್ ಮಾಡಿದ್ದೇನೆ. Confirmation is on its way via WhatsApp.'},
+    {who:'ai',   tag:'ArtInTele AI', text:'Saved to your CRM as a booked appointment. Anything else?'}
   ];
 
   var idx=0,secs=0,timer=null,tick=null,running=false;
@@ -28,7 +28,7 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   function step(){
     var m=SCRIPT[idx];
     root.classList.toggle('speaking', m.who==='ai');
-    roleEl.textContent = m.who==='ai' ? 'ArtIntele AI agent' : 'Caller';
+    roleEl.textContent = m.who==='ai' ? 'ArtInTele AI agent' : 'Caller';
     stateEl.textContent = m.who==='ai' ? 'Speaking…' : 'Listening…';
 
     var el=document.createElement('div');
@@ -279,13 +279,13 @@ document.addEventListener('keydown',function(e){
        points:['Greets, routes and books exactly to your script and business hours','Runs outbound follow-up campaigns on your lead list automatically','Never calls in sick, never churns, and needs no retraining cycle','Every call logged, transcribed and searchable in your dashboard']},
     3:{lead:'The repetitive steps between your tools, running end to end without a person copying data across screens.',
        points:['Connects the systems you already use — CRM, sheets, billing, messaging','Removes the manual re-entry where most costly errors creep in','Runs on a trigger or a schedule, silently, at any hour','Full audit trail so you can see exactly what ran and when']},
-    4:{lead:'Conversational agents on your website and WhatsApp that qualify, support and convert while your team sleeps.',
+    4:{lead:'Conversational agents on your website and WhatsApp that converse with visitors around the clock \u2014 qualifying and supporting them, and converting leads into customers while your team sleeps.',
        points:['Answers product questions instantly, in your customer’s language','Captures and qualifies the lead inside the conversation','Hands off to a human with the full chat history attached','Learns from your real content — not generic canned replies']},
     5:{lead:'Turn the documents, SOPs and tribal knowledge sitting in folders into an assistant your team can simply ask.',
        points:['Answers grounded in your own documents, with the source cited','Cuts the "who knows how to do this?" delay for new staff','Works for internal teams and customer-facing support alike','Updates as your documents update — no manual re-training']},
     6:{lead:'A clear-eyed look at where AI actually pays off in your business, and a roadmap to get there in the right order.',
        points:['We map your current workflows before proposing a single tool','Highest-ROI opportunities identified and sequenced first','Honest about what AI should not do in your operation','You keep the roadmap whether or not you build it with us']},
-    7:{lead:'When an off-the-shelf tool cannot fit the way you work, ArtIntele builds the system around your process instead.',
+    7:{lead:'When an off-the-shelf tool cannot fit the way you work, ArtInTele builds the system around your process instead.',
        points:['Built to your exact workflow — never a rigid template','Integrates with the systems and databases you already run','Designed to scale as your volume grows','You own the result, documented and handed over properly']},
     8:{lead:'A branded voice that sounds like your business, speaking whichever language your customers actually use.',
        points:['Custom voice identity matched to your brand and industry','Any regional language or dialect — the listed six are examples, not a limit','Natural turn-taking, interruptions and pacing, not robotic read-out','Consistent across every call, every hour, every campaign']},
@@ -302,7 +302,7 @@ document.addEventListener('keydown',function(e){
 
   // industry deep-dives — same panel, sector-specific content
   var IND_DETAIL={
-    1:{lead:'Clinics and hospitals lose bookings to busy lines and after-hours calls. An ArtIntele agent answers every one — and does the admin that follows.',
+    1:{lead:'Clinics and hospitals lose bookings to busy lines and after-hours calls. An ArtInTele agent answers every one — and does the admin that follows.',
        points:['Appointment booking and rescheduling handled inside the call, synced to your calendar','Automated reminders on WhatsApp and voice that cut no-shows sharply','Insurance and document workflows — collect, check and file without front-desk time','Patient support in the caller\u2019s own language, any hour of the night']},
     2:{lead:'Admissions season floods coaching institutes and colleges with the same questions. Answer all of them instantly — and never lose a serious enquiry.',
        points:['Every admissions enquiry answered on the first ring or first message','Leads qualified by course, budget and intent before a counsellor steps in','Fee reminders and enrolment follow-ups run automatically','Parents and students get updates on WhatsApp in their own language']},
@@ -402,7 +402,7 @@ document.addEventListener('keydown',function(e){
     var href=a.getAttribute('href').replace(/^mailto:/,'');
     var addr=href.split('?')[0];
     var m=/[?&]subject=([^&]*)/i.exec(href);
-    var subject=m?decodeURIComponent(m[1]):'Enquiry for ArtIntele.ai';
+    var subject=m?decodeURIComponent(m[1]):'Enquiry for ArtInTele.ai';
     e.preventDefault();
     window.open(compose('gmail',addr,subject),'_blank','noopener');
     show(addr,subject);

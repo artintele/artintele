@@ -1,7 +1,7 @@
 ---
-title: "How We Work | Artintele.ai"
+title: "How We Work | ArtInTele.ai"
 url: https://artintele.ai/#process
-description: "Artintele.ai's seven-step process from idea to deployed AI solution."
+description: "ArtInTele.ai's seven-step process from idea to deployed AI solution."
 ---
 
 # How We Work

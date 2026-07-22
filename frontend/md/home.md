@@ -1,7 +1,7 @@
 ---
-title: "AI Agents, Voice Assistants & Automation | Artintele.ai"
+title: "AI Agents, Voice Assistants & Automation | ArtInTele.ai"
 url: https://artintele.ai/
-description: "Artintele.ai builds custom AI agents, voice assistants, chatbots, AI telecallers and workflow automation that help businesses cut costs and scale 24/7."
+description: "ArtInTele.ai builds custom AI agents, voice assistants, chatbots, AI telecallers and workflow automation that help businesses cut costs and scale 24/7."
 ---
 
 # Automate Your Business With AI
@@ -22,6 +22,6 @@ See: [Services](https://artintele.ai/md/services.md) · [Industries](https://art
 
 ## About
 
-Artintele.ai is a full-service AI automation company. We help businesses automate workflows with voice AI, conversational AI, and agentic systems. Every solution is custom-built around your existing processes and deployed into your live operations end to end.
+ArtInTele.ai is a full-service AI automation company. We help businesses automate workflows with voice AI, conversational AI, and agentic systems. Every solution is custom-built around your existing processes and deployed into your live operations end to end.
 
 **Automate. Engage. Scale.**

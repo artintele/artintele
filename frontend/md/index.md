@@ -1,10 +1,10 @@
 ---
-title: "Markdown Mirror | Artintele.ai"
+title: "Markdown Mirror | ArtInTele.ai"
 url: https://artintele.ai/md/
-description: "Clean markdown versions of Artintele.ai pages for AI engines and crawlers."
+description: "Clean markdown versions of ArtInTele.ai pages for AI engines and crawlers."
 ---
 
-# Artintele.ai — Markdown Mirror
+# ArtInTele.ai — Markdown Mirror
 
 Plain-text markdown versions of key pages, for AI answer engines and crawlers.
 
