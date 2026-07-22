@@ -345,8 +345,7 @@ def sitemap_xml():
         ("/privacy", "0.3", "yearly"),
         ("/cookies", "0.3", "yearly"),
         ("/blog", "0.6", "weekly"),
-        ("/privacy", "0.3", "yearly"),
-        ("/cookies", "0.3", "yearly"),
+        ("/terms", "0.3", "yearly"),
     ]
     urls = "".join(
         f"<url><loc>{config.SITE_URL}{path}</loc>"
@@ -429,14 +428,9 @@ def blog_page():
     return FileResponse(FRONTEND_DIR / "blog.html")
 
 
-@app.get("/privacy", include_in_schema=False)
-def privacy_page():
-    return FileResponse(FRONTEND_DIR / "privacy.html")
-
-
-@app.get("/cookies", include_in_schema=False)
-def cookies_page():
-    return FileResponse(FRONTEND_DIR / "cookies.html")
+@app.get("/terms", include_in_schema=False)
+def terms_page():
+    return FileResponse(FRONTEND_DIR / "terms.html")
 
 
 @app.get("/contact.html", include_in_schema=False)
@@ -469,14 +463,9 @@ def blog_html():
     return RedirectResponse("/blog", status_code=301)
 
 
-@app.get("/privacy.html", include_in_schema=False)
-def privacy_html():
-    return RedirectResponse("/privacy", status_code=301)
-
-
-@app.get("/cookies.html", include_in_schema=False)
-def cookies_html():
-    return RedirectResponse("/cookies", status_code=301)
+@app.get("/terms.html", include_in_schema=False)
+def terms_html():
+    return RedirectResponse("/terms", status_code=301)
 
 
 @app.get("/index.html", include_in_schema=False)

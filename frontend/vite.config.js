@@ -10,7 +10,7 @@ const cleanUrls = {
   configureServer(server) {
     server.middlewares.use((req, _res, next) => {
       const path = req.url.split('?')[0];
-      if (/^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies)\/?$/.test(path)) {
+      if (/^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies|terms)\/?$/.test(path)) {
         req.url = path.replace(/\/$/, '') + '.html';
       }
       next();
@@ -35,6 +35,7 @@ export default defineConfig({
         blog: resolve(__dirname, 'blog.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         cookies: resolve(__dirname, 'cookies.html'),
+        terms: resolve(__dirname, 'terms.html'),
         login: resolve(__dirname, 'login.html'),
         dashboard: resolve(__dirname, 'dashboard.html'),
       },

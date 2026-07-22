@@ -5,7 +5,7 @@ CSS edit and the embedded <style id="v2css"> blocks are refreshed."""
 import pathlib, re
 
 FE = pathlib.Path(__file__).resolve().parent.parent / 'frontend'
-PAGES = ['index.html','pricing.html','contact.html','careers.html','blog.html','privacy.html','cookies.html']
+PAGES = ['index.html','pricing.html','contact.html','careers.html','blog.html','privacy.html','cookies.html','terms.html']
 
 def minify(c):
     c = re.sub(r'/\*[\s\S]*?\*/', '', c)          # comments
