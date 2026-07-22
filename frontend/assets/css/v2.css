@@ -742,3 +742,8 @@ body{top:0 !important;}
 .foot-care .kicker{display:block;margin-bottom:4px;color:rgba(255,255,255,0.4);}
 .foot-care a{font-size:13px;color:rgba(255,255,255,0.68);text-decoration:none;transition:color .2s ease;}
 .foot-care a:hover{color:#fff;}
+
+/* AI summary: Claude and ChatGPT deliberately refuse to auto-send a prompt
+   arriving from another site (anti prompt-injection), so we say plainly that
+   the question is already typed and only Enter is left. */
+.foot-ai-hint{margin-top:8px!important;font-family:var(--mono);font-size:11.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.45);}
