@@ -22,6 +22,7 @@
   --ink-faint:rgba(22,21,15,0.6);
   --line:rgba(22,21,15,0.12);
   --green:#1f9d5b;
+  --green-ink:#14744a; /* AA-passing green for text on light backgrounds */
   --green-deep:#0c1f16;
   --card-dark:#071710;
   --serif:'Georgia','Times New Roman',Times,serif;
@@ -334,7 +335,7 @@ body.modal-open{overflow:hidden;}
 .step h3{font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px;font-family:var(--sans);}
 .step p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-soft);}
 .process-note{margin-top:44px;font-size:15px;color:var(--ink-soft);}
-.process-note a{color:var(--green);font-weight:600;text-decoration:none;}
+.process-note a{color:var(--green-ink);font-weight:600;text-decoration:none;}
 .process-note a:hover{text-decoration:underline;}
 
 /* ---------- solutions list ---------- */
@@ -513,7 +514,7 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
 .reach-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:26px 28px;}
 .reach-card .kicker{display:block;margin-bottom:8px;}
 .reach-card a{font-family:var(--serif);font-size:21px;text-decoration:none;color:var(--ink);}
-.reach-card a:hover{color:var(--green);}
+.reach-card a:hover{color:var(--green-ink);}
 .contact-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:start;}
 .reach-stack{display:flex;flex-direction:column;gap:14px;position:sticky;top:96px;}
 
@@ -566,12 +567,12 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
 .badge{font-family:var(--mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,0.8);color:var(--ink-soft);}
 .split-left .reach-mini{margin-top:34px;display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:24px;}
 .reach-mini a{font-size:15px;text-decoration:none;color:var(--ink);font-weight:600;}
-.reach-mini a:hover{color:var(--green);}
+.reach-mini a:hover{color:var(--green-ink);}
 .reach-mini .kicker{margin-right:8px;}
 .split-right{padding:10px 6px 0;}
 .split-right h2{font-family:var(--sans);font-weight:700;font-size:22px;letter-spacing:-0.01em;margin-bottom:8px;}
 .split-right .formsub{font-size:14.5px;color:var(--ink-soft);margin:0 0 30px;max-width:56ch;}
-.split-right .formsub a{color:var(--green);font-weight:600;text-decoration:none;}
+.split-right .formsub a{color:var(--green-ink);font-weight:600;text-decoration:none;}
 .split-right .formsub a:hover{text-decoration:underline;}
 @media(max-width:960px){
   .split{grid-template-columns:1fr;padding-top:96px;}
@@ -703,7 +704,7 @@ nav::before{
 .blog-card .kicker{display:block;margin-bottom:14px;}
 .blog-card h3{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.22;margin:0 0 12px;letter-spacing:-0.01em;}
 .blog-card p{margin:0;font-size:14px;line-height:1.65;color:var(--ink-soft);}
-.blog-card .read{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--green);}
+.blog-card .read{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--green-ink);}
 .post{max-width:760px;margin:0 auto;padding:72px 0 56px;border-bottom:1px solid var(--line);}
 .post:last-of-type{border-bottom:0;}
 .post .kicker{display:block;margin-bottom:6px;}
@@ -797,7 +798,7 @@ body{top:0 !important;}
 .mail-toast-text{color:var(--ink-soft);}
 .mail-toast a,.mail-toast button{font-size:13.5px;font-family:inherit;color:var(--green-deep);
   font-weight:600;text-decoration:underline;background:none;border:none;padding:0;cursor:pointer;}
-.mail-toast a:hover,.mail-toast button:hover{color:var(--green);}
+.mail-toast a:hover,.mail-toast button:hover{color:var(--green-ink);}
 @media(max-width:560px){.mail-toast{border-radius:18px;justify-content:center;text-align:center;}}
 
 /* customer care numbers — small, under the address in the brand column */
