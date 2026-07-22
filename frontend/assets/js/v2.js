@@ -112,13 +112,13 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
 
   var i=0;
   function tick(){
-    if(i>=seq.length){setTimeout(function(){caret.style.opacity='0';},700);return;}
+    if(i>=seq.length){setTimeout(function(){caret.style.opacity='0';},200);return;}
     seq[i].style.visibility='visible';
     placeCaret(seq[i],true);
     i++;
-    setTimeout(tick,8+Math.random()*12);
+    setTimeout(tick,7+Math.random()*9);
   }
-  setTimeout(tick,80);
+  setTimeout(tick,50);
 })();
 
 // interactive aurora orb — lerps toward the cursor inside each dark card
