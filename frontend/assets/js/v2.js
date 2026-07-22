@@ -311,3 +311,32 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
   modal.addEventListener('click',function(e){if(e.target===modal)close();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)close();});
 })();
+
+// mailto safety net — a plain mailto: silently does nothing for visitors with
+// no default mail app (common on desktop when you live in webmail), so the
+// contact address looks broken. We let the mailto fire as normal AND copy the
+// address, telling the visitor either way.
+(function(){
+  var toast=null,timer=null;
+  function say(msg){
+    if(!toast){toast=document.createElement('div');toast.className='mail-toast';document.body.appendChild(toast);}
+    toast.textContent=msg;
+    requestAnimationFrame(function(){toast.classList.add('show');});
+    clearTimeout(timer);
+    timer=setTimeout(function(){toast.classList.remove('show');},4200);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');
+    if(!a)return;
+    var addr=a.getAttribute('href').replace(/^mailto:/,'').split('?')[0];
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).then(
+        function(){say('Opening your mail app — address copied: '+addr);},
+        function(){say('Email us at '+addr);}
+      );
+    }else{
+      say('Email us at '+addr);
+    }
+    // no preventDefault: the mail app still opens for anyone who has one
+  });
+})();

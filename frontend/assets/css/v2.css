@@ -719,3 +719,14 @@ body{top:0 !important;}
 
 /* business address lives with the brand blurb, keeping the bottom bar one line */
 .foot-addr{font-style:normal;margin-top:14px;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.5);max-width:34ch;}
+
+/* mailto confirmation toast */
+.mail-toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:130;
+  max-width:min(520px,calc(100% - 32px));padding:13px 20px;border-radius:999px;
+  font-size:14px;line-height:1.4;text-align:center;color:var(--ink);
+  border:1px solid rgba(255,255,255,0.6);
+  background:linear-gradient(var(--lg-angle),rgba(250,249,246,0.92),rgba(250,249,246,0.78));
+  backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+  box-shadow:0 14px 44px -18px rgba(22,21,15,0.5),inset 0 1px 0 rgba(255,255,255,0.7);
+  opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.2,1);}
+.mail-toast.show{opacity:1;transform:translate(-50%,0);}
