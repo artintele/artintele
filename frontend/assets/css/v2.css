@@ -736,3 +736,9 @@ body{top:0 !important;}
   font-weight:600;text-decoration:underline;background:none;border:none;padding:0;cursor:pointer;}
 .mail-toast a:hover,.mail-toast button:hover{color:var(--green);}
 @media(max-width:560px){.mail-toast{border-radius:18px;justify-content:center;text-align:center;}}
+
+/* customer care numbers — small, under the address in the brand column */
+.foot-care{margin-top:16px;display:flex;flex-direction:column;gap:3px;}
+.foot-care .kicker{display:block;margin-bottom:4px;color:rgba(255,255,255,0.4);}
+.foot-care a{font-size:13px;color:rgba(255,255,255,0.68);text-decoration:none;transition:color .2s ease;}
+.foot-care a:hover{color:#fff;}
