@@ -453,8 +453,9 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
   .ind-grid{grid-template-columns:1fr;}
   /* how-we-work: one centred vertical rail on phones (horizontal on laptop) */
   .steps{grid-template-columns:1fr;row-gap:6px;}
-  .step{padding:26px 0 16px;text-align:center;}
-  .step::before{left:50%;transform:translateX(-50%);}
+  .step{padding:34px 0 16px;text-align:center;}
+  /* the green tick turns vertical to match the vertical rail */
+  .step::before{left:50%;top:0;transform:translateX(-50%);width:2px;height:22px;}
   .step .n{margin-left:auto;margin-right:auto;}
   .step p{max-width:34ch;margin:0 auto;}
   .process-note{text-align:center;}
