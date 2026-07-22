@@ -158,7 +158,7 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 .hero .type-sizer{visibility:hidden;}
 .hero .type-live{position:absolute;left:0;right:0;top:0;}
 .hero h1 .accent{font-style:italic;}
-.type-caret{display:inline-block;width:0.05em;height:0.82em;background:#fdfdf9;margin-left:0.06em;vertical-align:-0.04em;animation:caretblink 0.85s steps(1) infinite;transition:opacity .5s ease;}
+.type-caret{display:inline-block;width:0.05em;height:0.82em;background:#fdfdf9;margin-left:0.06em;vertical-align:-0.04em;animation:caretblink 0.85s steps(1) infinite;transition:opacity .5s ease;will-change:opacity;}
 @keyframes caretblink{50%{opacity:0;}}
 .hero-sub{margin:28px auto 0;max-width:72ch;text-align:center;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.78);}
 .hero-cta-row{display:flex;gap:14px;justify-content:center;margin-top:44px;flex-wrap:wrap;}
@@ -249,7 +249,7 @@ body.modal-open{overflow:hidden;}
 .vc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .vc-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);}
 .vc-live i{position:relative;width:7px;height:7px;border-radius:50%;background:#4ade80;}
-.vc-live i::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(74,222,128,0.55);animation:vcLive 1.8s ease-out infinite;}
+.vc-live i::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(74,222,128,0.55);animation:vcLive 1.8s ease-out infinite;will-change:transform,opacity;}
 @keyframes vcLive{0%{transform:scale(0.55);opacity:1;}70%,100%{transform:scale(2.1);opacity:0;}}
 .vc-time{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.68);}
 
@@ -294,7 +294,7 @@ body.modal-open{overflow:hidden;}
 
 /* speaking bars sit on top of the sphere — a mouth, not a heart monitor */
 .vc-bars{position:relative;z-index:3;display:flex;align-items:center;gap:3px;height:22px;}
-.vc-bars i{width:3px;height:30%;border-radius:3px;background:rgba(255,255,255,0.92);transform-origin:center;box-shadow:0 0 8px rgba(205,210,255,0.75);}
+.vc-bars i{width:3px;height:30%;border-radius:3px;background:rgba(255,255,255,0.92);transform-origin:center;box-shadow:0 0 8px rgba(205,210,255,0.75);will-change:transform;}
 .voicecall.speaking .vc-bars i{animation:vcBar .9s ease-in-out infinite;}
 @keyframes vcBar{0%,100%{transform:scaleY(0.35);}50%{transform:scaleY(1);}}
 
@@ -552,7 +552,7 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
 /* ---------- page loader (rotating mark) ---------- */
 #page-loader{position:fixed;inset:0;z-index:100;background:var(--paper);display:flex;align-items:center;justify-content:center;transition:opacity .45s ease;}
 #page-loader.hide{opacity:0;pointer-events:none;}
-#page-loader .loader-gear{width:56px;height:56px;color:var(--ink);animation:loader-spin 1.4s linear infinite;}
+#page-loader .loader-gear{width:56px;height:56px;color:var(--ink);animation:loader-spin 1.4s linear infinite;will-change:transform;}
 @keyframes loader-spin{to{transform:rotate(360deg);}}
 @media (prefers-reduced-motion: reduce){#page-loader .loader-gear{animation:none;}}
 
