@@ -342,6 +342,8 @@ def sitemap_xml():
         ("/pricing", "0.8", "monthly"),
         ("/contact", "0.9", "monthly"),
         ("/careers", "0.7", "monthly"),
+        ("/privacy", "0.3", "yearly"),
+        ("/cookies", "0.3", "yearly"),
         ("/blog", "0.6", "weekly"),
         ("/privacy", "0.3", "yearly"),
         ("/cookies", "0.3", "yearly"),
@@ -412,6 +414,16 @@ def careers_page():
     return FileResponse(FRONTEND_DIR / "careers.html")
 
 
+@app.get("/privacy", include_in_schema=False)
+def privacy_page():
+    return FileResponse(FRONTEND_DIR / "privacy.html")
+
+
+@app.get("/cookies", include_in_schema=False)
+def cookies_page():
+    return FileResponse(FRONTEND_DIR / "cookies.html")
+
+
 @app.get("/blog", include_in_schema=False)
 def blog_page():
     return FileResponse(FRONTEND_DIR / "blog.html")
@@ -440,6 +452,16 @@ def pricing_html():
 @app.get("/careers.html", include_in_schema=False)
 def careers_html():
     return RedirectResponse("/careers", status_code=301)
+
+
+@app.get("/privacy.html", include_in_schema=False)
+def privacy_html():
+    return RedirectResponse("/privacy", status_code=301)
+
+
+@app.get("/cookies.html", include_in_schema=False)
+def cookies_html():
+    return RedirectResponse("/cookies", status_code=301)
 
 
 @app.get("/blog.html", include_in_schema=False)
