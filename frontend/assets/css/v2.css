@@ -84,7 +84,7 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 .brand span{font-weight:700;font-size:16.5px;letter-spacing:-0.02em;}
 .brand span em{font-style:normal;opacity:0.45;}
 .nav-menu{display:flex;align-items:center;gap:26px;}
-.nav-menu a{text-decoration:none;font-size:14px;font-weight:500;color:var(--ink-soft);transition:color .2s ease;white-space:nowrap;}
+.nav-menu a{text-decoration:none;font-size:14px;font-weight:600;color:rgba(22,21,15,0.88);transition:color .2s ease;white-space:nowrap;}
 .nav-menu a:hover{color:var(--ink);}
 .nav-right{display:flex;align-items:center;gap:12px;}
 .nav-cta{font-size:13.5px!important;padding:10px 20px!important;}
