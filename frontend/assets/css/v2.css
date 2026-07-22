@@ -514,6 +514,12 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
 .cmp-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;overflow-x:auto;background:#fff;}
 .cmp-table th,.cmp-table td{padding:16px 20px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--line);}
 .cmp-table th{font-family:var(--mono);font-size:11.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);background:var(--paper);font-weight:400;}
+/* narrow phones: the comparison table scrolls inside itself instead of
+   clipping its last column under the rounded-corner overflow:hidden */
+@media(max-width:640px){
+  .cmp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .cmp-table th,.cmp-table td{min-width:140px;}
+}
 .cmp-table tr:last-child td{border-bottom:none;}
 .cmp-table td:first-child{font-weight:700;}
 .cmp-table td.ai{color:#0f5c36;font-weight:600;background:rgba(31,157,91,0.05);}
