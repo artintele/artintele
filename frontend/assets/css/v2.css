@@ -465,7 +465,13 @@ html.jsreveal [data-reveal].in{opacity:1;transform:none;}
   .voices-card{padding:44px 26px;}
   .container{padding:0 20px;}
   .section{padding:80px 0 64px;}
-  .statement{padding:110px 20px 90px;}
+  .statement{padding:96px 20px 80px;}
+  /* phone: words stack (Automate / mark / Engage / Scale) and shrink so
+     nothing leaves the screen; the slide distance is capped in JS */
+  .st-grid{grid-template-columns:1fr;justify-items:center;row-gap:2px;}
+  .st-grid .st-left,.st-grid .st-right{justify-self:center;}
+  .st-word{font-size:clamp(38px,11.5vw,46px);}
+  .st-logo{width:40px;margin:6px 0;}
 }
 
 /* ---------- subpages (pricing / contact / careers) ---------- */
@@ -790,3 +796,7 @@ body{top:0 !important;}
    arriving from another site (anti prompt-injection), so we say plainly that
    the question is already typed and only Enter is left. */
 .foot-ai-hint{margin-top:8px!important;font-family:var(--mono);font-size:11.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.45);}
+
+/* policy-page tables never push the page wide on phones — when the columns
+   need more room than the screen has, the table scrolls inside itself */
+.legal table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}

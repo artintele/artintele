@@ -149,9 +149,11 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
     var p=(vh-r.top)/(vh+r.height);      // 0 = entering below, 1 = left above
     p=Math.max(0,Math.min(1,p));
     var e=Math.max(0,(p-0.25)/0.75);     // hold together until well in view
-    L.style.transform='translateX('+(-e*34)+'vw)';
-    R.style.transform='translateX('+(e*34)+'vw)';
-    D.style.transform='translateY('+(e*190)+'px)';
+    // phones get a short throw — 34vw sends the words off a 375px screen
+    var vw=innerWidth<=640?9:34, drop=innerWidth<=640?54:190;
+    L.style.transform='translateX('+(-e*vw)+'vw)';
+    R.style.transform='translateX('+(e*vw)+'vw)';
+    D.style.transform='translateY('+(e*drop)+'px)';
     G.style.transform='rotate('+(p*540)+'deg)';   // mark spins the whole way
   }
   addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
