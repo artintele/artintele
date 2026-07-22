@@ -71,7 +71,9 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(e){io.observe(e);});
   // safety net: never leave content invisible (frozen tabs, odd embeds)
-  setTimeout(function(){els.forEach(function(e){e.classList.add('in');});},4000);
+  // scoped to the current viewport: content further down (services,
+  // industries, process) keeps its pop-in as the user scrolls to it
+  setTimeout(function(){els.forEach(function(e){if(e.getBoundingClientRect().top<innerHeight)e.classList.add('in');});},4000);
 })();
 
 // hero headline typing — retypes the h1 character by character with a
@@ -251,6 +253,7 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
 (function(){
   var modal=document.getElementById('svc-modal');if(!modal)return;
   var cards=document.querySelectorAll('.svc[data-svc]');if(!cards.length)return;
+  var indCards=document.querySelectorAll('.ind[data-ind]');
 
   var DETAIL={
     1:{lead:'Human-like voice agents that answer and place calls around the clock, so every caller reaches a real conversation instead of a queue.',
@@ -279,6 +282,23 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
        points:['Every lead captured automatically from every channel you run','Follow-ups organised, assigned and chased on schedule','Integrated with your calls, WhatsApp and web forms','Reporting that shows where leads come from and where they stall']}
   };
 
+
+  // industry deep-dives — same panel, sector-specific content
+  var IND_DETAIL={
+    1:{lead:'Clinics and hospitals lose bookings to busy lines and after-hours calls. An ArtIntele agent answers every one — and does the admin that follows.',
+       points:['Appointment booking and rescheduling handled inside the call, synced to your calendar','Automated reminders on WhatsApp and voice that cut no-shows sharply','Insurance and document workflows — collect, check and file without front-desk time','Patient support in the caller\u2019s own language, any hour of the night']},
+    2:{lead:'Admissions season floods coaching institutes and colleges with the same questions. Answer all of them instantly — and never lose a serious enquiry.',
+       points:['Every admissions enquiry answered on the first ring or first message','Leads qualified by course, budget and intent before a counsellor steps in','Fee reminders and enrolment follow-ups run automatically','Parents and students get updates on WhatsApp in their own language']},
+    3:{lead:'In real estate, the first agent to respond usually wins the client. Make that response instant, every time.',
+       points:['Instant response to every portal lead, at 2 pm or 2 am','Site visits scheduled inside the conversation and written to your CRM','Automated follow-up sequences that keep warm buyers engaged','Listing questions — price, area, amenities — answered without an agent']},
+    4:{lead:'Manufacturing runs on coordination — vendors, orders, status checks. Automate the communication layer and the plant keeps moving.',
+       points:['Vendor calls and follow-ups handled by the agent, logged automatically','Order status and dispatch updates pushed to customers proactively','Process and shift reports compiled and delivered on schedule','Document intake — POs, invoices, challans — captured and filed']},
+    5:{lead:'Financial services need speed on the front end and rigour underneath. Our agents deliver both, with every interaction logged.',
+       points:['KYC documents requested, collected and checked automatically','Payment and renewal reminders that customers actually answer','Support queries resolved instantly, escalated with full context when needed','A complete, searchable log of every conversation for compliance']},
+    6:{lead:'Retail customers ask the same questions all day — and buy from whoever answers first. Put the answers on autopilot.',
+       points:['Order status, returns and exchange requests handled end to end','Customer engagement campaigns on WhatsApp — offers, restocks, festivals','Every enquiry answered instantly during sale-season spikes','Feedback collected after purchase, flagged to you when it needs action']}
+  };
+
   var numEl=document.getElementById('svc-modal-num'),
       titleEl=document.getElementById('svc-modal-title'),
       leadEl=document.getElementById('svc-modal-lead'),
@@ -287,9 +307,11 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
       lastFocus=null;
 
   function open(card){
-    var id=parseInt(card.getAttribute('data-svc'),10),d=DETAIL[id];if(!d)return;
+    var isInd=card.hasAttribute('data-ind');
+    var id=parseInt(card.getAttribute(isInd?'data-ind':'data-svc'),10);
+    var d=(isInd?IND_DETAIL:DETAIL)[id];if(!d)return;
     lastFocus=card;
-    numEl.textContent=card.querySelector('.num').textContent;
+    numEl.textContent=isInd?'/ Industry':card.querySelector('.num').textContent;
     titleEl.textContent=card.querySelector('h3').textContent;
     leadEl.textContent=d.lead;
     listEl.innerHTML='';
@@ -307,6 +329,7 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
   }
 
   cards.forEach(function(c){c.addEventListener('click',function(){open(c);});});
+  indCards.forEach(function(c){c.addEventListener('click',function(){open(c);});});
   closeEl.addEventListener('click',close);
   modal.addEventListener('click',function(e){if(e.target===modal)close();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)close();});
