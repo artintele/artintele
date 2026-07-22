@@ -81,11 +81,11 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
 (function(){
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var segs=[{t:'Automate your business'},{br:true},{t:'with '},{t:'AI.',accent:true}];
+  var segs=[{t:'Automate Your Business'},{br:true},{t:'with '},{t:'AI.',accent:true}];
   // an invisible copy of the finished headline holds the final height at
   // every viewport width, so the typing never shifts the layout below it
   var sizer=document.createElement('span');sizer.className='type-sizer';sizer.setAttribute('aria-hidden','true');
-  sizer.innerHTML='Automate your business<br>with <span class="accent">AI.</span>';
+  sizer.innerHTML='Automate Your Business<br>with <span class="accent">AI.</span>';
   var live=document.createElement('span');live.className='type-live';
   h1.innerHTML='';h1.appendChild(sizer);h1.appendChild(live);
   var caret=document.createElement('span');caret.className='type-caret';
