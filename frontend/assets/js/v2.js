@@ -82,18 +82,23 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   var segs=[{t:'Automate your business'},{br:true},{t:'with '},{t:'AI.',accent:true}];
-  h1.innerHTML='';
+  // an invisible copy of the finished headline holds the final height at
+  // every viewport width, so the typing never shifts the layout below it
+  var sizer=document.createElement('span');sizer.className='type-sizer';sizer.setAttribute('aria-hidden','true');
+  sizer.innerHTML='Automate your business<br>with <span class="accent">AI.</span>';
+  var live=document.createElement('span');live.className='type-live';
+  h1.innerHTML='';h1.appendChild(sizer);h1.appendChild(live);
   var caret=document.createElement('span');caret.className='type-caret';
-  h1.appendChild(caret);
+  live.appendChild(caret);
   var si=0,ci=0,cur=null;
   function tick(){
     if(si>=segs.length){setTimeout(function(){caret.style.opacity='0';},1400);return;}
     var seg=segs[si];
-    if(seg.br){h1.insertBefore(document.createElement('br'),caret);si++;cur=null;setTimeout(tick,120);return;}
+    if(seg.br){live.insertBefore(document.createElement('br'),caret);si++;cur=null;setTimeout(tick,120);return;}
     if(!cur){
       cur=seg.accent?document.createElement('span'):document.createTextNode('');
       if(seg.accent)cur.className='accent';
-      h1.insertBefore(cur,caret);ci=0;
+      live.insertBefore(cur,caret);ci=0;
     }
     ci++;cur.textContent=seg.t.slice(0,ci);
     if(ci>=seg.t.length){si++;cur=null;}

@@ -19,7 +19,7 @@
   --paper:#faf9f6;
   --ink:#16150f;
   --ink-soft:rgba(22,21,15,0.68);
-  --ink-faint:rgba(22,21,15,0.45);
+  --ink-faint:rgba(22,21,15,0.6);
   --line:rgba(22,21,15,0.12);
   --green:#1f9d5b;
   --green-deep:#0c1f16;
@@ -154,7 +154,9 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 }
 .hero-grain{position:absolute;inset:0;pointer-events:none;opacity:0.5;background:radial-gradient(100% 70% at 50% 100%, rgba(0,0,0,0.42), transparent 55%);}
 .hero-inner{position:relative;z-index:2;max-width:900px;}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,96px);line-height:1.02;letter-spacing:-0.018em;color:#fdfdf9;margin:0;min-height:2.06em;}
+.hero h1{position:relative;font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,96px);line-height:1.02;letter-spacing:-0.018em;color:#fdfdf9;margin:0;min-height:2.06em;}
+.hero .type-sizer{visibility:hidden;}
+.hero .type-live{position:absolute;left:0;right:0;top:0;}
 .hero h1 .accent{font-style:italic;}
 .type-caret{display:inline-block;width:0.05em;height:0.82em;background:#fdfdf9;margin-left:0.06em;vertical-align:-0.04em;animation:caretblink 0.85s steps(1) infinite;transition:opacity .5s ease;}
 @keyframes caretblink{50%{opacity:0;}}
@@ -245,9 +247,10 @@ body.modal-open{overflow:hidden;}
 .voicecall{border-radius:18px;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.05);padding:20px 20px 18px;}
 .vc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .vc-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);}
-.vc-live i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,0.6);animation:vcLive 1.8s ease-out infinite;}
-@keyframes vcLive{0%{box-shadow:0 0 0 0 rgba(74,222,128,0.55);}70%{box-shadow:0 0 0 8px rgba(74,222,128,0);}100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}}
-.vc-time{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.5);}
+.vc-live i{position:relative;width:7px;height:7px;border-radius:50%;background:#4ade80;}
+.vc-live i::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(74,222,128,0.55);animation:vcLive 1.8s ease-out infinite;}
+@keyframes vcLive{0%{transform:scale(0.55);opacity:1;}70%,100%{transform:scale(2.1);opacity:0;}}
+.vc-time{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.68);}
 
 .vc-stage{display:flex;align-items:center;gap:18px;margin-bottom:18px;}
 
@@ -286,7 +289,7 @@ body.modal-open{overflow:hidden;}
 @keyframes vcCore{0%,100%{transform:scale(1);opacity:0.9;}50%{transform:scale(1.16);opacity:0.6;}}
 /* the orb breathes a little harder while the agent is speaking */
 .voicecall.speaking .vc-orb{animation:vcPulse 2.4s ease-in-out infinite;}
-@keyframes vcPulse{0%,100%{box-shadow:0 10px 30px -10px rgba(120,80,235,0.5),inset 0 0 0 1px rgba(255,255,255,0.09);}50%{box-shadow:0 14px 40px -10px rgba(235,60,110,0.75),inset 0 0 0 1px rgba(255,255,255,0.16);}}
+@keyframes vcPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.045);}}
 
 /* speaking bars sit on top of the sphere — a mouth, not a heart monitor */
 .vc-bars{position:relative;z-index:3;display:flex;align-items:center;gap:3px;height:22px;}
@@ -374,7 +377,7 @@ footer{padding:40px 10px 10px;}
 .foot-brand p{margin:14px 0 0;font-size:13.5px;line-height:1.65;color:rgba(255,255,255,0.65);max-width:36ch;}
 .foot-card .btn-dark{background:#fdfdf9;color:var(--green-deep);}
 .foot-card .btn-dark:hover{background:#fff;}
-.foot-bottom{display:flex;justify-content:space-between;gap:16px;padding-top:24px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,0.45);flex-wrap:wrap;}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;padding-top:24px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,0.66);flex-wrap:wrap;}
 
 /* AI-summary strip — top row of the footer card: title left, blurb +
    assistant links right */
@@ -751,7 +754,7 @@ body{top:0 !important;}
 
 /* legal links sit inline in the single bottom bar — no second row */
 .foot-legal{display:inline-flex;flex-wrap:wrap;gap:18px;align-items:center;}
-.foot-legal a,.foot-legal button{font-family:var(--mono);font-size:12px;line-height:1.6;color:rgba(255,255,255,0.45);text-decoration:none;transition:color .2s ease;background:none;border:0;padding:0;cursor:pointer;}
+.foot-legal a,.foot-legal button{font-family:var(--mono);font-size:12px;line-height:1.6;color:rgba(255,255,255,0.66);text-decoration:none;transition:color .2s ease;background:none;border:0;padding:0;cursor:pointer;}
 .foot-legal > * + *{position:relative;}
 .foot-legal > * + *::before{content:"\00B7";position:absolute;left:-11px;color:rgba(255,255,255,0.3);}
 .foot-legal button{background:none;border:none;padding:0;cursor:pointer;}
