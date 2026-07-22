@@ -312,31 +312,59 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)close();});
 })();
 
-// mailto safety net — a plain mailto: silently does nothing for visitors with
-// no default mail app (common on desktop when you live in webmail), so the
-// contact address looks broken. We let the mailto fire as normal AND copy the
-// address, telling the visitor either way.
+// email links open a real compose window in a new tab. A bare mailto: does
+// nothing for the many visitors with no default mail app registered (normal
+// on desktop when you live in webmail), so the address looked dead. We open
+// Gmail's compose view pre-addressed to us — the visitor just types and
+// sends — and offer Outlook / their own mail app as alternatives.
 (function(){
   var toast=null,timer=null;
-  function say(msg){
+
+  function compose(service,addr,subject){
+    var to=encodeURIComponent(addr), su=encodeURIComponent(subject||'');
+    if(service==='gmail')
+      return 'https://mail.google.com/mail/?view=cm&fs=1&to='+to+'&su='+su;
+    if(service==='outlook')
+      return 'https://outlook.live.com/mail/0/deeplink/compose?to='+to+'&subject='+su;
+    return 'mailto:'+addr+(subject?'?subject='+su:'');
+  }
+
+  function show(addr,subject){
     if(!toast){toast=document.createElement('div');toast.className='mail-toast';document.body.appendChild(toast);}
-    toast.textContent=msg;
+    toast.innerHTML='';
+    var p=document.createElement('span');
+    p.className='mail-toast-text';
+    p.textContent='Opening Gmail — not your provider?';
+    toast.appendChild(p);
+    [['Outlook','outlook'],['Mail app','app']].forEach(function(o){
+      var a=document.createElement('a');
+      a.textContent=o[0];
+      a.href=compose(o[1],addr,subject);
+      if(o[1]!=='app'){a.target='_blank';a.rel='noopener';}
+      toast.appendChild(a);
+    });
+    var copy=document.createElement('button');
+    copy.type='button';copy.textContent='Copy address';
+    copy.addEventListener('click',function(){
+      if(navigator.clipboard&&navigator.clipboard.writeText)
+        navigator.clipboard.writeText(addr).then(function(){copy.textContent='Copied';});
+    });
+    toast.appendChild(copy);
     requestAnimationFrame(function(){toast.classList.add('show');});
     clearTimeout(timer);
-    timer=setTimeout(function(){toast.classList.remove('show');},4200);
+    timer=setTimeout(function(){toast.classList.remove('show');},9000);
   }
+
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');
     if(!a)return;
-    var addr=a.getAttribute('href').replace(/^mailto:/,'').split('?')[0];
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(addr).then(
-        function(){say('Opening your mail app — address copied: '+addr);},
-        function(){say('Email us at '+addr);}
-      );
-    }else{
-      say('Email us at '+addr);
-    }
-    // no preventDefault: the mail app still opens for anyone who has one
+    if(e.metaKey||e.ctrlKey||e.shiftKey)return;      // let power users override
+    var href=a.getAttribute('href').replace(/^mailto:/,'');
+    var addr=href.split('?')[0];
+    var m=/[?&]subject=([^&]*)/i.exec(href);
+    var subject=m?decodeURIComponent(m[1]):'Enquiry for ArtIntele.ai';
+    e.preventDefault();
+    window.open(compose('gmail',addr,subject),'_blank','noopener');
+    show(addr,subject);
   });
 })();
