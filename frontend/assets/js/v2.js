@@ -171,17 +171,44 @@ document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener(
   },{passive:true});
 })();
 
-// cookie consent — shown once, choice kept in localStorage
+// cookie consent — banner on first visit, and a re-openable settings panel
+// so consent can be WITHDRAWN as easily as it was given (DPDP / GDPR both
+// require that; previously the choice was final once made).
 (function(){
-  try{if(localStorage.getItem('at-cookie-consent'))return;}catch(e){return;}
-  var bar=document.createElement('div');
-  bar.className='cookie-bar';bar.setAttribute('role','dialog');bar.setAttribute('aria-label','Cookie consent');
-  bar.innerHTML='<p>We use cookies to improve your experience and understand how our site is used. Non-essential cookies are only set if you accept.</p>'+
-    '<div class="cookie-actions"><button type="button" class="cookie-accept">Accept</button><button type="button" class="cookie-decline">Decline</button></div>';
-  document.body.appendChild(bar);
-  function choose(v){try{localStorage.setItem('at-cookie-consent',v);}catch(e){}bar.remove();}
-  bar.querySelector('.cookie-accept').addEventListener('click',function(){choose('accepted');});
-  bar.querySelector('.cookie-decline').addEventListener('click',function(){choose('declined');});
+  var KEY='at-cookie-consent';
+  function get(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
+  function set(v){try{localStorage.setItem(KEY,v);}catch(e){}
+    document.dispatchEvent(new CustomEvent('at-consent',{detail:v}));}
+
+  var bar=null;
+  function build(current){
+    if(bar)return bar;
+    bar=document.createElement('div');
+    bar.className='cookie-bar';bar.setAttribute('role','dialog');
+    bar.setAttribute('aria-label','Cookie consent');
+    bar.innerHTML='<p>We use cookies to improve your experience and understand how our site is used. '+
+      'Essential cookies keep the site working; non-essential ones are only set if you accept. '+
+      'Read our <a href="/cookies">Cookie Policy</a> and <a href="/privacy">Privacy Policy</a>.</p>'+
+      '<div class="cookie-actions"><button type="button" class="cookie-accept">Accept</button>'+
+      '<button type="button" class="cookie-decline">Decline</button></div>';
+    document.body.appendChild(bar);
+    bar.querySelector('.cookie-accept').addEventListener('click',function(){set('accepted');close();});
+    bar.querySelector('.cookie-decline').addEventListener('click',function(){set('declined');close();});
+    return bar;
+  }
+  function close(){if(bar){bar.remove();bar=null;}}
+
+  // public hook — the footer "Cookie Settings" link and the cookie policy
+  // page both use this to bring the choice back up at any time.
+  window.artinteleCookieSettings=function(){build(get());};
+  window.artinteleConsent=get;
+
+  document.addEventListener('click',function(e){
+    var t=e.target.closest&&e.target.closest('#cookie-settings,[data-cookie-settings]');
+    if(t){e.preventDefault();window.artinteleCookieSettings();}
+  });
+
+  if(!get())build(null);   // first visit only
 })();
 
 // back to top — appears after the hero, smooth-scrolls home
