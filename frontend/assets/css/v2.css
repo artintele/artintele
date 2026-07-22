@@ -769,7 +769,7 @@ body{top:0 !important;}
 .legal p{margin:0 0 14px;}
 .legal ul{margin:0 0 16px;padding-left:20px;}
 .legal li{margin-bottom:8px;}
-.legal a{color:var(--green);text-decoration:underline;}
+.legal a{color:#14744a;text-decoration:underline;}
 .legal .lead{font-size:17.5px;line-height:1.65;color:var(--ink);margin-bottom:8px;}
 .legal table{width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:14.5px;}
 .legal th,.legal td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft);}

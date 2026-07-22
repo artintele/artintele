@@ -104,13 +104,13 @@
         <div class="field"><label>Company</label><input name="company" type="text" placeholder="Your business"></div>
         <div class="field"><label>Email</label><input name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@email.com"></div>
         <div class="field"><label>Phone</label><input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+91 90000 00000"></div>
-        <div class="field"><label>Calls per month</label>
-          <select name="call_volume">
+        <div class="field"><label for="f-callvol">Calls per month</label>
+          <select id="f-callvol" name="call_volume">
             <option value="">Choose…</option><option>Not sure yet</option><option>Under 100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option>
           </select>
         </div>
-        <div class="field"><label>I want to</label>
-          <select name="intent" required>
+        <div class="field"><label for="f-intent">I want to</label>
+          <select id="f-intent" name="intent" required>
             <option value="">Choose…</option><option>Book a consultation</option><option>Schedule a demo</option><option>Discuss a custom solution</option><option>Something else</option>
           </select>
         </div>
