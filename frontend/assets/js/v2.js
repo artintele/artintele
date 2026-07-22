@@ -205,8 +205,8 @@ document.addEventListener('keydown',function(e){
     bar=document.createElement('div');
     bar.className='cookie-bar';bar.setAttribute('role','dialog');
     bar.setAttribute('aria-label','Cookie consent');
-    bar.innerHTML='<p>We use cookies to improve your experience and understand how our site is used. '+
-      'Essential cookies keep the site working; non-essential ones are only set if you accept. '+
+    bar.innerHTML='<p>We use essential cookies to keep the site working. We don\u2019t currently set any '+
+      'analytics or advertising cookies \u2014 if that changes, we\u2019ll ask first. '+
       'Read our <a href="/cookies">Cookie Policy</a> and <a href="/privacy">Privacy Policy</a>.</p>'+
       '<div class="cookie-actions"><button type="button" class="cookie-accept">Accept</button>'+
       '<button type="button" class="cookie-decline">Decline</button></div>';
