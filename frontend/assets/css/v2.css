@@ -65,12 +65,19 @@ h2.display{font-size:clamp(34px,4.6vw,58px);}
 /* specular sheen across the top curve */
 /* z-index:-1 keeps both layers above the button's own background but BELOW
    the label — positioned pseudo-elements otherwise paint over inline text. */
-.btn::before{content:"";position:absolute;left:0;right:0;top:0;height:52%;border-radius:999px 999px 40% 40%/999px 999px 100% 100%;
-  pointer-events:none;z-index:-1;opacity:.9;transition:opacity .3s ease;}
-/* refracted rim — a soft bright edge, brightest at the shoulders */
+/* EDGE LENS: a ring that re-samples the backdrop with its own filter, so the
+   background is genuinely brightened and pushed around at the rim — the
+   light-bending Apple's glass shows, rather than a painted-on highlight. */
+.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  backdrop-filter:blur(2px) brightness(1.22) saturate(1.35);-webkit-backdrop-filter:blur(2px) brightness(1.22) saturate(1.35);
+  padding:3.5px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  opacity:.95;transition:opacity .3s ease;}
+/* specular rim — a soft bright edge, brightest at the shoulders */
 .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
   padding:1px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;mask-composite:exclude;transition:opacity .3s ease;}
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  transition:opacity .3s ease;}
 
 /* Surface colours live with the rest of the liquid-glass theme further down,
    so they inherit the scroll-driven --lg-angle light source. */
@@ -604,32 +611,43 @@ nav::before{
    shared --lg-angle (rotated on scroll), so the sheen and the refracted rim
    travel across every button as the page moves — the same way real glass
    catches light. Both variants keep their label above the glass layers. */
+/* Apple's glass is mostly SEE-THROUGH: heavy blur, a barely-there white
+   film, and a hairline rim. The fill stays low so the background reads
+   through the button — that transparency is what sells it as glass rather
+   than a tinted pill. */
+/* the top-curve sheen is a background layer, so ::before is free to carry
+   the backdrop-sampling edge lens */
 .btn-ghost-dark{
-  position:relative;color:#fff;border:1px solid rgba(255,255,255,0.24);
-  background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.26),rgba(255,255,255,0.05) 52%,rgba(255,255,255,0.16));
-  backdrop-filter:blur(18px) saturate(190%) brightness(1.12);-webkit-backdrop-filter:blur(18px) saturate(190%) brightness(1.12);
-  box-shadow:inset 0 1.5px 1px rgba(255,255,255,0.55),inset 0 -6px 12px -8px rgba(0,0,0,0.55),0 10px 28px -12px rgba(0,0,0,0.55);
+  position:relative;color:#fff;border:0.5px solid rgba(255,255,255,0.18);
+  background:radial-gradient(125% 85% at 50% -10%,rgba(255,255,255,0.20),rgba(255,255,255,0) 62%),
+             linear-gradient(var(--lg-angle),rgba(255,255,255,0.12),rgba(255,255,255,0.035) 55%,rgba(255,255,255,0.075));
+  backdrop-filter:blur(34px) saturate(175%);-webkit-backdrop-filter:blur(34px) saturate(175%);
+  box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.34),inset 0 -0.5px 0 rgba(255,255,255,0.10),0 6px 20px -10px rgba(0,0,0,0.45);
 }
-.btn-ghost-dark::before{background:linear-gradient(180deg,rgba(255,255,255,0.40),rgba(255,255,255,0) 78%);}
-.btn-ghost-dark::after{background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.95),rgba(255,255,255,0.10) 34%,rgba(126,224,175,0.45) 62%,rgba(255,255,255,0.85));}
+.btn-ghost-dark::after{background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.5),rgba(255,255,255,0.06) 34%,rgba(255,255,255,0) 58%,rgba(255,255,255,0.34));}
 .btn-ghost-dark:hover{
-  border-color:rgba(255,255,255,0.42);
-  background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.36),rgba(255,255,255,0.10) 52%,rgba(255,255,255,0.22));
-  box-shadow:inset 0 1.5px 1px rgba(255,255,255,0.7),inset 0 -6px 12px -8px rgba(0,0,0,0.5),0 16px 36px -12px rgba(0,0,0,0.62);
+  border-color:rgba(255,255,255,0.3);
+  background:radial-gradient(125% 85% at 50% -10%,rgba(255,255,255,0.28),rgba(255,255,255,0) 62%),
+             linear-gradient(var(--lg-angle),rgba(255,255,255,0.18),rgba(255,255,255,0.06) 55%,rgba(255,255,255,0.12));
+  box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.5),inset 0 -0.5px 0 rgba(255,255,255,0.12),0 10px 26px -10px rgba(0,0,0,0.5);
 }
 
+/* On a light surface, white glass on white is invisible — so this variant is
+   tinted slightly DARKER than the page (the way macOS glass goes grey in
+   light mode) with an ink hairline, and keeps the white sheen on top. */
 .btn-ghost-light{
-  position:relative;color:var(--green-deep);border:1px solid rgba(255,255,255,0.85);
-  background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.9),rgba(255,255,255,0.35) 52%,rgba(234,246,238,0.7));
-  backdrop-filter:blur(18px) saturate(180%) brightness(1.04);-webkit-backdrop-filter:blur(18px) saturate(180%) brightness(1.04);
-  box-shadow:inset 0 1.5px 2px rgba(255,255,255,0.95),inset 0 -2px 3px rgba(31,157,91,0.14),0 10px 24px -12px rgba(22,21,15,0.32);
+  position:relative;color:var(--green-deep);border:0.5px solid rgba(12,31,22,0.16);
+  background:radial-gradient(125% 85% at 50% -10%,rgba(255,255,255,0.85),rgba(255,255,255,0) 62%),
+             linear-gradient(var(--lg-angle),rgba(12,31,22,0.07),rgba(12,31,22,0.03) 55%,rgba(12,31,22,0.06));
+  backdrop-filter:blur(34px) saturate(180%);-webkit-backdrop-filter:blur(34px) saturate(180%);
+  box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.95),inset 0 -0.5px 0 rgba(12,31,22,0.06),0 6px 18px -9px rgba(22,21,15,0.3);
 }
-.btn-ghost-light::before{background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0) 80%);}
-.btn-ghost-light::after{background:linear-gradient(var(--lg-angle),rgba(255,255,255,1),rgba(255,255,255,0.15) 38%,rgba(126,224,175,0.55) 68%,rgba(255,255,255,0.9));}
+.btn-ghost-light::after{background:linear-gradient(var(--lg-angle),rgba(255,255,255,0.95),rgba(255,255,255,0.15) 34%,rgba(12,31,22,0.10) 58%,rgba(255,255,255,0.7));}
 .btn-ghost-light:hover{
-  border-color:#fff;
-  background:linear-gradient(var(--lg-angle),rgba(255,255,255,1),rgba(255,255,255,0.5) 52%,rgba(234,246,238,0.85));
-  box-shadow:inset 0 1.5px 2px #fff,inset 0 -2px 3px rgba(31,157,91,0.12),0 16px 32px -12px rgba(22,21,15,0.38);
+  border-color:rgba(12,31,22,0.3);
+  background:radial-gradient(125% 85% at 50% -10%,rgba(255,255,255,0.95),rgba(255,255,255,0) 62%),
+             linear-gradient(var(--lg-angle),rgba(12,31,22,0.12),rgba(12,31,22,0.06) 55%,rgba(12,31,22,0.1));
+  box-shadow:inset 0 0.5px 0 #fff,inset 0 -0.5px 0 rgba(12,31,22,0.08),0 10px 24px -9px rgba(22,21,15,0.38);
 }
 
 /* light-section glass accents: contact badges + stat chips */
