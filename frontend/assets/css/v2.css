@@ -301,9 +301,6 @@ body.modal-open{overflow:hidden;}
 .voicecall.speaking .vc-bars i{animation:vcBar .9s ease-in-out infinite;}
 @keyframes vcBar{0%,100%{transform:scaleY(0.35);}50%{transform:scaleY(1);}}
 
-/* the Custom AI Voices card itself stays perfectly still — its aurora was
-   drifting behind the content, which read as the whole panel moving. */
-.voices-card .hero-aurora .blob{animation:none!important;}
 /* intro line above the language chips */
 .voices-card .lang-note{margin:18px 0 2px;font-size:13.5px;color:rgba(255,255,255,0.6);}
 .vc-who{font-size:13px;line-height:1.4;color:rgba(255,255,255,0.9);}
