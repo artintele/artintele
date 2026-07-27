@@ -103,23 +103,23 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 .hero-aurora .b1{ /* bright corner mass */
   width:96%;height:110%;left:-28%;top:-34%;
   background:radial-gradient(circle at 38% 38%, rgba(94,214,160,0.88) 0, rgba(52,168,118,0.42) 42%, rgba(52,168,118,0) 68%);
-  animation:flow1 13s ease-in-out 1.6s infinite alternate;}
+  animation:flow1 9s ease-in-out 1.6s infinite alternate;}
 .hero-aurora .b2{ /* deep blue field, right side */
   width:110%;height:130%;right:-34%;top:-14%;
   background:radial-gradient(circle at 62% 46%, rgba(20,58,110,0.72) 0, rgba(14,38,74,0.35) 48%, rgba(14,38,74,0) 70%);
-  animation:flow2 17s ease-in-out 1.9s infinite alternate;}
+  animation:flow2 12s ease-in-out 1.9s infinite alternate;}
 .hero-aurora .b3{ /* teal glow along the bottom */
   width:86%;height:64%;left:6%;bottom:-30%;
   background:radial-gradient(circle at 48% 42%, rgba(40,178,124,0.55) 0, rgba(40,178,124,0) 66%);
-  animation:flow3 11s ease-in-out 1.5s infinite alternate;}
+  animation:flow3 8s ease-in-out 1.5s infinite alternate;}
 .hero-aurora .b4{ /* faint cool sheen drifting through the middle */
   width:80%;height:80%;left:16%;top:6%;
   background:radial-gradient(circle at 50% 50%, rgba(70,130,190,0.28) 0, rgba(70,130,190,0) 62%);
-  animation:flow4 15s ease-in-out 2.1s infinite alternate;}
+  animation:flow4 10.5s ease-in-out 2.1s infinite alternate;}
 .hero-aurora .b5{ /* whisper of mint above the corner mass */
   width:52%;height:52%;left:-8%;top:-12%;
   background:radial-gradient(circle at 45% 45%, rgba(150,235,190,0.3) 0, rgba(150,235,190,0) 60%);
-  animation:flow3 14s ease-in-out 1.7s infinite alternate-reverse;}
+  animation:flow3 10s ease-in-out 1.7s infinite alternate-reverse;}
 /* interactive orb — its centre glides after the cursor (lerped in JS) */
 .hero-aurora .bi{
   width:100%;height:100%;top:-50%;left:-50%;
