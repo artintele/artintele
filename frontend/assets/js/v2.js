@@ -77,8 +77,8 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
 })();
 
 // hero headline typing — the full headline is laid out invisibly from the
-// first frame (zero layout shift) and characters are revealed in place;
-// the caret glides along on a transform. Skipped for reduced-motion users.
+// first frame (zero layout shift) and characters are revealed in place.
+// No cursor. Skipped for reduced-motion users.
 (function(){
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -103,26 +103,14 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   var acc=document.createElement('span');acc.className='ai-word';live.appendChild(acc);
   addChars(acc,'AI',seq);
 
-  var caret=document.createElement('span');caret.className='type-caret';
-  caret.style.position='absolute';caret.style.left='0';caret.style.top='0';
-  live.appendChild(caret);
-  function placeCaret(el,after){
-    var x=el.offsetLeft+(after?el.offsetWidth:0),y=el.offsetTop;
-    caret.style.transform='translate('+x+'px,'+y+'px)';
-  }
-  placeCaret(seq[0],false);
-
-  // caret blinks at the start, then vanishes the moment typing begins —
-  // no cursor gliding along or lingering after the text
   var i=0;
   function tick(){
-    caret.style.opacity='0';
     if(i>=seq.length)return;
     seq[i].style.visibility='visible';
     i++;
     setTimeout(tick,7+Math.random()*9);
   }
-  setTimeout(tick,650);
+  setTimeout(tick,120);
 })();
 
 // interactive aurora orb — lerps toward the cursor inside each dark card
