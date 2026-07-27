@@ -155,10 +155,14 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 }
 .hero-grain{position:absolute;inset:0;pointer-events:none;opacity:0.5;background:radial-gradient(100% 70% at 50% 100%, rgba(0,0,0,0.42), transparent 55%);}
 .hero-inner{position:relative;z-index:2;max-width:900px;}
-.hero h1{position:relative;font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,96px);line-height:1.02;letter-spacing:-0.018em;color:#fdfdf9;margin:0;min-height:2.06em;}
+.hero h1{position:relative;font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,96px);line-height:1.04;letter-spacing:-0.018em;color:#fdfdf9;margin:0;min-height:3.3em;}
 .hero .type-sizer{visibility:hidden;}
 .hero .type-live{position:absolute;left:0;right:0;top:0;}
 .hero h1 .accent{font-style:italic;}
+/* smaller connective word on its own line */
+.hero h1 .with{display:inline-block;font-size:0.5em;font-weight:400;letter-spacing:0.02em;color:rgba(253,253,249,0.62);line-height:1;margin:0.12em 0;}
+/* AI — the hero flourish: oversized italic serif with a mint-to-emerald sheen */
+.hero h1 .ai-word{display:inline-block;font-style:italic;font-size:1.32em;letter-spacing:-0.01em;line-height:1;background:linear-gradient(120deg,#eafff4 0%,#7fe0af 45%,#1f9d5b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#7fe0af;}
 .type-caret{display:inline-block;width:0.05em;height:0.82em;background:#fdfdf9;margin-left:0.06em;vertical-align:-0.04em;animation:caretblink 0.85s steps(1) infinite;transition:opacity .25s ease;will-change:opacity;}
 @keyframes caretblink{50%{opacity:0;}}
 .hero-sub{margin:28px auto 0;max-width:72ch;text-align:center;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.78);}

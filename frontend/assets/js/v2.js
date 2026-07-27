@@ -83,7 +83,7 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   var sizer=document.createElement('span');sizer.className='type-sizer';sizer.setAttribute('aria-hidden','true');
-  sizer.innerHTML='Automate Your Business<br>with <span class="accent">AI.</span>';
+  sizer.innerHTML='Automate Your Business<br><span class="with">with</span><br><span class="ai-word">AI</span>';
   var live=document.createElement('span');live.className='type-live';
   h1.innerHTML='';h1.appendChild(sizer);h1.appendChild(live);
 
@@ -97,9 +97,11 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   var seq=[];
   addChars(live,'Automate Your Business',seq);
   live.appendChild(document.createElement('br'));
-  addChars(live,'with ',seq);
-  var acc=document.createElement('span');acc.className='accent';live.appendChild(acc);
-  addChars(acc,'AI.',seq);
+  var withEl=document.createElement('span');withEl.className='with';live.appendChild(withEl);
+  addChars(withEl,'with',seq);
+  live.appendChild(document.createElement('br'));
+  var acc=document.createElement('span');acc.className='ai-word';live.appendChild(acc);
+  addChars(acc,'AI',seq);
 
   var caret=document.createElement('span');caret.className='type-caret';
   caret.style.position='absolute';caret.style.left='0';caret.style.top='0';
@@ -110,15 +112,17 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   }
   placeCaret(seq[0],false);
 
+  // caret blinks at the start, then vanishes the moment typing begins —
+  // no cursor gliding along or lingering after the text
   var i=0;
   function tick(){
-    if(i>=seq.length){setTimeout(function(){caret.style.opacity='0';},200);return;}
+    caret.style.opacity='0';
+    if(i>=seq.length)return;
     seq[i].style.visibility='visible';
-    placeCaret(seq[i],true);
     i++;
     setTimeout(tick,7+Math.random()*9);
   }
-  setTimeout(tick,50);
+  setTimeout(tick,650);
 })();
 
 // interactive aurora orb — lerps toward the cursor inside each dark card
