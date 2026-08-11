@@ -400,66 +400,35 @@ def md_page(page: str):
 # --------------------------------------------------------------------------
 # Static frontend (mounted last so /api/* and /dashboard win)
 # --------------------------------------------------------------------------
-@app.get("/")
-def index():
-    return FileResponse(FRONTEND_DIR / "index.html")
-
-
 # --- Clean URLs -----------------------------------------------------------
 # Serve the public pages at extensionless paths (/contact, not /contact.html).
 # StaticFiles(html=True) only maps directories -> index.html, so we route the
 # pretty paths explicitly and 301 the old .html paths onto them (one canonical
 # URL per page = no duplicate content for SEO, and old links keep working).
-@app.get("/contact", include_in_schema=False)
-def contact_page():
-    return FileResponse(FRONTEND_DIR / "contact.html")
+#
+# Every page answers GET *and* HEAD. FastAPI's @app.get() registers GET alone —
+# unlike Starlette's plain Route, it does not add HEAD for you — so HEAD on a
+# pretty URL used to fall through to the StaticFiles mount below, which looked
+# for an extensionless file and 404'd. Googlebot crawls with GET so indexing was
+# unaffected, but link checkers, uptime monitors and SEO auditors use HEAD and
+# saw every page on the site as dead.
+_PAGE_METHODS = ["GET", "HEAD"]
 
-
-@app.get("/pricing", include_in_schema=False)
-def pricing_page():
-    return FileResponse(FRONTEND_DIR / "pricing.html")
-
-
-@app.get("/careers", include_in_schema=False)
-def careers_page():
-    return FileResponse(FRONTEND_DIR / "careers.html")
-
-
-@app.get("/privacy", include_in_schema=False)
-def privacy_page():
-    return FileResponse(FRONTEND_DIR / "privacy.html")
-
-
-@app.get("/cookies", include_in_schema=False)
-def cookies_page():
-    return FileResponse(FRONTEND_DIR / "cookies.html")
-
-
-@app.get("/blog", include_in_schema=False)
-def blog_page():
-    return FileResponse(FRONTEND_DIR / "blog.html")
-
-
-@app.get("/terms", include_in_schema=False)
-def terms_page():
-    return FileResponse(FRONTEND_DIR / "terms.html")
-
-
-# Services and Industries were homepage anchors only, so /services and
-# /industries 404'd while the nav advertised them. They are real pages now.
-@app.get("/services", include_in_schema=False)
-def services_page():
-    return FileResponse(FRONTEND_DIR / "services.html")
-
-
-@app.get("/industries", include_in_schema=False)
-def industries_page():
-    return FileResponse(FRONTEND_DIR / "industries.html")
-
+_PAGES = {
+    "/": "index.html",
+    "/services": "services.html",
+    "/industries": "industries.html",
+    "/contact": "contact.html",
+    "/pricing": "pricing.html",
+    "/careers": "careers.html",
+    "/blog": "blog.html",
+    "/privacy": "privacy.html",
+    "/cookies": "cookies.html",
+    "/terms": "terms.html",
+}
 
 # Blog posts used to live as #anchors on /blog, so none of them could rank.
-# Each is its own URL now; the old anchor links still land on /blog and the
-# in-page anchors there redirect readers on to the real post.
+# Each is its own URL now, and /blog links out to them.
 _BLOG_POSTS = {
     "voice-ai-in-production-2026": "blog-voice-ai-in-production-2026.html",
     "whatsapp-automation-playbook": "blog-whatsapp-automation-playbook.html",
@@ -468,7 +437,26 @@ _BLOG_POSTS = {
 }
 
 
-@app.get("/blog/{slug}", include_in_schema=False)
+def _serve_page(filename: str):
+    def handler():
+        return FileResponse(FRONTEND_DIR / filename)
+
+    return handler
+
+
+def _redirect_to(target: str):
+    def handler():
+        return RedirectResponse(target, status_code=301)
+
+    return handler
+
+
+for _path, _file in _PAGES.items():
+    app.add_api_route(
+        _path, _serve_page(_file), methods=_PAGE_METHODS, include_in_schema=False
+    )
+
+
 def blog_post(slug: str):
     filename = _BLOG_POSTS.get(slug)
     if filename is None:
@@ -476,44 +464,20 @@ def blog_post(slug: str):
     return FileResponse(FRONTEND_DIR / filename)
 
 
-@app.get("/contact.html", include_in_schema=False)
-def contact_html():
-    return RedirectResponse("/contact", status_code=301)
+app.add_api_route(
+    "/blog/{slug}", blog_post, methods=_PAGE_METHODS, include_in_schema=False
+)
 
+# Legacy .html paths -> the canonical pretty URL. /index.html is the one that
+# does not follow the pattern, so build the map explicitly.
+_HTML_REDIRECTS = {"/index.html": "/"}
+for _path, _file in _PAGES.items():
+    if _path != "/":
+        _HTML_REDIRECTS[f"{_path}.html"] = _path
 
-@app.get("/pricing.html", include_in_schema=False)
-def pricing_html():
-    return RedirectResponse("/pricing", status_code=301)
-
-
-@app.get("/careers.html", include_in_schema=False)
-def careers_html():
-    return RedirectResponse("/careers", status_code=301)
-
-
-@app.get("/privacy.html", include_in_schema=False)
-def privacy_html():
-    return RedirectResponse("/privacy", status_code=301)
-
-
-@app.get("/cookies.html", include_in_schema=False)
-def cookies_html():
-    return RedirectResponse("/cookies", status_code=301)
-
-
-@app.get("/blog.html", include_in_schema=False)
-def blog_html():
-    return RedirectResponse("/blog", status_code=301)
-
-
-@app.get("/terms.html", include_in_schema=False)
-def terms_html():
-    return RedirectResponse("/terms", status_code=301)
-
-
-@app.get("/index.html", include_in_schema=False)
-def index_html():
-    return RedirectResponse("/", status_code=301)
-
+for _path, _target in _HTML_REDIRECTS.items():
+    app.add_api_route(
+        _path, _redirect_to(_target), methods=_PAGE_METHODS, include_in_schema=False
+    )
 
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
