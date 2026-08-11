@@ -10,7 +10,14 @@ const cleanUrls = {
   configureServer(server) {
     server.middlewares.use((req, _res, next) => {
       const path = req.url.split('?')[0];
-      if (/^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies|terms)\/?$/.test(path)) {
+      // /blog/<slug> is a real page served from blog-<slug>.html — check it
+      // first, otherwise the top-level rule below would swallow /blog/.
+      const post = /^\/blog\/([a-z0-9-]+)\/?$/.exec(path);
+      if (post) {
+        req.url = `/blog-${post[1]}.html`;
+      } else if (
+        /^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies|terms|services|industries)\/?$/.test(path)
+      ) {
         req.url = path.replace(/\/$/, '') + '.html';
       }
       next();
@@ -32,7 +39,13 @@ export default defineConfig({
         pricing: resolve(__dirname, 'pricing.html'),
         contact: resolve(__dirname, 'contact.html'),
         careers: resolve(__dirname, 'careers.html'),
+        services: resolve(__dirname, 'services.html'),
+        industries: resolve(__dirname, 'industries.html'),
         blog: resolve(__dirname, 'blog.html'),
+        blogVoiceAi: resolve(__dirname, 'blog-voice-ai-in-production-2026.html'),
+        blogWhatsapp: resolve(__dirname, 'blog-whatsapp-automation-playbook.html'),
+        blogAgents: resolve(__dirname, 'blog-from-chatbots-to-agents.html'),
+        blogWorkflows: resolve(__dirname, 'blog-five-workflows-to-automate.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         cookies: resolve(__dirname, 'cookies.html'),
         terms: resolve(__dirname, 'terms.html'),

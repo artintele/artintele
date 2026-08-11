@@ -1,6 +1,6 @@
 ---
 title: "Services | ArtIntele.ai"
-url: https://artintele.ai/#services
+url: https://artintele.ai/services
 description: "Full-service AI automation: voice agents, telecallers, chatbots, WhatsApp automation, workflow automation, custom AI development and more."
 ---
 
