@@ -1,6 +1,6 @@
 ---
 title: "Industries | ArtIntele.ai"
-url: https://artintele.ai/#industries
+url: https://artintele.ai/industries
 description: "AI automation solutions shaped to your sector: healthcare, education, real estate, manufacturing, finance and retail."
 ---
 

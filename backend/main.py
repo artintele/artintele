@@ -302,8 +302,9 @@ Artintele.ai designs, builds and deploys AI agents and automation. Engagements r
 ## Core Pages
 
 - [Home]({u}/): Overview of Artintele.ai's AI agents, voice assistants and automation services.
-- [Services]({u}/md/services.md): Full list of services — AI voice agents, telecallers, receptionists, chatbots, workflow automation and more.
-- [Industries]({u}/md/industries.md): Sectors served and example automations for each.
+- [Services]({u}/services): Full list of services — AI voice agents, telecallers, receptionists, chatbots, workflow automation and more.
+- [Industries]({u}/industries): Sectors served and example automations for each.
+- [Blog]({u}/blog): Field notes on voice AI, WhatsApp automation and agentic systems in production.
 - [Process]({u}/md/process.md): The seven-step delivery process from discovery to maintenance.
 - [FAQ]({u}/md/faq.md): Answers to common questions about AI telecallers, languages, WhatsApp automation and deployment timelines.
 - [Pricing]({u}/pricing): Pricing and packages.
@@ -333,26 +334,37 @@ Artintele.ai designs, builds and deploys AI agents and automation. Engagements r
     return PlainTextResponse(body)
 
 
+# Real per-page modification dates. Stamping every URL with "today" (which this
+# used to do) is fake freshness — Google discounts lastmod when a whole sitemap
+# claims to have changed at once. Update the date for a page when you change it.
+SITEMAP_PAGES = [
+    # path, priority, changefreq, lastmod
+    ("/", "1.0", "weekly", "2026-08-11"),
+    ("/services", "0.9", "monthly", "2026-08-11"),
+    ("/industries", "0.9", "monthly", "2026-08-11"),
+    ("/contact", "0.9", "monthly", "2026-08-11"),
+    ("/pricing", "0.8", "monthly", "2026-07-16"),
+    ("/careers", "0.7", "monthly", "2026-07-16"),
+    ("/blog", "0.6", "weekly", "2026-08-11"),
+    ("/blog/voice-ai-in-production-2026", "0.6", "yearly", "2026-08-11"),
+    ("/blog/whatsapp-automation-playbook", "0.6", "yearly", "2026-08-11"),
+    ("/blog/from-chatbots-to-agents", "0.6", "yearly", "2026-08-11"),
+    ("/blog/five-workflows-to-automate", "0.6", "yearly", "2026-08-11"),
+    ("/privacy", "0.3", "yearly", "2026-07-16"),
+    ("/cookies", "0.3", "yearly", "2026-07-16"),
+    ("/terms", "0.3", "yearly", "2026-07-16"),
+]
+
+
 @app.get("/sitemap.xml", include_in_schema=False)
 def sitemap_xml():
     """List the indexable public pages with the canonical production domain."""
-    today = f"{datetime.utcnow():%Y-%m-%d}"
-    pages = [
-        ("/", "1.0", "weekly"),
-        ("/pricing", "0.8", "monthly"),
-        ("/contact", "0.9", "monthly"),
-        ("/careers", "0.7", "monthly"),
-        ("/privacy", "0.3", "yearly"),
-        ("/cookies", "0.3", "yearly"),
-        ("/blog", "0.6", "weekly"),
-        ("/terms", "0.3", "yearly"),
-    ]
     urls = "".join(
         f"<url><loc>{config.SITE_URL}{path}</loc>"
-        f"<lastmod>{today}</lastmod>"
+        f"<lastmod>{lastmod}</lastmod>"
         f"<changefreq>{freq}</changefreq>"
         f"<priority>{prio}</priority></url>"
-        for path, prio, freq in pages
+        for path, prio, freq, lastmod in SITEMAP_PAGES
     )
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>'
@@ -431,6 +443,37 @@ def blog_page():
 @app.get("/terms", include_in_schema=False)
 def terms_page():
     return FileResponse(FRONTEND_DIR / "terms.html")
+
+
+# Services and Industries were homepage anchors only, so /services and
+# /industries 404'd while the nav advertised them. They are real pages now.
+@app.get("/services", include_in_schema=False)
+def services_page():
+    return FileResponse(FRONTEND_DIR / "services.html")
+
+
+@app.get("/industries", include_in_schema=False)
+def industries_page():
+    return FileResponse(FRONTEND_DIR / "industries.html")
+
+
+# Blog posts used to live as #anchors on /blog, so none of them could rank.
+# Each is its own URL now; the old anchor links still land on /blog and the
+# in-page anchors there redirect readers on to the real post.
+_BLOG_POSTS = {
+    "voice-ai-in-production-2026": "blog-voice-ai-in-production-2026.html",
+    "whatsapp-automation-playbook": "blog-whatsapp-automation-playbook.html",
+    "from-chatbots-to-agents": "blog-from-chatbots-to-agents.html",
+    "five-workflows-to-automate": "blog-five-workflows-to-automate.html",
+}
+
+
+@app.get("/blog/{slug}", include_in_schema=False)
+def blog_post(slug: str):
+    filename = _BLOG_POSTS.get(slug)
+    if filename is None:
+        raise HTTPException(status_code=404)
+    return FileResponse(FRONTEND_DIR / filename)
 
 
 @app.get("/contact.html", include_in_schema=False)
