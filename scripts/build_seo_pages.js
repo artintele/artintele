@@ -296,6 +296,11 @@ ${INDUSTRIES.map(
     sub: 'Most ops workloads are a handful of repetitive loops. Automating them costs a fraction of a salary and never resigns.',
     published: '2026-06-10',
   }),
+
+  // Long-form pages carry their own copy and schema in scripts/content/.
+  require('./content/ai-cold-calling-rules-india.js'),
+  require('./content/top-ai-voice-agents-india.js'),
+  require('./content/ai-telecaller-bangalore.js'),
 ];
 
 // ---------------------------------------------------------------------------
@@ -333,7 +338,14 @@ ${graph}
 </script>
 `;
 
-  const header = `
+  // layout: 'legal' pages own their <h1> inside <main class="legal">, which is
+  // the long-form treatment used by /privacy and /terms — it styles h2, ul,
+  // tables and inline links, none of which the hero layout provides. They get
+  // no aurora header.
+  const header =
+    page.layout === 'legal'
+      ? ''
+      : `
 <div class="page-wrap">
   <header class="page-head">
     <div class="hero-aurora"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span><span class="blob b5"></span><span class="blob bi"></span></div>

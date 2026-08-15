@@ -16,7 +16,7 @@ const cleanUrls = {
       if (post) {
         req.url = `/blog-${post[1]}.html`;
       } else if (
-        /^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies|terms|services|industries)\/?$/.test(path)
+        /^\/(pricing|contact|careers|login|dashboard|blog|privacy|cookies|terms|services|industries|ai-cold-calling-rules-india)\/?$/.test(path)
       ) {
         req.url = path.replace(/\/$/, '') + '.html';
       }
@@ -41,6 +41,7 @@ export default defineConfig({
         careers: resolve(__dirname, 'careers.html'),
         services: resolve(__dirname, 'services.html'),
         industries: resolve(__dirname, 'industries.html'),
+        aiColdCallingRules: resolve(__dirname, 'ai-cold-calling-rules-india.html'),
         blog: resolve(__dirname, 'blog.html'),
         blogVoiceAi: resolve(__dirname, 'blog-voice-ai-in-production-2026.html'),
         blogWhatsapp: resolve(__dirname, 'blog-whatsapp-automation-playbook.html'),
