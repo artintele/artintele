@@ -172,6 +172,11 @@ nav.scrolled{background:rgba(250,249,246,0.78);box-shadow:0 18px 50px -20px rgba
 .stat:first-child{border-left:none;}
 .stat b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,44px);letter-spacing:-0.01em;color:var(--ink);}
 .stat span{font-size:13px;color:var(--ink-faint);margin-top:4px;display:inline-block;}
+/* equal-width columns on desktop so the row is symmetric under the hero —
+   without this the long "Tailored for Your Business" label makes the third
+   column wider and pulls the middle stat left of centre. Capped so the
+   cluster stays compact and the label never wraps. Phones stack (below). */
+@media(min-width:641px){.stat{flex:1 1 0;max-width:340px;}}
 
 /* ---------- statement (scroll-driven) ---------- */
 .statement{padding:150px 28px 150px;text-align:center;overflow:hidden;}
