@@ -299,6 +299,8 @@ ${INDUSTRIES.map(
 
   // Long-form pages carry their own copy and schema in scripts/content/.
   require('./content/ai-cold-calling-rules-india.js'),
+  require('./content/top-ai-voice-agents-india.js'),
+  require('./content/ai-telecaller-bangalore.js'),
 ];
 
 // ---------------------------------------------------------------------------
