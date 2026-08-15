@@ -297,9 +297,43 @@ ${INDUSTRIES.map(
     published: '2026-06-10',
   }),
 
+  articlePage('ai-voice-agent-cost-india', {
+    file: 'blog-ai-voice-agent-cost-india.html',
+    url: '/blog/ai-voice-agent-cost-india',
+    title: 'What an AI Voice Agent Costs in India | ArtIntele.ai',
+    description:
+      'Per minute, per call, per outcome or subscription — the four pricing models compared, the costs vendors leave out, and the only number worth comparing.',
+    kicker: 'Pricing &middot; August 2026',
+    sub: 'Five vendors will quote you five incompatible numbers. Here is how to make them comparable.',
+    published: '2026-08-15',
+  }),
+
+  articlePage('indian-languages-voice-ai', {
+    file: 'blog-indian-languages-voice-ai.html',
+    url: '/blog/indian-languages-voice-ai',
+    title: 'Which Indian Languages Can AI Voice Agents Handle? | ArtIntele.ai',
+    description:
+      'Supported versus production-tested, why code-switching breaks most agents, and how to test a vendor on your own recordings before you buy.',
+    kicker: 'Languages &middot; August 2026',
+    sub: 'Every vendor publishes a language count. Almost none of them mean the same thing by it.',
+    published: '2026-08-15',
+  }),
+
+  articlePage('ai-receptionist-missed-calls', {
+    file: 'blog-ai-receptionist-missed-calls.html',
+    url: '/blog/ai-receptionist-missed-calls',
+    title: 'The Missed-Call Problem Nobody Measures | ArtIntele.ai',
+    description:
+      'Unanswered calls are usually the largest leak in the funnel and the only one nobody tracks. How to measure yours in an afternoon, and what it is costing.',
+    kicker: 'Operations &middot; August 2026',
+    sub: 'You know your conversion rate. Do you know how many calls you did not answer last month?',
+    published: '2026-08-15',
+  }),
+
   // Long-form pages carry their own copy and schema in scripts/content/.
   require('./content/ai-cold-calling-rules-india.js'),
   require('./content/top-ai-voice-agents-india.js'),
+  require('./content/ai-voice-agent-platforms.js'),
   require('./content/ai-telecaller-bangalore.js'),
 ];
 
