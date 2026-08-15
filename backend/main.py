@@ -356,6 +356,7 @@ SITEMAP_PAGES = [
     ("/industries", "0.9", "monthly", "2026-08-11"),
     ("/ai-cold-calling-rules-india", "0.9", "monthly", "2026-08-11"),
     ("/top-ai-voice-agents-india", "0.9", "monthly", "2026-08-15"),
+    ("/ai-voice-agent-platforms", "0.9", "monthly", "2026-08-15"),
     ("/ai-telecaller-bangalore", "0.9", "monthly", "2026-08-15"),
     ("/contact", "0.9", "monthly", "2026-08-11"),
     ("/pricing", "0.8", "monthly", "2026-07-16"),
@@ -365,6 +366,9 @@ SITEMAP_PAGES = [
     ("/blog/whatsapp-automation-playbook", "0.6", "yearly", "2026-08-11"),
     ("/blog/from-chatbots-to-agents", "0.6", "yearly", "2026-08-11"),
     ("/blog/five-workflows-to-automate", "0.6", "yearly", "2026-08-11"),
+    ("/blog/ai-voice-agent-cost-india", "0.7", "yearly", "2026-08-15"),
+    ("/blog/indian-languages-voice-ai", "0.7", "yearly", "2026-08-15"),
+    ("/blog/ai-receptionist-missed-calls", "0.7", "yearly", "2026-08-15"),
     ("/privacy", "0.3", "yearly", "2026-07-16"),
     ("/cookies", "0.3", "yearly", "2026-07-16"),
     ("/terms", "0.3", "yearly", "2026-07-16"),
@@ -429,6 +433,7 @@ _PAGES = {
     "/industries": "industries.html",
     "/ai-cold-calling-rules-india": "ai-cold-calling-rules-india.html",
     "/top-ai-voice-agents-india": "top-ai-voice-agents-india.html",
+    "/ai-voice-agent-platforms": "ai-voice-agent-platforms.html",
     "/ai-telecaller-bangalore": "ai-telecaller-bangalore.html",
     "/contact": "contact.html",
     "/pricing": "pricing.html",
@@ -446,6 +451,9 @@ _BLOG_POSTS = {
     "whatsapp-automation-playbook": "blog-whatsapp-automation-playbook.html",
     "from-chatbots-to-agents": "blog-from-chatbots-to-agents.html",
     "five-workflows-to-automate": "blog-five-workflows-to-automate.html",
+    "ai-voice-agent-cost-india": "blog-ai-voice-agent-cost-india.html",
+    "indian-languages-voice-ai": "blog-indian-languages-voice-ai.html",
+    "ai-receptionist-missed-calls": "blog-ai-receptionist-missed-calls.html",
 }
 
 
