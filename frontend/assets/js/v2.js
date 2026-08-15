@@ -83,7 +83,7 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
   var h1=document.getElementById('hero-type');
   if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   var sizer=document.createElement('span');sizer.className='type-sizer';sizer.setAttribute('aria-hidden','true');
-  sizer.innerHTML='AI Telecallers<br><span class="with">that speak your customers&rsquo;</span><br><span class="ai-word">Language</span>';
+  sizer.innerHTML='Automate Your Business<br><span class="with">with</span><br><span class="ai-word">AI</span>';
   var live=document.createElement('span');live.className='type-live';
   h1.innerHTML='';h1.appendChild(sizer);h1.appendChild(live);
 
@@ -95,13 +95,13 @@ addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>10)
     }
   }
   var seq=[];
-  addChars(live,'AI Telecallers',seq);
+  addChars(live,'Automate Your Business',seq);
   live.appendChild(document.createElement('br'));
   var withEl=document.createElement('span');withEl.className='with';live.appendChild(withEl);
-  addChars(withEl,'that speak your customers’',seq);
+  addChars(withEl,'with',seq);
   live.appendChild(document.createElement('br'));
   var acc=document.createElement('span');acc.className='ai-word';live.appendChild(acc);
-  addChars(acc,'Language',seq);
+  addChars(acc,'AI',seq);
 
   var i=0;
   function tick(){
