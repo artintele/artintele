@@ -263,10 +263,22 @@ def health():
     }
 
 
+# Every public URL answers GET *and* HEAD. FastAPI's @app.get() registers GET
+# alone — unlike Starlette's plain Route, it does not add HEAD for you — so a
+# HEAD request falls through to the StaticFiles mount at the bottom of this
+# file, which looks for a matching file on disk, finds none, and 404s.
+#
+# Googlebot crawls with GET so indexing is unaffected, but link checkers, uptime
+# monitors, SEO auditors and some sitemap validators use HEAD and see the URL as
+# dead. That matters most for exactly the endpoints below: robots.txt and
+# sitemap.xml are the first two files any auditing tool probes.
+_PAGE_METHODS = ["GET", "HEAD"]
+
+
 # --------------------------------------------------------------------------
 # SEO — robots.txt + sitemap.xml (served before the static mount)
 # --------------------------------------------------------------------------
-@app.get("/robots.txt", include_in_schema=False)
+@app.api_route("/robots.txt", methods=_PAGE_METHODS, include_in_schema=False)
 def robots_txt():
     """Allow crawling of the public site (including AI/answer-engine bots);
     keep the CRM/API out of search for every crawler."""
@@ -289,7 +301,7 @@ def robots_txt():
     return PlainTextResponse(body)
 
 
-@app.get("/llms.txt", include_in_schema=False)
+@app.api_route("/llms.txt", methods=_PAGE_METHODS, include_in_schema=False)
 def llms_txt():
     """Agent-readable summary of the company + services (llms.txt convention)."""
     u = config.SITE_URL
@@ -359,7 +371,7 @@ SITEMAP_PAGES = [
 ]
 
 
-@app.get("/sitemap.xml", include_in_schema=False)
+@app.api_route("/sitemap.xml", methods=_PAGE_METHODS, include_in_schema=False)
 def sitemap_xml():
     """List the indexable public pages with the canonical production domain."""
     urls = "".join(
@@ -409,13 +421,7 @@ def md_page(page: str):
 # pretty paths explicitly and 301 the old .html paths onto them (one canonical
 # URL per page = no duplicate content for SEO, and old links keep working).
 #
-# Every page answers GET *and* HEAD. FastAPI's @app.get() registers GET alone —
-# unlike Starlette's plain Route, it does not add HEAD for you — so HEAD on a
-# pretty URL used to fall through to the StaticFiles mount below, which looked
-# for an extensionless file and 404'd. Googlebot crawls with GET so indexing was
-# unaffected, but link checkers, uptime monitors and SEO auditors use HEAD and
-# saw every page on the site as dead.
-_PAGE_METHODS = ["GET", "HEAD"]
+# These use _PAGE_METHODS so HEAD works too — see the note above its definition.
 
 _PAGES = {
     "/": "index.html",
