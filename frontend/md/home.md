@@ -9,7 +9,7 @@ description: "ArtIntele.ai builds custom AI agents, voice assistants, chatbots, 
 We build AI agents, voice assistants, and workflow automations that help businesses save time, reduce costs, and scale operations.
 
 - **24/7** — always-on agents
-- **6+ languages spoken** (examples: English, Hindi, Kannada, Tamil, Telugu, Malayalam — not a fixed list)
+- **20+ languages spoken**, production-tested on real customer calls (examples: English, Hindi, Kannada, Tamil, Telugu, Malayalam — not a fixed list)
 - **End-to-end** — built & deployed for you
 
 [Book a free consultation](https://artintele.ai/contact)

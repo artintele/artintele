@@ -231,7 +231,7 @@ module.exports = {
   layout: 'legal',
   title: 'AI Voice Agent Platforms Compared (2026) | ArtIntele.ai',
   description:
-    'Retell, Vapi, Bland, Synthflow and ElevenLabs compared — pricing, strengths and where each fits. Plus when a built deployment beats a platform, and 20+ production-tested languages.',
+    'Retell, Vapi, Bland, Synthflow and ElevenLabs compared — pricing, strengths and where each fits, plus when a built deployment beats a platform.',
   ogTitle: 'AI Voice Agent Platforms Compared (2026)',
   body: BODY,
   schema: [

@@ -311,7 +311,7 @@ ${INDUSTRIES.map(
   articlePage('indian-languages-voice-ai', {
     file: 'blog-indian-languages-voice-ai.html',
     url: '/blog/indian-languages-voice-ai',
-    title: 'Which Indian Languages Can AI Voice Agents Handle? | ArtIntele.ai',
+    title: 'Which Indian Languages Can AI Voice Agents Handle?',
     description:
       'Supported versus production-tested, why code-switching breaks most agents, and how to test a vendor on your own recordings before you buy.',
     kicker: 'Languages &middot; August 2026',

@@ -399,17 +399,22 @@ def sitemap_xml():
 # route from serving anything outside the mirror.
 # --------------------------------------------------------------------------
 MD_DIR = FRONTEND_DIR / "md"
-_MD_PAGES = {"home", "services", "industries", "process", "faq"}
+# "index" is the mirror's own index, already served at /md and /md/; it is
+# whitelisted so its canonical /md/index.md path resolves too.
+_MD_PAGES = {"index", "home", "services", "industries", "process", "faq"}
 _MD_TYPE = "text/markdown; charset=utf-8"
 
 
-@app.get("/md", include_in_schema=False)
-@app.get("/md/", include_in_schema=False)
+@app.api_route("/md", methods=_PAGE_METHODS, include_in_schema=False)
+@app.api_route("/md/", methods=_PAGE_METHODS, include_in_schema=False)
 def md_index():
     return FileResponse(MD_DIR / "index.md", media_type=_MD_TYPE)
 
 
-@app.get("/md/{page}.md", include_in_schema=False)
+# HEAD as well as GET — see the _PAGE_METHODS note. Without it a HEAD fell
+# through to the StaticFiles mount, which served any .md file on disk and so
+# bypassed the whitelist this route exists to enforce.
+@app.api_route("/md/{page}.md", methods=_PAGE_METHODS, include_in_schema=False)
 def md_page(page: str):
     if page not in _MD_PAGES:
         raise HTTPException(status_code=404)

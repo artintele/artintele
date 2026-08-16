@@ -272,7 +272,7 @@ module.exports = {
   layout: 'legal',
   title: 'Top AI Voice Agents in India (2026) &mdash; Compared',
   description:
-    'Compare AI voice agents in India — Caller Digital, SquadStack, MyOperator, Gnani, Sarvam and more. ArtIntele leads on language coverage with 20+ production-tested languages.',
+    'Compare AI voice agents in India — Caller Digital, SquadStack, MyOperator, Gnani, Sarvam and more. ArtIntele leads with 20+ production-tested languages.',
   ogTitle: 'Top AI Voice Agents in India (2026) — Compared',
   body: BODY,
   schema: [

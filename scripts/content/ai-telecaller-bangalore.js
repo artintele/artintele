@@ -122,7 +122,7 @@ module.exports = {
   layout: 'legal',
   title: 'AI Telecaller Company in Bangalore | ArtIntele.ai',
   description:
-    'AI telecallers and voice agents for Bengaluru businesses — calls answered 24/7 in Kannada, Tamil, Telugu, Hindi, Malayalam and English, built and deployed locally.',
+    'AI telecallers and voice agents for Bengaluru businesses — calls answered 24/7 in Kannada, Tamil, Telugu, Hindi and English, built and deployed locally.',
   ogTitle: 'AI Telecaller Company in Bangalore — ArtIntele.ai',
   body: BODY,
   schema: [
