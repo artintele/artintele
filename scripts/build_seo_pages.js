@@ -199,7 +199,7 @@ ${SERVICES.map(
     </div>
     <div class="section-head" style="margin:56px auto 0;text-align:center;">
       <p><a class="btn btn-dark" href="/contact">Book a free consultation</a></p>
-      <p>Not sure which of these you need? Start with <a href="/industries">what we build for your sector</a>, or see <a href="/pricing">how pricing works</a>.</p>
+      <p>Not sure which of these you need? Start with <a href="/industries">what we build for your sector</a>, or see <a href="/pricing">how pricing works</a>. Comparing suppliers? Read our honest round-up of the <a href="/top-ai-voice-agents-india">top AI voice agents in India</a>.</p>
     </div>
   </div>
 </section>`,
@@ -246,7 +246,7 @@ ${INDUSTRIES.map(
     </div>
     <div class="section-head" style="margin:56px auto 0;text-align:center;">
       <p><a class="btn btn-dark" href="/contact">Book a free consultation</a></p>
-      <p>Every sector above runs on the same <a href="/services">core services</a>. If yours is not listed it is almost certainly still a fit &mdash; <a href="/contact">tell us the workflow</a>.</p>
+      <p>Every sector above runs on the same <a href="/services">core services</a>. If yours is not listed it is almost certainly still a fit &mdash; <a href="/contact">tell us the workflow</a>. Based locally? See <a href="/ai-telecaller-bangalore">AI telecallers for Bangalore businesses</a>.</p>
     </div>
   </div>
 </section>`,
