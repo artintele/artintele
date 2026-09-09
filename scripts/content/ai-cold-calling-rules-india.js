@@ -65,9 +65,9 @@ const FAQ = [
 const BODY = `<main class="legal">
 
   <p class="updated">Last reviewed 11 August 2026</p>
-  <h1>Is AI Cold Calling Legal in India?</h1>
+  <h1>Is Cold Calling Legal in India?</h1>
 
-  <p class="lead"><strong>Yes — AI cold calling is legal in India, with conditions.</strong> No Indian law bans an automated voice from placing a commercial call. What the law restricts is who may call, whom they may call, when, and from which number. Break those rules and the liability is yours, whether a human or software dialled.</p>
+  <p class="lead"><strong>Yes — cold calling is legal in India, with conditions, and using an AI voice does not change that.</strong> No Indian law bans a commercial call, nor bans an automated voice from placing one. What the law restricts is who may call, whom they may call, when, and from which number. Break those rules and the liability is yours, whether a human or software dialled.</p>
 
   <p>That distinction matters, because the question is usually asked the wrong way round. India&rsquo;s telemarketing regime is technology-neutral: the <a href="https://trai.gov.in/tcccpr" rel="nofollow noopener" target="_blank">Telecom Commercial Communications Customer Preference Regulations, 2018</a> (TCCCPR 2018) govern the <em>commercial call</em>, and say nothing about what produces the voice on the line. There is no separate AI licence to obtain, and no AI exemption to hide behind.</p>
 
@@ -195,6 +195,8 @@ const BODY = `<main class="legal">
 
   <p>We build <a href="/services">AI voice agents and telecallers</a> for businesses <a href="/industries">across sectors</a> in India, and compliance is part of the build rather than a document handed over at the end: registered headers on the right series, dial-time preference scrubbing, enforced calling windows, consent and recording retention you can evidence, and disclosure on every call.</p>
 
+  <p>Still choosing a supplier? We keep an honest comparison of the <a href="/top-ai-voice-agents-india">top AI voice agents in India</a> and of the <a href="/ai-voice-agent-platforms">platforms behind them</a>, organised by which buyer each one actually suits. If you are calling from Karnataka, the <a href="/ai-telecaller-bangalore">Bangalore page</a> covers local deployment.</p>
+
   <p>If you want to talk through a specific calling programme — what it needs, and whether it is workable as designed — <a href="/contact">book a free consultation</a> and we will go through it with you. Pricing is on the <a href="/pricing">pricing page</a>.</p>
 
   <h2>Questions, answered</h2>
@@ -207,16 +209,16 @@ module.exports = {
   file: 'ai-cold-calling-rules-india.html',
   url: URL,
   layout: 'legal',
-  title: 'Is AI Cold Calling Legal in India? TRAI &amp; DLT Rules',
+  title: 'Is Cold Calling Legal in India? TRAI, DLT &amp; AI Rules',
   description:
-    'A plain-English guide to TRAI rules, DLT registration and DPDP consent for AI voice calls in India — what is allowed, and how to stay compliant.',
-  ogTitle: 'Is AI Cold Calling Legal in India? TRAI, DLT & DPDP Rules',
+    'Yes — with conditions. TRAI registration, DLT headers, the 140 vs 1600 series, DND scrubbing and DPDP consent: what is actually allowed in India.',
+  ogTitle: 'Is Cold Calling Legal in India? TRAI, DLT & AI Rules',
   body: BODY,
   schema: [
     {
       '@type': 'Article',
       '@id': `${SITE}${URL}#article`,
-      headline: 'Is AI Cold Calling Legal in India? TRAI, DLT and DPDP Rules',
+      headline: 'Is Cold Calling Legal in India? TRAI, DLT and AI Rules',
       description:
         'What TRAI regulates, how DLT registration works for voice, what the DPDP Act requires for consent, and whether an AI caller must disclose that it is an AI.',
       datePublished: '2026-08-11',
