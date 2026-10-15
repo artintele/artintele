@@ -234,19 +234,21 @@ rm -f app_data.tgz app_uploads.tgz
 
 ## PART J — While you're in here: the exposed session secret
 
-`LIGHTSAIL_GUIDE.md` has a real `SESSION_SECRET` written into it in plain text,
-and `artintele/artintele` is a **public** repo. It has been publicly readable
-since commit `162636e`. That value signs the CRM session cookies.
+`LIGHTSAIL_GUIDE.md` used to carry a real `SESSION_SECRET` in plain text, and
+`artintele/artintele` is a **public** repo — so that value, which signs the CRM
+session cookies, was publicly readable from commit `162636e` until it was
+replaced with a generated placeholder.
 
-PART C already rotates it on the new server, which is the part that matters.
-Two things still outstanding:
+**Treat the old value as burned.** Two things follow:
 
-1. **Take it out of the guide.** Replace the literal with a placeholder and the
-   `openssl rand -hex 32` instruction.
-2. **It stays in git history.** Scrubbing it needs a history rewrite
+1. **PART C above generates a fresh one**, which is what actually protects you.
+   Any server still running the published secret should be rotated whether or
+   not you ever migrate: edit `SESSION_SECRET` in its `.env` and
+   `docker compose up -d`.
+2. **It remains in git history.** Removing it there needs a rewrite
    (`git filter-repo`) plus force-pushes to both remotes, and anyone who
-   already cloned keeps their copy. Rotation is what actually protects you;
-   the rewrite is housekeeping.
+   already cloned keeps their copy regardless. That is housekeeping, not
+   protection — rotation is the fix.
 
 ---
 
