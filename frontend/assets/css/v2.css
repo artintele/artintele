@@ -818,3 +818,37 @@ body{top:0 !important;}
 /* policy-page tables never push the page wide on phones — when the columns
    need more room than the screen has, the table scrolls inside itself */
 .legal table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+/* ---------- client logo marquee ----------
+   Social proof under the stats strip. Two identical halves slide left by
+   exactly 50% of the track, so the loop is seamless; the spacing lives in
+   each tile's margin-right (not a flex `gap`) precisely so that 50% lands
+   on the start of the duplicate half. Logos sit on white tiles because the
+   source artwork is supplied on white — the tiles keep every brand's own
+   colours intact against the warm paper background. */
+.clients{padding:62px 0 18px;overflow:hidden;}
+.clients-head{max-width:1220px;margin:0 auto 30px;padding:0 28px;}
+.clients-head .kicker{display:block;margin-bottom:14px;}
+.clients-head h2{font-family:var(--serif);font-size:clamp(26px,3vw,38px);letter-spacing:-0.015em;line-height:1.1;}
+.clients-mask{position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);}
+.clients-track{display:flex;width:max-content;animation:clients-slide 48s linear infinite;}
+.clients-mask:hover .clients-track{animation-play-state:paused;}
+.client{flex:none;display:flex;align-items:center;justify-content:center;
+  height:112px;padding:0 34px;margin-right:20px;border-radius:20px;
+  background:#fff;border:1px solid var(--line);
+  box-shadow:0 18px 40px -28px rgba(22,21,15,0.45);}
+.client img{height:58px;width:auto;display:block;}
+@keyframes clients-slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:640px){
+  .clients{padding:48px 0 10px;}
+  .clients-head{margin-bottom:22px;padding:0 20px;}
+  .client{height:88px;padding:0 24px;margin-right:14px;border-radius:16px;}
+  .client img{height:44px;}
+  .clients-track{animation-duration:36s;}
+}
+@media (prefers-reduced-motion: reduce){
+  .clients-track{animation:none;}
+  .clients-mask{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+}
