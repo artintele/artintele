@@ -334,7 +334,7 @@ document.addEventListener('keydown',function(e){
     var id=parseInt(card.getAttribute(isInd?'data-ind':'data-svc'),10);
     var d=(isInd?IND_DETAIL:DETAIL)[id];if(!d)return;
     lastFocus=card;
-    numEl.textContent=isInd?'/ Industry':card.querySelector('.num').textContent;
+    numEl.textContent=isInd?'/ Industry':'/ Service';
     titleEl.textContent=card.querySelector('h3').textContent;
     leadEl.textContent=d.lead;
     listEl.innerHTML='';
