@@ -6,7 +6,7 @@ with a working CRM login. Follow it in order.
 **Your fixed values (used throughout):**
 - Domain: `artintele.ai`
 - Allowed dashboard login domain: `prachalas.com`
-- SESSION_SECRET: `dT9DHJ0YCYg6zL8uXeTTjZB0k9QyyQgQ7FyxpRVbUJkYkPkQD6u9kApDQlsTUqA3`
+- SESSION_SECRET: generated per install, never reused — see PART G‑4
 - Repo: `Chiranth-P/artintele`
 
 ---
@@ -111,11 +111,18 @@ cd deploy
 cp .env.example .env
 nano .env
 ```
+First generate a session secret. It signs the dashboard's login cookies, so
+it must be unique to this server and must never be committed anywhere:
+```bash
+openssl rand -hex 32
+```
+Copy what it prints — you paste it on the `SESSION_SECRET` line below.
+
 Set these (leave `GOOGLE_*` and SMTP blank for now):
 ```
 SITE_DOMAIN=artintele.ai
 PUBLIC_BASE_URL=https://artintele.ai
-SESSION_SECRET=dT9DHJ0YCYg6zL8uXeTTjZB0k9QyyQgQ7FyxpRVbUJkYkPkQD6u9kApDQlsTUqA3
+SESSION_SECRET=<paste the value you just generated>
 ALLOWED_EMAIL_DOMAIN=prachalas.com
 SESSION_HTTPS_ONLY=true
 ```
