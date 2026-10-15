@@ -50,3 +50,5 @@ docker compose down            # stop (data volumes are kept)
 - The Google OAuth redirect URI must be `https://<your-domain>/auth/callback`.
 - `.env` holds secrets and is git-ignored — never commit it.
 - Always-on box = no cold starts (unlike Fly's suspend mode).
+- Moving to a different AWS account? See [MIGRATE_ACCOUNT.md](MIGRATE_ACCOUNT.md) —
+  Lightsail can't transfer across accounts, so it's a rebuild plus a data copy.
