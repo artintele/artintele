@@ -203,3 +203,6 @@ docker compose down            # stop (data is kept in volumes)
 ## Cost reminder
 You're on the AWS free-credit period (~5 months, $100 credits) — **₹0 now**.
 After it ends, this $5/mo plan continues at ~₹420/month. I'll flag it before then.
+
+Moving this to a different AWS account later (for a fresh credit window, say)
+is covered in [MIGRATE_ACCOUNT.md](MIGRATE_ACCOUNT.md).
